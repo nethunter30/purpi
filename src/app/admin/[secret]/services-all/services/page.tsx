@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import React, { useState, useEffect } from "react";
 import { Plus, Pencil, Trash2, Loader2, Search, ShieldAlert, LayoutGrid, X } from "lucide-react";
 import { useParams } from "next/navigation";

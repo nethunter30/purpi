@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import React, { useState, useEffect } from "react";
 import { RefreshCcw, ShieldAlert, Loader2, Search, Check, Trash2, MessageSquareQuote } from "lucide-react";
 

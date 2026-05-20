@@ -8,15 +8,17 @@ import LetsConnect from "@/sitepages/components/home/LetsConnect";
 import OurTeam from "@/sitepages/components/home/OurTeam";
 import Tech from "@/sitepages/components/home/Tech";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
       <Hero />
       <Tech />
-      <KeyBenefits />
       <WhatWeDo />
-      <LetsConnect />
+      <KeyBenefits />
       <OurTeam />
+      <LetsConnect />
       <Testimonials />
       <Contact />
       <Newsletter />

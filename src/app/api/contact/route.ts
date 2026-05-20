@@ -4,6 +4,8 @@ import ContactSubmission from "@/models/ContactSubmission";
 import { sendMail } from "@/lib/email";
 import { isAuthenticated } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 // GET /api/contact - Retrieve all contact submissions (Admin only)
 export async function GET(req: NextRequest) {
   try {

@@ -17,28 +17,89 @@ const fallbackTeam: TeamMember[] = [
     name: "Mike Hasselpuff",
     role: "CEO",
     image: "",
-    bgColor: "#8a35e5", // Vibrant Purple
+    bgColor: "#8a35e5", // Purple
     order: 1,
   },
   {
     name: "Jenna Drawers",
-    role: "Marketing Head",
+    role: "Marketing",
     image: "",
-    bgColor: "#a76fd2", // Lighter lavender/mauve
+    bgColor: "#a76fd2", // Lighter lavender
     order: 2,
   },
   {
     name: "Leo MacCallum",
     role: "Tech Lead",
     image: "",
-    bgColor: "#8a35e5", // Vibrant Purple
+    bgColor: "#6366f1", // Indigo
     order: 3,
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "Design Lead",
+    image: "",
+    bgColor: "#d946ef", // Fuchsia
+    order: 4,
+  },
+  {
+    name: "Alex Rivera",
+    role: "Product",
+    image: "",
+    bgColor: "#3b82f6", // Blue
+    order: 5,
+  },
+  {
+    name: "Dave Kaval",
+    role: "Growth",
+    image: "",
+    bgColor: "#ec4899", // Pink
+    order: 6,
+  },
+];
+
+const cardLayouts = [
+  // Index 0: Front Center
+  {
+    mobile: { x: "0px", y: "0px", scale: 1.0, z: 30, opacity: 1.0 },
+    tablet: { x: "0px", y: "0px", scale: 1.0, z: 30, opacity: 1.0 },
+    desktop: { x: "0px", y: "0px", scale: 1.0, z: 30, opacity: 1.0 },
+  },
+  // Index 1: Middle Left
+  {
+    mobile: { x: "-55px", y: "-10px", scale: 0.88, z: 20, opacity: 0.9 },
+    tablet: { x: "-100px", y: "-15px", scale: 0.9, z: 20, opacity: 0.9 },
+    desktop: { x: "-170px", y: "-20px", scale: 0.9, z: 20, opacity: 0.9 },
+  },
+  // Index 2: Middle Right
+  {
+    mobile: { x: "55px", y: "-10px", scale: 0.88, z: 20, opacity: 0.9 },
+    tablet: { x: "100px", y: "-15px", scale: 0.9, z: 20, opacity: 0.9 },
+    desktop: { x: "170px", y: "-20px", scale: 0.9, z: 20, opacity: 0.9 },
+  },
+  // Index 3: Back Left
+  {
+    mobile: { x: "-105px", y: "-20px", scale: 0.78, z: 10, opacity: 0.75 },
+    tablet: { x: "-190px", y: "-30px", scale: 0.8, z: 10, opacity: 0.75 },
+    desktop: { x: "-320px", y: "-40px", scale: 0.8, z: 10, opacity: 0.75 },
+  },
+  // Index 4: Back Center (Behind front)
+  {
+    mobile: { x: "0px", y: "-30px", scale: 0.75, z: 5, opacity: 0.5 },
+    tablet: { x: "0px", y: "-45px", scale: 0.78, z: 5, opacity: 0.55 },
+    desktop: { x: "0px", y: "-60px", scale: 0.8, z: 5, opacity: 0.6 },
+  },
+  // Index 5: Back Right
+  {
+    mobile: { x: "105px", y: "-20px", scale: 0.78, z: 10, opacity: 0.75 },
+    tablet: { x: "190px", y: "-30px", scale: 0.8, z: 10, opacity: 0.75 },
+    desktop: { x: "320px", y: "-40px", scale: 0.8, z: 10, opacity: 0.75 },
   },
 ];
 
 export default function OurTeam() {
   const [members, setMembers] = useState<TeamMember[]>(fallbackTeam);
   const [loading, setLoading] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTeam = async () => {
@@ -58,13 +119,84 @@ export default function OurTeam() {
     fetchTeam();
   }, []);
 
+  // Ensure exactly 6 cards are rendered
+  const displayMembers = [...members];
+  while (displayMembers.length < 6) {
+    const fallbackIndex = displayMembers.length % fallbackTeam.length;
+    displayMembers.push({
+      ...fallbackTeam[fallbackIndex],
+      _id: `fallback-${displayMembers.length}`,
+    });
+  }
+  const finalMembers = displayMembers.slice(0, 6);
+
+  const getCardStyle = (index: number) => {
+    const layout = cardLayouts[index];
+    const isHovered = hoveredIndex === index;
+    const anyHovered = hoveredIndex !== null;
+
+    // Apply adjustments based on hover focus
+    const opacityAdjust = isHovered ? 1.0 : anyHovered ? 0.35 : 1.0;
+    const scaleAdjust = isHovered ? 1.05 : anyHovered ? 0.95 : 1.0;
+    const hoverYOffset = isHovered ? -12 : 0;
+
+    return {
+      backgroundColor: finalMembers[index].bgColor || "#8a35e5",
+      "--mobile-x": layout.mobile.x,
+      "--mobile-y": `${parseFloat(layout.mobile.y) + hoverYOffset}px`,
+      "--mobile-scale": layout.mobile.scale * scaleAdjust,
+      "--mobile-z": isHovered ? 50 : layout.mobile.z,
+      "--mobile-opacity": layout.mobile.opacity * opacityAdjust,
+
+      "--tablet-x": layout.tablet.x,
+      "--tablet-y": `${parseFloat(layout.tablet.y) + hoverYOffset}px`,
+      "--tablet-scale": layout.tablet.scale * scaleAdjust,
+      "--tablet-z": isHovered ? 50 : layout.tablet.z,
+      "--tablet-opacity": layout.tablet.opacity * opacityAdjust,
+
+      "--desktop-x": layout.desktop.x,
+      "--desktop-y": `${parseFloat(layout.desktop.y) + hoverYOffset}px`,
+      "--desktop-scale": layout.desktop.scale * scaleAdjust,
+      "--desktop-z": isHovered ? 50 : layout.desktop.z,
+      "--desktop-opacity": layout.desktop.opacity * opacityAdjust,
+    } as React.CSSProperties;
+  };
+
   return (
     <section className="relative w-full py-24 flex flex-col items-center justify-center bg-black overflow-hidden z-10">
-      {/* Decorative subtle background glows */}
+      <style>{`
+        .card-3d {
+          position: absolute;
+          left: 50%;
+          transform: translateX(calc(-50% + var(--mobile-x))) translateY(var(--mobile-y)) scale(var(--mobile-scale));
+          z-index: var(--mobile-z);
+          opacity: var(--mobile-opacity);
+          transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                      z-index 0.5s ease, 
+                      opacity 0.5s ease, 
+                      box-shadow 0.5s ease,
+                      border-color 0.5s ease;
+        }
+        @media (min-width: 640px) {
+          .card-3d {
+            transform: translateX(calc(-50% + var(--tablet-x))) translateY(var(--tablet-y)) scale(var(--tablet-scale));
+            z-index: var(--tablet-z);
+            opacity: var(--tablet-opacity);
+          }
+        }
+        @media (min-width: 1024px) {
+          .card-3d {
+            transform: translateX(calc(-50% + var(--desktop-x))) translateY(var(--desktop-y)) scale(var(--desktop-scale));
+            z-index: var(--desktop-z);
+            opacity: var(--desktop-opacity);
+          }
+        }
+      `}</style>
+
+      {/* Decorative background glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
       <div className="relative w-full max-w-[1200px] px-6 flex flex-col items-center z-10">
-
         {/* Top Badge */}
         <div className="inline-flex items-center justify-center px-6 py-2 rounded-full border border-purple-500/30 bg-purple-950/10 text-gray-200 font-serif text-base tracking-wide mb-6 backdrop-blur-md">
           Our Team
@@ -81,59 +213,66 @@ export default function OurTeam() {
           empower teams to collaborate seamlessly and achieve greatness.
         </p>
 
-        {/* Grid Cards Container */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-          {members.map((member, index) => (
-            <div
-              key={member._id || index}
-              className="group relative flex flex-col rounded-[28px] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(138,53,229,0.15)] h-[460px] md:h-[480px] cursor-pointer"
-              style={{ backgroundColor: member.bgColor }}
-            >
-              {/* Inner Card Content */}
-              <div className="p-8 md:p-10 flex flex-col h-full relative z-10">
-                {/* Role/Title */}
-                <h3 className="text-white text-2xl md:text-3xl font-semibold tracking-tight mb-2">
-                  {member.role}
-                </h3>
-                {/* Member Name */}
-                <p className="text-white/80 text-sm md:text-base font-light tracking-wide">
-                  {member.name}
-                </p>
+        {/* Overlapping 3D Cards Stack Container */}
+        <div className="relative w-full h-[240px] sm:h-[350px] lg:h-[500px] flex items-center justify-center my-8">
+          {finalMembers.map((member, index) => {
+            const isHovered = hoveredIndex === index;
+            return (
+              <div
+                key={member._id || index}
+                className={`card-3d group flex flex-col rounded-[20px] sm:rounded-[28px] overflow-hidden cursor-pointer w-[110px] h-[165px] sm:w-[190px] sm:h-[285px] lg:w-[280px] lg:h-[420px] border ${
+                  isHovered
+                    ? "shadow-[0_30px_60px_-15px_rgba(138,53,229,0.6)] border-white/40"
+                    : "shadow-[0_15px_35px_rgba(0,0,0,0.6)] border-white/5"
+                }`}
+                style={getCardStyle(index)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {/* Inner Card Content */}
+                <div className="p-3 sm:p-5 lg:p-8 flex flex-col h-full relative z-10 select-none">
+                  {/* Role/Title */}
+                  <h3 className="text-white text-[10px] sm:text-base lg:text-2xl font-semibold tracking-tight leading-tight mb-0.5 sm:mb-1">
+                    {member.role}
+                  </h3>
+                  {/* Member Name */}
+                  <p className="text-white/80 text-[8px] sm:text-xs lg:text-sm font-light tracking-wide">
+                    {member.name}
+                  </p>
 
-                {/* Portrait Image Container */}
-                <div className="relative w-full h-[320px] mt-auto flex items-end justify-center overflow-hidden">
-                  {/* Subtle inner highlight glow under the image */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Portrait Image Container */}
+                  <div className="relative w-full h-[100px] sm:h-[180px] lg:h-[260px] mt-auto flex items-end justify-center overflow-hidden">
+                    {/* Subtle inner highlight glow under the image */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={`${member.name} - ${member.role}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
-                      onError={(e) => {
-                        // Fallback handling if local image path is not uploaded yet
-                        console.warn(`Image path not loaded: ${member.image}`);
-                      }}
-                    />
-                  ) : (
-                    // Aesthetic avatar skeleton if no image is defined
-                    <div className="w-full h-full flex items-center justify-center text-white/20">
-                      <svg className="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                    </div>
-                  )}
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={`${member.name} - ${member.role}`}
+                        fill
+                        sizes="(max-width: 640px) 110px, (max-width: 1024px) 190px, 280px"
+                        className="object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          console.warn(`Image path not loaded: ${member.image}`);
+                        }}
+                      />
+                    ) : (
+                      // Aesthetic avatar skeleton if no image is defined
+                      <div className="w-full h-full flex items-center justify-center text-white/20">
+                        <svg className="w-8 h-8 sm:w-16 sm:h-16 lg:w-24 lg:h-24" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                 </div>
+
+                {/* Glossy overlay on card hover */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               </div>
-
-              {/* Glossy overlay on card hover */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-            </div>
-          ))}
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

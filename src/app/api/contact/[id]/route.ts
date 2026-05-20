@@ -3,6 +3,8 @@ import dbConnect from "@/lib/db";
 import ContactSubmission from "@/models/ContactSubmission";
 import { isAuthenticated } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 interface RouteParams {
   params: Promise<{
     id: string;

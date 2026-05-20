@@ -1,6 +1,8 @@
 // src/app/admin/layout.tsx
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { ReactNode, useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import AdminHeader from "@/admin/components/layout/AdminHeader";

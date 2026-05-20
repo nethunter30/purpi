@@ -4,6 +4,8 @@ import dbConnect from "@/lib/db";
 import Admin from "@/models/admin/Admin";
 import { generateToken, setAuthToken } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     await dbConnect();

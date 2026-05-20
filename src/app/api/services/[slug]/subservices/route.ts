@@ -3,6 +3,8 @@ import dbConnect from "@/lib/db";
 import Service from "@/models/Service";
 import SubService from "@/models/SubService";
 
+export const dynamic = "force-dynamic";
+
 interface RouteParams {
   params: Promise<{ slug: string }>;
 }
