@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-3 sm:px-6 flex items-center justify-between transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-2 sm:px-6 flex items-center justify-between transition-all duration-300 ${
         scrolled
           ? "bg-[#140620]/90 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           : "bg-[#140620]"
@@ -28,11 +28,11 @@ export default function Header() {
     >
       {/* Logo */}
       <div className="flex items-center">
-        <Link href="/" className="flex items-center text-white text-xl sm:text-2xl md:text-3xl font-black italic tracking-tighter">
+        <Link href="/" className="flex items-center text-white text-xl font-black tracking-tighter">
           <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
             <Image src="/logo.png" alt="Logo" fill className="object-contain" />
           </div>
-          <p className="ml-2 sm:ml-3">enteropia</p>
+          <p className="ml-3 font-semibold">enteropia</p>
         </Link>
       </div>
 

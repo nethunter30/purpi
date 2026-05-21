@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -48,6 +48,20 @@ interface CaseStudy {
 export default function OurWorkPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeCaseStudy, setActiveCaseStudy] = useState<CaseStudy | null>(null);
+
+  useEffect(() => {
+    if (activeCaseStudy) {
+      document.body.style.overflow = "hidden";
+      (window as any).lenis?.stop();
+    } else {
+      document.body.style.overflow = "";
+      (window as any).lenis?.start();
+    }
+    return () => {
+      document.body.style.overflow = "";
+      (window as any).lenis?.start();
+    };
+  }, [activeCaseStudy]);
 
   // High-fidelity mock case studies corresponding to enteropia core strengths
   const caseStudies: CaseStudy[] = useMemo(() => [
@@ -368,7 +382,10 @@ export default function OurWorkPage() {
       {activeCaseStudy && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in">
           {/* Main Modal Box */}
-          <div className="bg-[#0c0414] border border-purple-500/20 max-w-4xl w-full max-h-[88vh] rounded-[32px] overflow-y-auto p-6 md:p-10 shadow-2xl relative scrollbar-thin scrollbar-track-[#12061f] scrollbar-thumb-purple-900/40">
+          <div
+            data-lenis-prevent
+            className="bg-[#0c0414] border border-purple-500/20 max-w-4xl w-full max-h-[88vh] rounded-[32px] overflow-y-auto p-6 md:p-10 shadow-2xl relative scrollbar-thin scrollbar-track-[#12061f] scrollbar-thumb-purple-900/40"
+          >
             
             {/* Sticky Header Close Controls */}
             <div className="sticky top-0 right-0 flex justify-end mb-4 z-30">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -102,6 +102,8 @@ export default function OurTeam() {
   const [loading, setLoading] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [centerIndex, setCenterIndex] = useState(0);
+  const isPaused = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const fetchTeam = async () => {
@@ -132,13 +134,25 @@ export default function OurTeam() {
   }
   const finalMembers = displayMembers.slice(0, 6);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCenterIndex((prev) => (prev - 1 + 6) % 6);
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCenterIndex((prev) => (prev + 1) % 6);
-  };
+  }, []);
+
+  // Auto-slide: advance every 3 seconds, pause on hover
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      if (!isPaused.current) {
+        setCenterIndex((prev) => (prev + 1) % 6);
+      }
+    }, 2000);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
 
   const getCardStyle = (index: number) => {
     // Calculate difference relative to the centerIndex
@@ -243,14 +257,18 @@ export default function OurTeam() {
         </p>
 
         {/* Overlapping 3D Cards Stack Container with Navigation Arrows */}
-        <div className="relative w-full max-w-[1000px] h-[240px] sm:h-[350px] lg:h-[500px] flex items-center justify-center mt-0 mb-4 px-10">
+        <div
+          className="relative w-full max-w-[1000px] h-[240px] sm:h-[350px] lg:h-[500px] flex items-center justify-center mt-0 mb-4 px-10"
+          onMouseEnter={() => { isPaused.current = true; }}
+          onMouseLeave={() => { isPaused.current = false; }}
+        >
           {/* Left Arrow Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               handlePrev();
             }}
-            className="absolute left-0 sm:left-4 z-40 p-2 sm:p-3 rounded-full border border-purple-500/30 bg-[#0c0414]/80 backdrop-blur-md hover:bg-purple-900/40 text-white/80 hover:text-white transition-all shadow-[0_0_15px_rgba(138,53,229,0.15)] hover:scale-110 active:scale-95 cursor-pointer"
+            className="absolute left-0 z-40 p-2 sm:p-3 rounded-full bg-[#0c0414]/80 backdrop-blur-md hover:bg-purple-900/40 text-white/80 hover:text-white transition-all shadow-[0_0_15px_rgba(138,53,229,0.15)] hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="Previous Team Member"
           >
             <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
@@ -330,7 +348,7 @@ export default function OurTeam() {
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-0 sm:right-4 z-40 p-2 sm:p-3 rounded-full border border-purple-500/30 bg-[#0c0414]/80 backdrop-blur-md hover:bg-purple-900/40 text-white/80 hover:text-white transition-all shadow-[0_0_15px_rgba(138,53,229,0.15)] hover:scale-110 active:scale-95 cursor-pointer"
+            className="absolute right-0 z-40 p-2 sm:p-3 rounded-full bg-[#0c0414]/80 backdrop-blur-md hover:bg-purple-900/40 text-white/80 hover:text-white transition-all shadow-[0_0_15px_rgba(138,53,229,0.15)] hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="Next Team Member"
           >
             <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />

@@ -29,10 +29,18 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     rafId = requestAnimationFrame(raf);
 
+    // Expose lenis globally for modal scroll locking
+    if (typeof window !== "undefined") {
+      (window as any).lenis = lenis;
+    }
+
     // Cleanup on unmount
     return () => {
       lenis.destroy();
       cancelAnimationFrame(rafId);
+      if (typeof window !== "undefined") {
+        delete (window as any).lenis;
+      }
     };
   }, []);
 

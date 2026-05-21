@@ -96,7 +96,6 @@ export default function Footer() {
     { name: "About Us", href: "/#about", isScroll: true },
     { name: "Tech Partners", href: "/tech-partners" },
     { name: "Our Team", href: "/#team", isScroll: true },
-    { name: "Careers", href: "/careers", hasBadge: true },
     { name: "Contact Us", href: "/contact" },
   ];
 
@@ -133,24 +132,12 @@ export default function Footer() {
           </div>
 
           {/* Interactive Compact Subscription */}
-          <form onSubmit={handleSubscribe} className="relative flex items-center w-full lg:w-auto max-w-xs border border-purple-500/15 focus-within:border-purple-500/50 rounded-full bg-[#12061f]/75 px-2.5 py-0.5 transition-all focus-within:shadow-[0_0_15px_rgba(196,85,227,0.15)]">
-            <input
-              type="email"
-              placeholder="Enter your email to connect"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              className="w-full bg-transparent text-xs text-white placeholder-gray-500 focus:outline-none px-1 py-0.5"
-              required
-            />
-            <button
-              type="submit"
-              disabled={subscribing}
-              className="flex items-center gap-1 bg-[#a855f7] hover:bg-[#b86df9] disabled:bg-purple-950/60 text-white font-bold text-[10px] uppercase tracking-wider py-1 px-3 rounded-full transition-all cursor-pointer whitespace-nowrap"
-            >
-              {subscribing ? "Connecting..." : subscribed ? "Connected!" : "Subscribe"}
-              {!subscribing && !subscribed && <ArrowRight className="w-2 h-2" />}
+          <Link href="/#contact">
+            <button className="flex items-center gap-1 bg-[#a855f7] hover:bg-[#b86df9] disabled:bg-purple-950/60 text-white font-bold text-[10px] uppercase tracking-wider py-1 px-3 rounded-full transition-all cursor-pointer whitespace-nowrap">
+              Let's Connect!
+              <ArrowRight className="w-2 h-2" />
             </button>
-          </form>
+          </Link>
         </div>
 
         {/* Dynamic Multi-column Links Section - Extremely Tight Grids */}
@@ -158,7 +145,7 @@ export default function Footer() {
 
           {/* Column 1: Brand Identity */}
           <div className="space-y-3">
-            <Link href="/" className="flex items-center text-white text-xl font-extrabold italic tracking-tight">
+            <Link href="/" className="flex items-center text-white text-xl font-extrabold tracking-tight">
               <Image src="/logo.png" alt="Logo" width={28} height={28} className="object-contain" />
               <p className="ml-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">enteropia</p>
             </Link>
@@ -205,11 +192,6 @@ export default function Footer() {
                   <Link href={link.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
                     <span className="flex items-center gap-1">
                       {link.name}
-                      {link.hasBadge && (
-                        <span className="bg-emerald-500/10 text-emerald-400 text-[9px] font-semibold uppercase px-1.5 py-0.5 rounded-full border border-emerald-500/20">
-                          Hiring
-                        </span>
-                      )}
                     </span>
                   </Link>
                 </li>

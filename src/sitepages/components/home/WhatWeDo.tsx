@@ -28,7 +28,7 @@ export default async function WhatWeDo() {
   }
 
   return (
-    <section id="services" className="relative w-full py-20 flex flex-col items-center justify-center z-10 bg-black">
+    <section id="services" className="relative w-full py-5 flex flex-col items-center justify-center z-10 bg-black">
       {/* Header Content */}
       <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-6 mb-16">
         <div className="inline-flex items-center justify-center px-6 py-1.5 rounded-full border border-gray-500/50 text-gray-200 font-serif text-base tracking-wide mb-5">

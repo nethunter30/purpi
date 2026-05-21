@@ -58,13 +58,11 @@ export default function KeyBenefits() {
 
       {/* Pill Badge & Section Header */}
       <div className="flex flex-col items-center text-center max-w-2xl mx-auto px-6 mb-8 space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-950/20 text-[#c455e3] text-[10px] font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-          <Sparkles className="w-3 h-3 text-purple-400" />
-          Why Choose Us
+        <div className="inline-flex items-center gap-2 px-6 py-1 rounded-full border border-purple-500/20 bg-purple-950/20 text-[#c455e3] text-[10px] font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+          <h2 className="text-xl md:text-xl font-semibold text-white uppercase tracking-tight">
+            Why Choose enteropia
+          </h2>
         </div>
-        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white uppercase">
-          Why Choose enteropia
-        </h2>
         <p className="text-gray-400 text-xs leading-relaxed max-w-lg font-light">
           We combine cutting-edge technology stacks with industry-tested architecture practices to deliver reliable, highly performant products.
         </p>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Testimonials() {
@@ -10,6 +11,23 @@ export default function Testimonials() {
   const [successMessage, setSuccessMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+      (window as any).lenis?.stop();
+    } else {
+      document.body.style.overflow = "";
+      (window as any).lenis?.start();
+    }
+    return () => {
+      document.body.style.overflow = "";
+      (window as any).lenis?.start();
+    };
+  }, [isModalOpen]);
 
   // Form states
   const [userId, setUserId] = useState("");
@@ -206,148 +224,155 @@ export default function Testimonials() {
         </div>
       )}
 
-      {/* Modal Dialog */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-            {/* Click outside to close */}
-            <div className="absolute inset-0 cursor-default" onClick={() => setIsModalOpen(false)} />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-[#140624] border border-purple-900/40 rounded-2xl p-6 md:p-8 shadow-2xl z-10"
-            >
-              {/* Close Button */}
-              <button 
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors cursor-pointer"
+      {/* Modal & Toast rendered via Portal to escape any parent stacking context */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {isModalOpen && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+              {/* Click outside to close */}
+              <div className="absolute inset-0 cursor-default" onClick={() => setIsModalOpen(false)} />
+
+              <motion.div
+                data-lenis-prevent
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="relative w-full max-w-md bg-[#140624] border border-purple-900/40 rounded-2xl p-6 md:p-8 shadow-2xl z-10"
               >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
 
-              <h3 className="text-xl font-bold text-white mb-2">Write a Testimonial</h3>
-              <p className="text-gray-400 text-xs mb-6">
-                Share your experience! Your User ID will generate your personalized avatar.
-              </p>
+                <h3 className="text-xl font-bold text-white mb-2">Write a Testimonial</h3>
+                <p className="text-gray-400 text-xs mb-6">
+                  Share your experience! Your User ID will generate your personalized avatar.
+                </p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                {/* User ID */}
-                <div className="flex flex-col">
-                  <label className="text-white mb-1.5 text-xs font-medium">User ID *</label>
-                  <input
-                    type="text"
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                    placeholder="e.g. alex_stone"
-                    className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all"
-                    required
-                  />
-                </div>
-
-                {/* Name & Role */}
-                <div className="grid grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  {/* User ID */}
                   <div className="flex flex-col">
-                    <label className="text-white mb-1.5 text-xs font-medium">Name *</label>
+                    <label className="text-white mb-1.5 text-xs font-medium">User ID *</label>
                     <input
                       type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Alex Stone"
+                      value={userId}
+                      onChange={(e) => setUserId(e.target.value)}
+                      placeholder="e.g. alex_stone"
                       className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all"
                       required
                     />
                   </div>
-                  <div className="flex flex-col">
-                    <label className="text-white mb-1.5 text-xs font-medium">Role *</label>
-                    <input
-                      type="text"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      placeholder="Developer"
-                      className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all"
-                      required
-                    />
-                  </div>
-                </div>
 
-                <div className="flex flex-col">
-                  <label className="text-white mb-1.5 text-xs font-medium">Rating *</label>
-                  <div className="flex gap-1.5 mt-0.5">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        onClick={() => setStars(star)}
-                        onMouseEnter={() => setHoverStars(star)}
-                        onMouseLeave={() => setHoverStars(0)}
-                        className="transition-transform active:scale-95 focus:outline-none cursor-pointer"
-                      >
-                        <svg
-                          className={`w-6 h-6 transition-colors duration-150 ${
-                            star <= (hoverStars || stars) ? "text-yellow-400 fill-yellow-400" : "text-gray-600 fill-transparent"
-                          }`}
-                          stroke="currentColor"
-                          strokeWidth={1.5}
-                          viewBox="0 0 24 24"
+                  {/* Name & Role */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <label className="text-white mb-1.5 text-xs font-medium">Name *</label>
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Alex Stone"
+                        className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all"
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label className="text-white mb-1.5 text-xs font-medium">Role *</label>
+                      <input
+                        type="text"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        placeholder="Developer"
+                        className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label className="text-white mb-1.5 text-xs font-medium">Rating *</label>
+                    <div className="flex gap-1.5 mt-0.5">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setStars(star)}
+                          onMouseEnter={() => setHoverStars(star)}
+                          onMouseLeave={() => setHoverStars(0)}
+                          className="transition-transform active:scale-95 focus:outline-none cursor-pointer"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499c.176-.436.745-.436.92 0l1.986 4.908a1 1 0 00.758.625l5.249.493c.47.044.658.625.318.96l-3.834 3.738a1 1 0 00-.288.948l1.01 5.215c.09.467-.393.818-.802.576l-4.7-2.617a1 1 0 00-.964 0l-4.7 2.617c-.409.242-.892-.11-.802-.576l1.01-5.215a1 1 0 00-.288-.948l-3.834-3.738c-.34-.336-.15-.917.318-.96l5.249-.493a1 1 0 00.758-.625l1.987-4.908z" />
-                        </svg>
-                      </button>
-                    ))}
+                          <svg
+                            className={`w-6 h-6 transition-colors duration-150 ${
+                              star <= (hoverStars || stars) ? "text-yellow-400 fill-yellow-400" : "text-gray-600 fill-transparent"
+                            }`}
+                            stroke="currentColor"
+                            strokeWidth={1.5}
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499c.176-.436.745-.436.92 0l1.986 4.908a1 1 0 00.758.625l5.249.493c.47.044.658.625.318.96l-3.834 3.738a1 1 0 00-.288.948l1.01 5.215c.09.467-.393.818-.802.576l-4.7-2.617a1 1 0 00-.964 0l-4.7 2.617c-.409.242-.892-.11-.802-.576l1.01-5.215a1 1 0 00-.288-.948l-3.834-3.738c-.34-.336-.15-.917.318-.96l5.249-.493a1 1 0 00.758-.625l1.987-4.908z" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex flex-col">
-                  <label className="text-white mb-1.5 text-xs font-medium">Testimonial *</label>
-                  <textarea
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Tell us what you think..."
-                    rows={4}
-                    className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
-                    required
-                  />
-                </div>
+                  <div className="flex flex-col">
+                    <label className="text-white mb-1.5 text-xs font-medium">Testimonial *</label>
+                    <textarea
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                      placeholder="Tell us what you think..."
+                      rows={4}
+                      className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-500 px-3.5 py-2.5 rounded-lg border border-purple-900/20 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+                      required
+                    />
+                  </div>
 
-                <div className="flex gap-3 pt-4 border-t border-purple-900/20">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="flex-1 py-2.5 px-4 bg-transparent border border-gray-700 hover:bg-gray-800 text-gray-300 rounded-xl text-sm font-medium transition-all"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="flex-1 py-2.5 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-purple-900/20 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
-                  >
-                    {isSubmitting ? "Submitting..." : "Submit Review"}
-                  </button>
-                </div>
-              </form>
+                  <div className="flex gap-3 pt-4 border-t border-purple-900/20">
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="flex-1 py-2.5 px-4 bg-transparent border border-gray-700 hover:bg-gray-800 text-gray-300 rounded-xl text-sm font-medium transition-all"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1 py-2.5 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-purple-900/20 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+                    >
+                      {isSubmitting ? "Submitting..." : "Submit Review"}
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+
+      {mounted && createPortal(
+        <AnimatePresence>
+          {successMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.9 }}
+              className="fixed bottom-8 right-8 z-[9999] px-6 py-4 rounded-xl bg-purple-900/90 border border-purple-500 text-white font-medium text-sm shadow-2xl flex items-center gap-3 backdrop-blur-md"
+            >
+              <span className="text-xl">✨</span>
+              {successMessage}
             </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {successMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-8 right-8 z-50 px-6 py-4 rounded-xl bg-purple-900/90 border border-purple-500 text-white font-medium text-sm shadow-2xl flex items-center gap-3 backdrop-blur-md"
-          >
-            <span className="text-xl">✨</span>
-            {successMessage}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }
