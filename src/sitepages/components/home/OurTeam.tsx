@@ -243,7 +243,7 @@ export default function OurTeam() {
                   {/* Portrait Image Container */}
                   <div className="relative w-full h-[100px] sm:h-[180px] lg:h-[260px] mt-auto flex items-end justify-center overflow-hidden">
                     {/* Subtle inner highlight glow under the image */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute rounded-lg inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     {member.image ? (
                       <Image
@@ -251,7 +251,7 @@ export default function OurTeam() {
                         alt={`${member.name} - ${member.role}`}
                         fill
                         sizes="(max-width: 640px) 110px, (max-width: 1024px) 190px, 280px"
-                        className="object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain rounded-full object-bottom transition-transform duration-500 group-hover:scale-105"
                         onError={(e) => {
                           console.warn(`Image path not loaded: ${member.image}`);
                         }}

@@ -30,14 +30,7 @@ interface Service {
   order: number;
 }
 
-const fallbackServices: Service[] = [
-  { _id: "fb-1", title: "Digital Solutions & Media", description: "Crafting impactful websites with design, content, and marketing.", image: "/illustrations/digital-media.png", slug: "digital-solutions-media", order: 1 },
-  { _id: "fb-2", title: "Software Solutions", description: "Building custom software to streamline business operations.", image: "/illustrations/software-solutions.png", slug: "software-solutions", order: 2 },
-  { _id: "fb-3", title: "App solutions", description: "Creating intuitive mobile apps for iOS and Android.", image: "/illustrations/app-solutions.png", slug: "app-solutions", order: 3 },
-  { _id: "fb-4", title: "Networking And Secure Solutions", description: "Providing robust IT networks and cybersecurity to protect your business.", image: "/illustrations/networking-security.png", slug: "networking-and-secure-solutions", order: 4 },
-  { _id: "fb-5", title: "Cloud Infrastructure", description: "Scalable and secure cloud hosting solutions to power your applications globally.", image: "/illustrations/cloud-infrastructure.png", slug: "cloud-infrastructure", order: 5 },
-  { _id: "fb-6", title: "AI & Machine Learning", description: "Integrate intelligent algorithms and automation to drive data-driven decision making.", image: "/illustrations/ai-machine-learning.png", slug: "ai-machine-learning", order: 6 },
-];
+
 
 const roadmapSteps = [
   { step: "01", title: "Discovery & Strategy", description: "We align on your business objectives, perform user research, and define requirements scoping." },
@@ -93,10 +86,10 @@ export default function ServicesPage() {
         if (result.success && result.data && result.data.length > 0) {
           setServices(result.data);
         } else {
-          setServices(fallbackServices);
+          setServices([]);
         }
       } catch {
-        setServices(fallbackServices);
+        setServices([]);
       } finally {
         setIsLoading(false);
       }
@@ -118,10 +111,6 @@ export default function ServicesPage() {
 
       {/* ── SECTION 1: HERO ── */}
       <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-6 mb-16 mt-20 relative z-20">
-        <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/20 text-purple-300 font-serif text-sm tracking-wide mb-6">
-          <Sparkles className="w-4 h-4 text-purple-400" />
-          Our Tech Capabilities
-        </div>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-[#c455e3] mb-6 tracking-tight">
           Services We Offer
         </h1>

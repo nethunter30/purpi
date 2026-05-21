@@ -1,22 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight, Menu } from "lucide-react";
 import Image from "next/image";
+import MobileMenu from "./MobileMenu";
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <header className="absolute bg-[#140620] top-0 w-full z-50 py-6 px-8 flex items-center justify-between">
+    <header className="absolute bg-[#140620] top-0 w-full z-50 py-4 px-4 sm:py-6 sm:px-8 flex items-center justify-between">
       {/* Logo */}
       <div className="flex items-center">
-        <Link href="/" className="flex items-center text-white text-3xl font-black italic tracking-tighter">
-          <Image src="/logo.png" alt="Logo" width={48} height={48} className="object-contain" />
-          <p className="ml-3">enteropia</p>
+        <Link href="/" className="flex items-center text-white text-xl sm:text-2xl md:text-3xl font-black italic tracking-tighter">
+          <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
+            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+          </div>
+          <p className="ml-2 sm:ml-3">enteropia</p>
         </Link>
       </div>
 
-      {/* Navigation */}
+      {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-200">
         <Link href="/" className="hover:text-white transition-colors">
           Home
@@ -36,18 +41,31 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* Call to Action */}
-      <div className="flex items-center">
+      {/* Call to Action & Hamburger Menu */}
+      <div className="flex items-center gap-3">
+        {/* Hide Get Started on ultra-small mobile, show on sm and above */}
         <Link
-          href="/get-started"
-          className="group flex items-center gap-3 px-6 py-2.5 rounded-full border border-purple-500/30 bg-purple-900/10 hover:bg-purple-800/30 transition-all text-white text-sm font-medium"
+          href="/#contact"
+          className="hidden sm:flex group items-center gap-3 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full border border-purple-500/30 bg-purple-900/10 hover:bg-purple-800/30 transition-all text-white text-xs sm:text-sm font-medium"
         >
           Get Started
           <div className="bg-purple-600 rounded-full p-1 group-hover:bg-purple-500 transition-colors">
-            <ArrowRight className="w-3.5 h-3.5 text-white" />
+            <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
           </div>
         </Link>
+
+        {/* Hamburger Menu Button */}
+        <button
+          onClick={() => setMobileMenuOpen(true)}
+          className="flex md:hidden p-2 rounded-full border border-purple-500/20 bg-purple-900/10 hover:bg-purple-800/30 text-white/90 hover:text-white transition-all"
+          aria-label="Open mobile menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
       </div>
+
+      {/* Mobile Drawer Overlay */}
+      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
     </header>
   );
 }

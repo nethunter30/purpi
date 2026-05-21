@@ -12,8 +12,8 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center items-center px-6">
         {/* Main Content */}
         <div className="flex-1 flex flex-col justify-center items-center text-center mt-12 md:mt-24">
-        <h1 className="text-5xl md:text-6xl lg:text-[5.5rem] font-bold text-white tracking-tight mb-8 leading-tight">
-          Innovating <span className="text-[#d946ef] bg-clip-text">Tomorrow,Today</span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-bold text-white tracking-tight mb-8 leading-tight">
+          Innovating <span className="text-[#d946ef] bg-clip-text">Tomorrow, Today</span>
         </h1>
 
         <p className="text-gray-300 max-w-2xl text-base md:text-lg mb-10 leading-relaxed">
