@@ -19,7 +19,18 @@ import {
   Minus,
   Workflow,
   MousePointerClick,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
+
+interface ISubService {
+  _id: string;
+  title: string;
+  description: string;
+  whatWeOffer: string[];
+  benefits: string[];
+  order: number;
+}
 
 interface Service {
   _id: string;
@@ -28,6 +39,7 @@ interface Service {
   image: string;
   slug: string;
   order: number;
+  subservices?: ISubService[];
 }
 
 
@@ -72,11 +84,34 @@ const getServiceExtraDetails = (slug: string) => {
   return { features: ["Bespoke Architecture Design", "Dedicated Project Management", "Post-Launch Retainer SLA"], stat: "10x", statLabel: "Deployment Speed" };
 };
 
+const getServiceImages = (slug: string, primaryImage: string) => {
+  const s = slug.toLowerCase();
+  let secondary = primaryImage;
+  if (s.includes("digital")) {
+    secondary = "/illustrations/software-solutions.png";
+  } else if (s.includes("software")) {
+    secondary = "/illustrations/app-solutions.png";
+  } else if (s.includes("app")) {
+    secondary = "/illustrations/digital-media.png";
+  } else if (s.includes("networking") || s.includes("secure")) {
+    secondary = "/illustrations/cloud-infrastructure.png";
+  } else if (s.includes("cloud")) {
+    secondary = "/illustrations/networking-security.png";
+  } else if (s.includes("ai") || s.includes("machine")) {
+    secondary = "/illustrations/software-solutions.png";
+  }
+  return {
+    primary: primaryImage,
+    secondary: secondary
+  };
+};
+
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("all");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [expandedSubs, setExpandedSubs] = useState<{ [serviceId: string]: string | null }>({});
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -84,7 +119,32 @@ export default function ServicesPage() {
         const res = await fetch("/api/services");
         const result = await res.json();
         if (result.success && result.data && result.data.length > 0) {
-          setServices(result.data);
+          const servicesWithSubs = await Promise.all(
+            result.data.map(async (service: Service) => {
+              try {
+                const subRes = await fetch(`/api/services/${service.slug}/subservices`);
+                const subResult = await subRes.json();
+                return {
+                  ...service,
+                  subservices: subResult.success ? subResult.data : [],
+                };
+              } catch {
+                return { ...service, subservices: [] };
+              }
+            })
+          );
+          setServices(servicesWithSubs);
+          
+          // Default expand first subservice for each main service
+          const initialExpanded: { [serviceId: string]: string | null } = {};
+          servicesWithSubs.forEach((service) => {
+            if (service.subservices && service.subservices.length > 0) {
+              initialExpanded[service._id] = service.subservices[0]._id;
+            } else {
+              initialExpanded[service._id] = null;
+            }
+          });
+          setExpandedSubs(initialExpanded);
         } else {
           setServices([]);
         }
@@ -96,6 +156,13 @@ export default function ServicesPage() {
     };
     fetchServices();
   }, []);
+
+  const toggleSubService = (serviceId: string, subServiceId: string) => {
+    setExpandedSubs((prev) => ({
+      ...prev,
+      [serviceId]: prev[serviceId] === subServiceId ? null : subServiceId,
+    }));
+  };
 
   const filteredServices = services.filter((s) => {
     if (activeCategory === "all") return true;
@@ -158,54 +225,81 @@ export default function ServicesPage() {
             <p className="text-sm max-w-sm">No services listed under this specific category at the moment.</p>
           </div>
         ) : (
-          <div className="space-y-36">
+          <div className="space-y-40">
             {filteredServices.map((service, index) => {
               const isEven = index % 2 === 0;
               const details = getServiceExtraDetails(service.slug);
+              const activeSubId = expandedSubs[service._id];
 
               return (
                 <div
                   key={service._id}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center group"
+                  className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center"
                 >
-                  {/* ── Text Column ── */}
+                  {/* ── Text & Accordion Column ── */}
                   <div className={`lg:col-span-5 space-y-6 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-[#c455e3]">
-                        Solution {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[9px] px-2.5 py-0.5 rounded-full border border-purple-500/20 bg-purple-950/20 text-purple-300 font-semibold tracking-wide uppercase">
-                        {getServiceCategory(service.slug)}
-                      </span>
+                    <div>
+                      <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight mb-3">
+                        {service.title}
+                      </h2>
+                      <p className="text-gray-400 text-sm leading-relaxed max-w-xl font-light">
+                        {service.description}
+                      </p>
                     </div>
 
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
-                      {service.title}
-                    </h2>
+                    {/* Accordion List */}
+                    {service.subservices && service.subservices.length > 0 && (
+                      <div className="border-t border-purple-950/20 pt-4 space-y-1">
+                        {service.subservices.map((sub) => {
+                          const isExpanded = activeSubId === sub._id;
+                          return (
+                            <div
+                              key={sub._id}
+                              className="border-b border-purple-950/25 last:border-b-0 py-3 transition-colors duration-300"
+                            >
+                              <button
+                                onClick={() => toggleSubService(service._id, sub._id)}
+                                className="w-full flex items-center justify-between py-2 text-left group/btn cursor-pointer"
+                              >
+                                <span
+                                  className={`text-sm md:text-base font-medium tracking-tight transition-colors duration-300 ${
+                                    isExpanded
+                                      ? "text-[#c455e3] font-semibold"
+                                      : "text-gray-300 hover:text-white"
+                                  }`}
+                                >
+                                  {sub.title}
+                                </span>
+                                <span className="flex-shrink-0 ml-4 text-gray-400 group-hover/btn:text-white transition-colors">
+                                  {isExpanded ? (
+                                    <ChevronUp className="w-4 h-4 text-[#c455e3]" />
+                                  ) : (
+                                    <ChevronDown className="w-4 h-4" />
+                                  )}
+                                </span>
+                              </button>
 
-                    <p className="text-gray-400 text-sm md:text-base leading-relaxed font-light">
-                      {service.description}
-                    </p>
+                              <div
+                                className={`overflow-hidden transition-all duration-300 ${
+                                  isExpanded ? "max-h-[300px] opacity-100 mt-2 pb-2" : "max-h-0 opacity-0"
+                                }`}
+                              >
+                                <p className="text-gray-400 text-xs md:text-sm leading-relaxed font-light pl-1">
+                                  {sub.description}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
 
-                    <ul className="space-y-3.5 pt-2">
-                      {details.features.map((feat, featIdx) => (
-                        <li key={featIdx} className="flex items-start gap-3.5">
-                          <span className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-950/40 border border-purple-500/30 flex items-center justify-center text-purple-400 mt-0.5">
-                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                          </span>
-                          <span className="text-gray-300 text-sm leading-relaxed">{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="pt-4">
+                    <div className="pt-2">
                       <Link
                         href={`/services/${service.slug}`}
-                        className="inline-flex items-center gap-2.5 text-sm font-bold text-[#c455e3] hover:text-purple-400 transition-colors group/link"
+                        className="inline-flex items-center gap-2 text-xs font-bold text-[#c455e3] hover:text-purple-400 transition-colors tracking-wider uppercase group/link"
                       >
-                        Explore this solution
+                        Explore program details
                         <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
                       </Link>
                     </div>

@@ -1,75 +1,34 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dbConnect from "@/lib/db";
+import Service from "@/models/Service";
 
-const fallbackFeatures = [
-  {
-    title: "Digital Solutions & Media",
-    description: "Crafting impactful websites with design, content, and marketing.",
-    image: "/illustrations/digital-media.png",
-    slug: "digital-solutions-media",
-  },
-  {
-    title: "Software Solutions",
-    description: "Building custom software to streamline business operations.",
-    image: "/illustrations/software-solutions.png",
-    slug: "software-solutions",
-  },
-  {
-    title: "App solutions",
-    description: "Creating intuitive mobile apps for iOS and Android.",
-    image: "/illustrations/app-solutions.png",
-    slug: "app-solutions",
-  },
-  {
-    title: "Networking And Secure Solutions",
-    description: "Providing robust IT networks and cybersecurity to protect your business.",
-    image: "/illustrations/networking-security.png",
-    slug: "networking-and-secure-solutions",
-  },
-  {
-    title: "Cloud Infrastructure",
-    description: "Scalable and secure cloud hosting solutions to power your applications globally.",
-    image: "/illustrations/cloud-infrastructure.png",
-    slug: "cloud-infrastructure",
-  },
-  {
-    title: "AI & Machine Learning",
-    description: "Integrate intelligent algorithms and automation to drive data-driven decision making.",
-    image: "/illustrations/ai-machine-learning.png",
-    slug: "ai-machine-learning",
-  },
-];
+interface IFeature {
+  title: string;
+  description: string;
+  image: string;
+  slug: string;
+}
 
-export default function WhatWeDo() {
-  const [features, setFeatures] = useState(fallbackFeatures);
+export default async function WhatWeDo() {
+  let features: IFeature[] = [];
 
-  useEffect(() => {
-    const loadServices = async () => {
-      try {
-        const res = await fetch("/api/services");
-        const result = await res.json();
-        if (result.success && result.data.length > 0) {
-          setFeatures(
-            result.data.map((s: any) => ({
-              title: s.title,
-              description: s.description,
-              image: s.image,
-              slug: s.slug,
-            }))
-          );
-        }
-      } catch (e) {
-        // fallback stays as is
-      }
-    };
-    loadServices();
-  }, []);
+  try {
+    await dbConnect();
+    const services = await Service.find({}).sort({ order: 1, createdAt: 1 }).lean();
+    features = services.map((s: any) => ({
+      title: s.title,
+      description: s.description,
+      image: s.image,
+      slug: s.slug,
+    }));
+  } catch (error) {
+    console.error("Database connection failed while fetching services in WhatWeDo", error);
+  }
 
   return (
-    <section className="relative w-full py-20 flex flex-col items-center justify-center z-10 bg-black">
+    <section id="services" className="relative w-full py-20 flex flex-col items-center justify-center z-10 bg-black">
       {/* Header Content */}
       <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-6 mb-16">
         <div className="inline-flex items-center justify-center px-6 py-1.5 rounded-full border border-gray-500/50 text-gray-200 font-serif text-base tracking-wide mb-5">

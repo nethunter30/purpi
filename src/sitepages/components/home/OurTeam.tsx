@@ -82,17 +82,23 @@ const cardLayouts = [
     tablet: { x: "-190px", y: "-30px", scale: 0.8, z: 10, opacity: 0.75 },
     desktop: { x: "-320px", y: "-40px", scale: 0.8, z: 10, opacity: 0.75 },
   },
-  // Index 4: Back Center (Behind front)
-  {
-    mobile: { x: "0px", y: "-30px", scale: 0.75, z: 5, opacity: 0.5 },
-    tablet: { x: "0px", y: "-45px", scale: 0.78, z: 5, opacity: 0.55 },
-    desktop: { x: "0px", y: "-60px", scale: 0.8, z: 5, opacity: 0.6 },
-  },
-  // Index 5: Back Right
+  // // Index 4: Back Center (Behind front)
+  // {
+  //   mobile: { x: "0px", y: "-30px", scale: 0.75, z: 5, opacity: 0.5 },
+  //   tablet: { x: "0px", y: "-45px", scale: 0.78, z: 5, opacity: 0.55 },
+  //   desktop: { x: "0px", y: "-60px", scale: 0.8, z: 5, opacity: 0.6 },
+  // },
+  // Index 4: Back Right
   {
     mobile: { x: "105px", y: "-20px", scale: 0.78, z: 10, opacity: 0.75 },
     tablet: { x: "190px", y: "-30px", scale: 0.8, z: 10, opacity: 0.75 },
     desktop: { x: "320px", y: "-40px", scale: 0.8, z: 10, opacity: 0.75 },
+  },
+  // Index 5: Hidden (off-screen / extra overflow card)
+  {
+    mobile: { x: "0px", y: "-30px", scale: 0.7, z: 1, opacity: 0 },
+    tablet: { x: "0px", y: "-45px", scale: 0.72, z: 1, opacity: 0 },
+    desktop: { x: "0px", y: "-60px", scale: 0.75, z: 1, opacity: 0 },
   },
 ];
 
@@ -163,7 +169,7 @@ export default function OurTeam() {
   };
 
   return (
-    <section className="relative w-full py-24 flex flex-col items-center justify-center bg-black overflow-hidden z-10">
+    <section id="team" className="relative w-full py-10 flex flex-col items-center justify-center bg-black overflow-hidden z-10">
       <style>{`
         .card-3d {
           position: absolute;
@@ -198,24 +204,24 @@ export default function OurTeam() {
 
       <div className="relative w-full max-w-[1200px] px-6 flex flex-col items-center z-10">
         {/* Top Badge */}
-        <div className="inline-flex items-center justify-center px-6 py-2 rounded-full border border-purple-500/30 bg-purple-950/10 text-gray-200 font-serif text-base tracking-wide mb-6 backdrop-blur-md">
+        <div className="inline-flex items-center justify-center px-6 py-2 rounded-full border border-purple-500/30 bg-purple-950/10 text-gray-200 font-serif text-base tracking-wide mb-4 backdrop-blur-md">
           Our Team
         </div>
 
         {/* Main Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-center text-[#c455e3] mb-6">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-center text-[#c455e3] mb-4">
           Greatest Team Ever
         </h2>
 
         {/* Descriptive Text */}
-        <p className="text-gray-400 text-sm md:text-base leading-relaxed text-center max-w-3xl mb-16 tracking-wide">
+        <p className="text-gray-400 text-sm md:text-base leading-relaxed text-center max-w-3xl mb-4 tracking-wide">
           We are a passionate group of designers, developers, and strategists dedicated to building tools that
           empower teams to collaborate seamlessly and achieve greatness.
         </p>
 
         {/* Overlapping 3D Cards Stack Container */}
-        <div className="relative w-full h-[240px] sm:h-[350px] lg:h-[500px] flex items-center justify-center my-8">
-          {finalMembers.map((member, index) => {
+        <div className="relative w-full h-[240px] sm:h-[350px] lg:h-[500px] flex items-center justify-center mt-0 mb-4">
+0          {finalMembers.map((member, index) => {
             const isHovered = hoveredIndex === index;
             return (
               <div

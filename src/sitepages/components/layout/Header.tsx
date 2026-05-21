@@ -1,16 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown, ArrowRight, Menu } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="absolute bg-[#140620] top-0 w-full z-50 py-4 px-4 sm:py-6 sm:px-8 flex items-center justify-between">
+    <header
+      className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-3 sm:px-6 flex items-center justify-between transition-all duration-300 ${
+        scrolled
+          ? "bg-[#140620]/90 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+          : "bg-[#140620]"
+      }`}
+    >
       {/* Logo */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center text-white text-xl sm:text-2xl md:text-3xl font-black italic tracking-tighter">
@@ -26,19 +41,24 @@ export default function Header() {
         <Link href="/" className="hover:text-white transition-colors">
           Home
         </Link>
-        <Link href="/solutions" className="hover:text-white transition-colors">
-          Solutions
+        <Link href="/#services" className="hover:text-white transition-colors">
+          Services
         </Link>
-        <Link href="/tech-partners" className="hover:text-white transition-colors">
-          Tech Partners
+        <Link href="/#team" className="hover:text-white transition-colors">
+          Our Team
         </Link>
-        <Link href="/contact" className="hover:text-white transition-colors">
+        <Link href="/our-work" className="hover:text-white transition-colors">
+          Our Works
+        </Link>
+        <Link href="/blog" className="hover:text-white transition-colors">
+          Blogs
+        </Link>
+        <Link href="/about-us" className="hover:text-white transition-colors">
+          About Us
+        </Link>
+        <Link href="/#contact" className="hover:text-white transition-colors">
           Contact Us
         </Link>
-        <div className="flex items-center cursor-pointer group hover:text-white transition-colors">
-          <span>About Us</span>
-          <ChevronDown className="w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 transition-opacity" />
-        </div>
       </nav>
 
       {/* Call to Action & Hamburger Menu */}

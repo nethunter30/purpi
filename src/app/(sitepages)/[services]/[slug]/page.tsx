@@ -37,60 +37,7 @@ interface ISubService {
   order: number;
 }
 
-const fallbackFeatures = [
-  {
-    title: "Digital Solutions & Media",
-    description:
-      "Crafting impactful websites with design, content, and marketing.",
-    image: "/illustrations/digital-media.png",
-    slug: "digital-solutions-media",
-    details:
-      "Our Digital Solutions & Media program offers comprehensive creation services. We combine beautiful UX design with compelling copywriting, SEO optimization, and forward-looking brand strategy to design web experiences that captivate visitors and transform them into loyal clients.",
-  },
-  {
-    title: "Software Solutions",
-    description: "Building custom software to streamline business operations.",
-    image: "/illustrations/software-solutions.png",
-    slug: "software-solutions",
-    details:
-      "Tailored to fit your unique operational workflows, our custom software applications eliminate manual overhead, integrate fragmented data flows, and scale cleanly alongside your company's growth path.",
-  },
-  {
-    title: "App solutions",
-    description: "Creating intuitive mobile apps for iOS and Android.",
-    image: "/illustrations/app-solutions.png",
-    slug: "app-solutions",
-    details:
-      "We build intuitive, high-performance mobile applications on iOS and Android platforms. Leveraging modern cross-platform frameworks, we deliver native-speed, premium-feeling apps with zero friction.",
-  },
-  {
-    title: "Networking And Secure Solutions",
-    description:
-      "Providing robust IT networks and cybersecurity to protect your business.",
-    image: "/illustrations/networking-security.png",
-    slug: "networking-and-secure-solutions",
-    details:
-      "Protect your critical corporate assets with advanced enterprise security frameworks, intrusion prevention networks, structured fiber cabling, and continuous vulnerability assessment protocols.",
-  },
-  {
-    title: "Cloud Infrastructure",
-    description:
-      "Scalable and secure cloud hosting solutions to power your applications globally.",
-    image: "/illustrations/cloud-infrastructure.png",
-    slug: "cloud-infrastructure",
-    details:
-      "Migrate seamlessly to high-availability, auto-scaling cloud clusters. We specialize in serverless deployments, hybrid configurations, automated container scheduling, and performance tuning.",
-  },
-  {
-    title: "AI & Machine Learning",
-    description:
-      "Integrate intelligent algorithms and automation to drive data-driven decision making.",
-    image: "/illustrations/ai-machine-learning.png",
-    slug: "ai-machine-learning",
-    details:
-      "Automate complex business intelligence flows and optimize processes with smart recommendation engines, predictive regression algorithms, neural vision, and customized pipeline automations.",
-  },
-];
+
 
 const getTechStack = (slug: string) => {
   const s = slug.toLowerCase();
@@ -284,18 +231,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
     console.error("Database connection failed while fetching service", error);
   }
 
-  // Fallback if DB returns empty
-  if (!serviceData) {
-    const matchedFallback = fallbackFeatures.find((f) => f.slug === slug);
-    if (matchedFallback) {
-      serviceData = {
-        title: matchedFallback.title,
-        description: matchedFallback.description,
-        details: matchedFallback.details,
-        image: matchedFallback.image,
-      };
-    }
-  }
+
 
   if (!serviceData) {
     notFound();
@@ -326,10 +262,6 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
           {/* Main Info */}
           <div className="lg:col-span-7 space-y-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/20 text-purple-300 text-xs font-semibold tracking-wide mb-6">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                Premium Solution
-              </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
                 {serviceData.title}
               </h1>
@@ -345,50 +277,6 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
               <p className="text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre-wrap font-light">
                 {serviceData.details}
               </p>
-            </div>
-
-            {/* Dynamic Tech Stack Badges */}
-            <div className="border-t border-purple-900/20 pt-8">
-              <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-purple-400" />
-                Technology Stack Used
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {techStack.map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className={`text-xs px-3 py-1.5 rounded-xl border border-purple-500/10 font-semibold ${tech.color}`}
-                  >
-                    {tech.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Core Perks */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-              <div className="flex items-start gap-3 p-4 bg-[#0c0414]/90 border border-purple-950/20 rounded-2xl">
-                <Shield className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-semibold text-white">
-                    Secure by Design
-                  </h4>
-                  <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">
-                    Strict compliance, security scanners, and robust data isolation protocols.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3 p-4 bg-[#0c0414]/90 border border-purple-950/20 rounded-2xl">
-                <Zap className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-semibold text-white">
-                    Maximum Performance
-                  </h4>
-                  <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">
-                    Optimized for sub-second speeds, efficient code bundles, and low latencies.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -408,40 +296,6 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
                   <Layers className="w-20 h-20" />
                 </div>
               )}
-            </div>
-
-            {/* Sidebar CTA Box */}
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-[#0c0414] to-[#160727] border border-purple-900/25 shadow-2xl space-y-6">
-              <div>
-                <h3 className="text-lg font-bold text-white">
-                  Interested in {serviceData.title}?
-                </h3>
-                <p className="text-xs text-gray-400 mt-1 leading-relaxed font-light">
-                  Let us build a customized enterprise solution structured specifically for your operations.
-                </p>
-              </div>
-
-              <ul className="space-y-3 text-xs text-gray-300">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                  Expert 24/7 dedicated developers
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                  Full staging environment preview
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                  Scalable SLA support & maintenance
-                </li>
-              </ul>
-
-              <Link
-                href="/#contact"
-                className="w-full py-3 flex items-center justify-center rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white tracking-wide transition-all shadow-lg shadow-purple-500/20 cursor-pointer"
-              >
-                Schedule A Consultation
-              </Link>
             </div>
           </div>
         </div>

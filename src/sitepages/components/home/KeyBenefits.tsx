@@ -1,54 +1,96 @@
 import React from "react";
+import {
+  Laptop,
+  Cloud,
+  ShieldCheck,
+  Clock,
+  TrendingUp,
+  CircleDollarSign,
+  Sparkles
+} from "lucide-react";
 
 export default function KeyBenefits() {
   const benefits = [
     {
-      title: "Effortless Task Management",
+      icon: <Laptop className="w-5 h-5 text-purple-400" />,
+      title: "Reliable IT Solutions",
       description:
-        "Organize projects, assign tasks, and track progress with intuitive tools designed to keep everyone.",
+        "Engineered for maximum stability, our enterprise-grade IT systems guarantee zero-interruption operational continuity for your business."
     },
     {
-      title: "Seamless Communication",
+      icon: <Cloud className="w-5 h-5 text-cyan-400" />,
+      title: "Modern Cloud Infrastructure",
       description:
-        "Centralize your chats, files, and updates. Our real-time communication tools.",
+        "Leverage serverless architectures, auto-scaling container configurations, and multi-region database setups built to handle massive scale."
     },
     {
-      title: "Insightful Analytics",
+      icon: <ShieldCheck className="w-5 h-5 text-indigo-400" />,
+      title: "Professional Cybersecurity Practices",
       description:
-        "Gain a comprehensive view of your team's performance with customizable dashboards",
+        "Implement custom zero-trust networks, active threat detection, and robust data encryption models safeguarding critical transactional tunnels."
     },
+    {
+      icon: <Clock className="w-5 h-5 text-emerald-400" />,
+      title: "Fast Response & Support",
+      description:
+        "Enjoy absolute peace of mind with our 24/7 system health monitoring and SLA-backed rapid support to resolve server bottlenecks instantly."
+    },
+    {
+      icon: <TrendingUp className="w-5 h-5 text-fuchsia-400" />,
+      title: "Scalable Business Solutions",
+      description:
+        "Build modular system blueprints engineered to expand seamlessly alongside your organization's growing traffic and user base."
+    },
+    {
+      icon: <CircleDollarSign className="w-5 h-5 text-yellow-400" />,
+      title: "Affordable Service Packages",
+      description:
+        "Get tailored development budgets and optimized FinOps parameters designed to maximize your ROI without unnecessary hosting waste."
+    }
   ];
 
   return (
-    <section className="relative w-full py-24 flex flex-col items-center justify-center z-10">
-      {/* Pill Badge */}
-      <div className="mb-16">
-        <div className="inline-flex items-center justify-center px-6 py-2 rounded-full border border-purple-500/40 text-gray-100 font-serif text-lg tracking-wide bg-black/20 backdrop-blur-sm shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-          Key Benefits
+    <section className="relative w-full py-10 flex flex-col items-center justify-center z-10 bg-purple-900 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_70%)]" />
+
+      {/* Background glow effects */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Pill Badge & Section Header */}
+      <div className="flex flex-col items-center text-center max-w-2xl mx-auto px-6 mb-8 space-y-2">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-950/20 text-[#c455e3] text-[10px] font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+          <Sparkles className="w-3 h-3 text-purple-400" />
+          Why Choose Us
         </div>
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white uppercase">
+          Why Choose enteropia
+        </h2>
+        <p className="text-gray-400 text-xs leading-relaxed max-w-lg font-light">
+          We combine cutting-edge technology stacks with industry-tested architecture practices to deliver reliable, highly performant products.
+        </p>
       </div>
 
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1200px] w-full px-6">
+      {/* Cards Grid - 3 Columns on desktop, 2 on tablet, 1 on mobile */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] w-full px-6 relative z-20">
         {benefits.map((benefit, index) => (
           <div
             key={index}
-            className="flex flex-col p-10 rounded-[28px] bg-gradient-to-br from-[#1a0a29] via-[#3d1363] to-[#7924a3] border border-white/5 shadow-2xl overflow-hidden relative group transition-transform hover:-translate-y-1 duration-300"
+            className="group relative flex flex-col p-5 rounded-2xl bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
           >
-            {/* Subtle inner highlight to make it look 3D like the image */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            
-            {/* Logo */}
-            <div className="text-white text-3xl font-black italic tracking-tighter mb-10">
-              hy
+            {/* Subtle inner highlight */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            {/* Benefit Icon Wrapper */}
+            <div className="mb-4 w-10 h-10 rounded-xl bg-purple-950/25 border border-purple-900/20 flex items-center justify-center shadow-md group-hover:border-purple-500/30 group-hover:bg-purple-950/40 transition-colors duration-300">
+              {benefit.icon}
             </div>
 
             {/* Content */}
-            <div className="mt-auto">
-              <h3 className="text-white text-xl font-bold mb-4 tracking-tight">
+            <div className="space-y-1.5">
+              <h3 className="text-white text-sm font-bold tracking-tight group-hover:text-purple-200 transition-colors duration-300">
                 {benefit.title}
               </h3>
-              <p className="text-gray-300 text-sm leading-relaxed pr-4">
+              <p className="text-gray-400 text-xs leading-relaxed font-light">
                 {benefit.description}
               </p>
             </div>

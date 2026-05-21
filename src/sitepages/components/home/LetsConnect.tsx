@@ -38,9 +38,7 @@ export default function LetsConnect() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-center leading-tight mb-8 text-[#ca7ee8] drop-shadow-[0_0_15px_rgba(202,126,232,0.2)]"
         >
-          Hevit Yat Tech
-          <br />
-          Conference 2025
+          enteropia
         </motion.h2>
 
         {/* Description */}
@@ -66,7 +64,7 @@ export default function LetsConnect() {
           <div className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-purple-500/20 bg-purple-950/20 hover:border-purple-500/40 hover:bg-purple-900/30 transition-all duration-300 backdrop-blur-sm cursor-pointer group shadow-lg">
             <MapPin className="w-4 h-4 text-purple-400 group-hover:text-purple-300 transition-colors" />
             <span className="text-gray-200 text-xs md:text-sm font-medium tracking-wide">
-              Barcelona, Spain
+              Bengaluru, Karnataka
             </span>
           </div>
 

@@ -115,7 +115,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-[#0c0414] text-white pt-8 pb-4 px-6 md:px-8 relative z-20 border-t border-purple-950/20 overflow-hidden">
-      
+
       {/* Background ambient glow overlay */}
       <div className="absolute bottom-0 left-1/4 -translate-x-1/2 w-[250px] h-[250px] bg-purple-900/5 rounded-full blur-[70px] pointer-events-none z-0" />
 
@@ -155,7 +155,7 @@ export default function Footer() {
 
         {/* Dynamic Multi-column Links Section - Extremely Tight Grids */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mb-6">
-          
+
           {/* Column 1: Brand Identity */}
           <div className="space-y-3">
             <Link href="/" className="flex items-center text-white text-xl font-extrabold italic tracking-tight">
@@ -163,9 +163,8 @@ export default function Footer() {
               <p className="ml-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">enteropia</p>
             </Link>
             <p className="text-gray-400 text-xs leading-relaxed max-w-[200px]">
-              Hevit Yard Solutions delivers premium, innovative custom software, IT networks, and digital transformation.
-            </p>
-            
+              Streamline your workflow, simplify your processes, and see a clearer picture of your business with our all-in-one platform.            </p>
+
             {/* Social Icons */}
             <div className="flex items-center gap-1.5 pt-0.5">
               <a href="#" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Facebook">
@@ -236,14 +235,14 @@ export default function Footer() {
           <div className="space-y-2">
             <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Contact Us</h3>
             <div className="space-y-1.5 text-xs text-gray-400">
-              
+
               {/* Primary Email */}
               <div className="flex flex-col relative">
                 <div className="flex items-center gap-1 justify-between">
                   <a href="mailto:enteropia.dev@gmail.com" className="hover:text-white transition-colors truncate text-xs">
                     enteropia.dev@gmail.com
                   </a>
-                  <button 
+                  <button
                     onClick={() => handleCopy("enteropia.dev@gmail.com")}
                     className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
                   >
@@ -264,19 +263,19 @@ export default function Footer() {
               {/* Call Hotline */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-1 justify-between">
-                  <a href="tel:+18135550199" className="hover:text-white transition-colors text-xs">
-                    +1 (813) 555-0199
+                  <a href="tel:+919900112530" className="hover:text-white transition-colors text-xs">
+                    +91 9900112530
                   </a>
-                  <button 
-                    onClick={() => handleCopy("+1 (813) 555-0199")}
+                  <button
+                    onClick={() => handleCopy("+919900112530")}
                     className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
                   >
-                    {copiedText === "+1 (813) 555-0199" ? (
+                    {copiedText === "+919900112530" ? (
                       <Check className="w-2.5 h-2.5 text-emerald-400" />
                     ) : (
                       <Copy className="w-2.5 h-2.5 text-purple-400/80" />
                     )}
-                    {copiedText === "+1 (813) 555-0199" && (
+                    {copiedText === "+919900112530" && (
                       <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
                         Copied!
                       </div>
@@ -284,15 +283,6 @@ export default function Footer() {
                   </button>
                 </div>
               </div>
-
-              {/* Address */}
-              <div className="flex flex-col leading-snug pt-0.5">
-                <span className="text-[10px] uppercase tracking-wider text-purple-500 font-bold mb-0.5">HQ Address</span>
-                <span className="text-xs">
-                  8425 Coastal Commerce Blvd, Suite 310, Tampa, FL 33619
-                </span>
-              </div>
-
             </div>
           </div>
 
@@ -303,11 +293,9 @@ export default function Footer() {
 
         {/* Bottom Bar - Extremely Premium and Tighter */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-          
+
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1">
             <span>Copyright © {currentYear} enteropia. All rights reserved.</span>
-            <span className="hidden md:inline text-purple-950">|</span>
-            <span className="hidden md:inline">Hevit Yard Solutions Technology.</span>
           </div>
 
           {/* Legal Links & Back-To-Top */}

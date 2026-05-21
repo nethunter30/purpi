@@ -32,11 +32,7 @@ export default function Contact() {
       desc: "Call us on weekdays from 9 to 6 PM.",
       value: "+91 9900112530",
     },
-    {
-      title: "Office",
-      desc: "Visit us at our headquarters.",
-      value: "8425 Coastal Commerce Blvd,\nSuite 310, Tampa, FL 33619",
-    },
+
   ];
 
   const handleChange = (
@@ -111,7 +107,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="w-full py-16 bg-black flex justify-center items-center z-10 relative">
+    <section id="contact" className="w-full py-16 bg-black flex justify-center items-center z-10 relative">
       {/* Background radial soft ambient glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-purple-900/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-80 h-80 bg-indigo-900/10 rounded-full blur-3xl pointer-events-none" />
