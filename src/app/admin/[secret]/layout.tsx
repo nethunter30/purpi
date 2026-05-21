@@ -8,6 +8,7 @@ import { useRouter, usePathname } from "next/navigation";
 import AdminHeader from "@/admin/components/layout/AdminHeader";
 import AdminFooter from "@/admin/components/layout/AdminFooter";
 import Sidebar from "@/admin/components/layout/AdminSidebar";
+import AdminMobileMenu from "@/admin/components/layout/AdminMobileMenu";
 import LoadingSpinner from "@/admin/components/layout/LoadingSpinner";
 
 interface AdminLayoutProps {
@@ -128,14 +129,11 @@ export default function AdminLayout({ children, params }: AdminLayoutProps) {
         onLogout={handleLogout}
       />
 
-      {/* Flat Mobile Overlay */}
-      {isMobile && sidebarOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/50 transition-opacity duration-200"
-          onClick={toggleSidebar}
-          aria-hidden="true"
-        />
-      )}
+      <AdminMobileMenu
+        isOpen={sidebarOpen}
+        onClose={toggleSidebar}
+        onLogout={handleLogout}
+      />
 
       <div
         className={`

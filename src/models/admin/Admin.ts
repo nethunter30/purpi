@@ -17,6 +17,20 @@ const AdminSchema = new mongoose.Schema(
       enum: ["admin", "superadmin"],
       default: "admin",
     },
+    email: {
+      type: String,
+      unique: true,
+      sparse: true,
+      required: false,
+    },
+    otp: {
+      type: String,
+      required: false,
+    },
+    otpExpiresAt: {
+      type: Date,
+      required: false,
+    },
   },
   { timestamps: true }
 );

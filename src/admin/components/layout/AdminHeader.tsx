@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, Shield, User } from "lucide-react";
+import { LogOut, Menu, Shield, User } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface AdminHeaderProps {
@@ -10,6 +10,8 @@ interface AdminHeaderProps {
 }
 
 export default function AdminHeader({
+  sidebarOpen,
+  onToggleSidebar,
   onLogout,
 }: AdminHeaderProps) {
   const [username, setUsername] = useState("Admin");
@@ -33,10 +35,17 @@ export default function AdminHeader({
 
   return (
     <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-purple-900/20 bg-[#0e0416]/85 px-6 backdrop-blur-md">
-      {/* Left side: Console branding */}
+      {/* Left side: Console branding and hamburger toggle */}
       <div className="flex items-center gap-4">
+        <button
+          onClick={onToggleSidebar}
+          className="flex h-9 w-9 items-center justify-center rounded-lg border border-purple-900/30 bg-purple-950/20 text-gray-400 hover:text-white lg:hidden cursor-pointer active:scale-95 transition-all"
+          aria-label="Toggle navigation menu"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-white tracking-wide hidden sm:inline-block">
+          <span className="font-semibold text-white tracking-wide">
             Console Center
           </span>
         </div>

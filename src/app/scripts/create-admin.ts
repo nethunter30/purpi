@@ -51,6 +51,7 @@ async function main() {
     let username = process.argv[2];
     let password = process.argv[3];
     let role = process.argv[4] || "admin";
+    let email = process.argv[5];
 
     if (!username || !password) {
       console.log("\n=== Create Admin User ===");
@@ -64,6 +65,15 @@ async function main() {
 
     if (!username.trim() || !password.trim()) {
       console.error("Error: Username and password are required.");
+      process.exit(1);
+    }
+
+    if (!email) {
+      email = await question("Enter email: ");
+    }
+
+    if (!email.trim()) {
+      console.error("Error: Email is required.");
       process.exit(1);
     }
 
@@ -84,15 +94,23 @@ async function main() {
       process.exit(1);
     }
 
+    // Check if email already exists
+    const existingEmail = await Admin.findOne({ email: email.trim() });
+    if (existingEmail) {
+      console.error(`Error: Admin user with email '${email}' already exists.`);
+      process.exit(1);
+    }
+
     // 3. Create and save new admin
     const newAdmin = new Admin({
       username: username.trim(),
       password: password.trim(),
       role: role,
+      email: email.trim(),
     });
 
     await newAdmin.save();
-    console.log(`\n✨ Success: Admin user '${username}' created with role '${role}'!`);
+    console.log(`\n✨ Success: Admin user '${username}' created with role '${role}' and email '${email.trim()}'!`);
   } catch (error) {
     console.error("An error occurred:", error);
   } finally {

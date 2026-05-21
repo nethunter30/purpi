@@ -49,7 +49,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.agree) {
       setStatus({
         type: "error",
@@ -113,17 +113,17 @@ export default function Contact() {
       <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-80 h-80 bg-indigo-900/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 relative z-10">
-        
+
         {/* Left Side: Contact Info */}
         <div className="flex flex-col">
           <div className="inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/10 text-purple-200 font-serif text-sm tracking-wide mb-6 w-max">
             We're Here to Help
           </div>
-          
+
           <h2 className="text-3xl md:text-4xl font-bold text-[#c455e3] mb-4 tracking-tight">
             Contact us
           </h2>
-          
+
           <p className="text-gray-400 text-sm leading-relaxed max-w-sm mb-12">
             We'd love to hear from you. Please fill out this form, and we'll reply soon.
           </p>
@@ -148,18 +148,18 @@ export default function Contact() {
         {/* Right Side: Form Card */}
         <div className="flex flex-col bg-[#140624]/80 backdrop-blur-md rounded-[24px] p-6 md:p-8 shadow-2xl h-fit border border-purple-900/30 max-w-md ml-auto w-full">
           <h3 className="text-white text-xl font-medium mb-6">Write us a message</h3>
-          
+
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex flex-col w-full">
                 <label className="text-white mb-1.5 text-xs font-medium">First name *</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  placeholder="Jane" 
+                  placeholder="[FIRST_NAME]"
                   className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                   required
                   disabled={submitting}
@@ -167,12 +167,12 @@ export default function Contact() {
               </div>
               <div className="flex flex-col w-full">
                 <label className="text-white mb-1.5 text-xs font-medium">Last name *</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  placeholder="Smith" 
+                  placeholder="[LAST_NAME]"
                   className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                   required
                   disabled={submitting}
@@ -182,12 +182,12 @@ export default function Contact() {
 
             <div className="flex flex-col">
               <label className="text-white mb-1.5 text-xs font-medium">Email *</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="jane@email.com" 
+                placeholder="[EMAIL_ADDRESS]"
                 className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                 required
                 disabled={submitting}
@@ -196,11 +196,11 @@ export default function Contact() {
 
             <div className="flex flex-col">
               <label className="text-white mb-1.5 text-xs font-medium">Message *</label>
-              <textarea 
+              <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Leave us a message..." 
+                placeholder="Leave us a message..."
                 rows={3}
                 className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none"
                 required
@@ -209,14 +209,14 @@ export default function Contact() {
             </div>
 
             <div className="flex items-center gap-2.5 mt-2 mb-1">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 name="agree"
-                id="privacy" 
+                id="privacy"
                 checked={formData.agree}
                 onChange={handleChange}
                 className="w-4 h-4 rounded-full border border-purple-500/30 bg-[#3c294d] checked:bg-[#a855f7] checked:border-transparent focus:outline-none cursor-pointer accent-purple-600"
-                required 
+                required
                 disabled={submitting}
               />
               <label htmlFor="privacy" className="text-gray-300 text-[11px] cursor-pointer hover:text-white transition-colors">
@@ -225,11 +225,10 @@ export default function Contact() {
             </div>
 
             {status.type && (
-              <div className={`p-3.5 rounded-lg border flex gap-2.5 text-xs ${
-                status.type === "success" 
-                  ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-400" 
+              <div className={`p-3.5 rounded-lg border flex gap-2.5 text-xs ${status.type === "success"
+                  ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-400"
                   : "bg-red-950/30 border-red-500/30 text-red-400"
-              }`}>
+                }`}>
                 {status.type === "success" ? (
                   <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" />
                 ) : (
@@ -239,8 +238,8 @@ export default function Contact() {
               </div>
             )}
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={submitting}
               className="w-full bg-[#a356db] hover:bg-[#b066e6] disabled:bg-[#a356db]/50 disabled:cursor-not-allowed transition-all text-white text-sm font-semibold rounded-full px-4 py-3 mt-1 shadow-lg shadow-purple-500/10 flex items-center justify-center gap-2 cursor-pointer"
             >
@@ -253,7 +252,7 @@ export default function Contact() {
                 "Send Message"
               )}
             </button>
-            
+
           </form>
         </div>
 

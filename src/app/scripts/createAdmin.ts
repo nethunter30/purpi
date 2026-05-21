@@ -84,14 +84,15 @@ async function createAdmin() {
         console.log('Create Superadmin User\n');
 
         const username = await question('Username: ');
+        const email = await question('Email: ');
         const password = await questionSecret('Password: ');
         const passwordConfirm = await questionSecret('Password (again): ');
 
         rl.close();
 
         // Validate inputs
-        if (!username || !password) {
-            console.error('\nError: All fields are required');
+        if (!username || !password || !email) {
+            console.error('\nError: All fields are required (Username, Email, Password)');
             process.exit(1);
         }
 
@@ -119,14 +120,23 @@ async function createAdmin() {
             process.exit(1);
         }
 
+        // Check if email already exists
+        const existingEmail = await Admin.findOne({ email });
+
+        if (existingEmail) {
+            console.error('\nError: User with this email already exists');
+            process.exit(1);
+        }
+
         // Create admin
         await Admin.create({
             username,
             password,
             role: "superadmin",
+            email,
         });
 
-        console.log('\nSuperadmin user created successfully');
+        console.log('\nSuperadmin user created successfully with email: ' + email);
 
     } catch (error) {
         console.error('\nError creating admin:', error);
