@@ -96,15 +96,8 @@ export default function Footer() {
     { name: "About Us", href: "/#about", isScroll: true },
     { name: "Tech Partners", href: "/tech-partners" },
     { name: "Our Team", href: "/#team", isScroll: true },
-    { name: "Contact Us", href: "/contact" },
-  ];
-
-  const resourceLinks = [
-    { name: "Help Center", href: "/support" },
-    { name: "FAQs", href: "/faq" },
     { name: "Blogs & News", href: "/blogs" },
-    { name: "System Status", href: "/status" },
-    { name: "Developer Panel", href: "/admin" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   const legalLinks = [
@@ -141,7 +134,7 @@ export default function Footer() {
         </div>
 
         {/* Dynamic Multi-column Links Section - Extremely Tight Grids */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-6">
 
           {/* Column 1: Brand Identity */}
           <div className="space-y-3">
@@ -199,72 +192,118 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Resources */}
-          <div className="space-y-2">
-            <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Resources</h3>
-            <ul className="space-y-1.5 text-xs">
-              {resourceLinks.slice(0, 5).map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Column 5: Contact Details - Highly Compacted */}
           <div className="space-y-2">
             <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Contact Us</h3>
-            <div className="space-y-1.5 text-xs text-gray-400">
+            <div className="space-y-2.5 text-xs text-gray-400">
 
-              {/* Primary Email */}
-              <div className="flex flex-col relative">
-                <div className="flex items-center gap-1 justify-between">
-                  <a href="mailto:enteropia.dev@gmail.com" className="hover:text-white transition-colors truncate text-xs">
-                    enteropia.dev@gmail.com
-                  </a>
-                  <button
-                    onClick={() => handleCopy("enteropia.dev@gmail.com")}
-                    className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
-                  >
-                    {copiedText === "enteropia.dev@gmail.com" ? (
-                      <Check className="w-2.5 h-2.5 text-emerald-400" />
-                    ) : (
-                      <Copy className="w-2.5 h-2.5 text-purple-400/80" />
-                    )}
-                    {copiedText === "enteropia.dev@gmail.com" && (
-                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
-                        Copied!
-                      </div>
-                    )}
-                  </button>
+              {/* Emails */}
+              <div className="space-y-1.5">
+                {/* Primary Email */}
+                <div className="flex flex-col relative">
+                  <div className="flex items-center gap-2 justify-start">
+                    <a href="mailto:info@enteropia.com" className="hover:text-white transition-colors truncate text-xs">
+                      info@enteropia.com
+                    </a>
+                    <button
+                      onClick={() => handleCopy("info@enteropia.com")}
+                      className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
+                    >
+                      {copiedText === "info@enteropia.com" ? (
+                        <Check className="w-2.5 h-2.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-2.5 h-2.5 text-purple-400/80" />
+                      )}
+                      {copiedText === "info@enteropia.com" && (
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
+                          Copied!
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Secondary Email */}
+                <div className="flex flex-col relative">
+                  <div className="flex items-center gap-2 justify-start">
+                    <a href="mailto:enteropia.dev@gmail.com" className="hover:text-white transition-colors truncate text-xs">
+                      enteropia.dev@gmail.com
+                    </a>
+                    <button
+                      onClick={() => handleCopy("enteropia.dev@gmail.com")}
+                      className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
+                    >
+                      {copiedText === "enteropia.dev@gmail.com" ? (
+                        <Check className="w-2.5 h-2.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-2.5 h-2.5 text-purple-400/80" />
+                      )}
+                      {copiedText === "enteropia.dev@gmail.com" && (
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
+                          Copied!
+                        </div>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Call Hotline */}
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1 justify-between">
-                  <a href="tel:+919900112530" className="hover:text-white transition-colors text-xs">
-                    +91 9900112530
-                  </a>
-                  <button
-                    onClick={() => handleCopy("+919900112530")}
-                    className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
-                  >
-                    {copiedText === "+919900112530" ? (
-                      <Check className="w-2.5 h-2.5 text-emerald-400" />
-                    ) : (
-                      <Copy className="w-2.5 h-2.5 text-purple-400/80" />
-                    )}
-                    {copiedText === "+919900112530" && (
-                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
-                        Copied!
-                      </div>
-                    )}
-                  </button>
+              {/* Phone Numbers */}
+              <div className="space-y-1.5">
+                {/* Call Hotline */}
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 justify-start">
+                    <a href="tel:+919900112530" className="hover:text-white transition-colors text-xs">
+                      +91 9900112530
+                    </a>
+                    <button
+                      onClick={() => handleCopy("+919900112530")}
+                      className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
+                    >
+                      {copiedText === "+919900112530" ? (
+                        <Check className="w-2.5 h-2.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-2.5 h-2.5 text-purple-400/80" />
+                      )}
+                      {copiedText === "+919900112530" && (
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
+                          Copied!
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 justify-start">
+                    <a 
+                      href="https://wa.me/918150903035" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="hover:text-white transition-colors text-xs"
+                    >
+                      +91 8150903035 (WhatsApp)
+                    </a>
+                    <button
+                      onClick={() => handleCopy("+91 8150903035")}
+                      className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
+                    >
+                      {copiedText === "+91 8150903035" ? (
+                        <Check className="w-2.5 h-2.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-2.5 h-2.5 text-purple-400/80" />
+                      )}
+                      {copiedText === "+91 8150903035" && (
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
+                          Copied!
+                        </div>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
+
             </div>
           </div>
 

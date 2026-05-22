@@ -25,12 +25,12 @@ export default function Contact() {
     {
       title: "Email",
       desc: "Contact us by email, and we respond shortly.",
-      value: "enteropia.dev@gmail.com",
+      value: ["info@enteropia.com", "enteropia.dev@gmail.com"],
     },
     {
       title: "Phone",
       desc: "Call us on weekdays from 9 to 6 PM.",
-      value: "+91 9900112530",
+      value: ["+91 9900112530", "+91 8150903035"],
     },
 
   ];
@@ -137,9 +137,32 @@ export default function Contact() {
                 <p className="text-gray-400 text-xs mb-3 leading-relaxed max-w-[180px]">
                   {detail.desc}
                 </p>
-                <p className="text-gray-300 text-xs whitespace-pre-line leading-relaxed selection:bg-purple-500/30">
-                  {detail.value}
-                </p>
+                <div className="text-gray-300 text-xs leading-relaxed flex flex-col gap-1.5 selection:bg-purple-500/30">
+                  {Array.isArray(detail.value) ? (
+                    detail.value.map((val) => {
+                      const isEmail = val.includes("@");
+                      const isWhatsApp = val.includes("8150903035");
+                      const cleanPhone = val.replace(/\s+/g, "");
+                      const href = isEmail 
+                        ? `mailto:${val}` 
+                        : isWhatsApp 
+                          ? `https://wa.me/${cleanPhone.replace("+", "")}` 
+                          : `tel:${cleanPhone}`;
+                      return (
+                        <a 
+                          key={val} 
+                          href={href}
+                          {...(isWhatsApp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="hover:text-purple-400 transition-colors w-fit block"
+                        >
+                          {val} {isWhatsApp && <span className="text-purple-400/80 text-[10px] ml-1">(WhatsApp)</span>}
+                        </a>
+                      );
+                    })
+                  ) : (
+                    detail.value
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -159,7 +182,7 @@ export default function Contact() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  placeholder="[FIRST_NAME]"
+                  placeholder="e.g. Ravi"
                   className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                   required
                   disabled={submitting}
@@ -172,7 +195,7 @@ export default function Contact() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  placeholder="[LAST_NAME]"
+                  placeholder="e.g. Kumar"
                   className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                   required
                   disabled={submitting}
@@ -187,7 +210,7 @@ export default function Contact() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="[EMAIL_ADDRESS]"
+                placeholder="e.g. example@gmail.com"
                 className="w-full bg-[#3c294d]/60 text-white text-sm placeholder:text-gray-400 px-3 py-2.5 rounded-lg border border-purple-900/10 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                 required
                 disabled={submitting}

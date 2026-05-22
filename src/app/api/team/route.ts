@@ -8,8 +8,11 @@ export async function GET(req: NextRequest) {
   try {
     await dbConnect();
 
-    // Fetch all team members sorted by order
-    const teamMembers = await TeamMember.find({}).sort({ order: 1 });
+    const { searchParams } = new URL(req.url);
+    const showAll = searchParams.get("all") === "true";
+
+    const filter = showAll ? {} : { isActive: true };
+    const teamMembers = await TeamMember.find(filter).sort({ order: 1 });
 
     return NextResponse.json({ success: true, data: teamMembers });
   } catch (error: any) {

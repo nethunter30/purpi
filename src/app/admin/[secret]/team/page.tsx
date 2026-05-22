@@ -50,7 +50,7 @@ export default function TeamAdminPage() {
   const fetchMembers = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/team");
+      const res = await fetch("/api/team?all=true");
       const result = await res.json();
       if (result.success) {
         // Fetch all members for admin, but wait, the public route /api/team only returns active members!

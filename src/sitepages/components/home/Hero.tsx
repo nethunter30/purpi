@@ -22,7 +22,7 @@ export default function Hero() {
         </p>
 
         <Link
-          href="/explore"
+          href="/services"
           className="group flex items-center gap-3 px-8 py-3.5 rounded-full border border-purple-500/50 bg-[#3b1764]/50 hover:bg-[#3b1764]/80 transition-all text-white text-base font-medium backdrop-blur-sm"
         >
           Explore Solutions

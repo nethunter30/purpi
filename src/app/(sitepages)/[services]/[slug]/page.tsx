@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -26,6 +27,53 @@ export const dynamic = "force-dynamic";
 
 interface RouteParams {
   params: Promise<{ services: string; slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: RouteParams): Promise<Metadata> {
+  const { slug } = await params;
+  
+  try {
+    await dbConnect();
+    const service = await Service.findOne({ slug });
+    if (!service) {
+      return {
+        title: "Service Not Found",
+      };
+    }
+
+    return {
+      title: `${service.title} | enteropia Services`,
+      description: service.description,
+      alternates: {
+        canonical: `/services/${service.slug}`,
+      },
+      openGraph: {
+        title: `${service.title} | enteropia Services`,
+        description: service.description,
+        url: `https://enteropia.com/services/${service.slug}`,
+        type: "website",
+        images: [
+          {
+            url: service.image,
+            alt: service.title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${service.title} | enteropia Services`,
+        description: service.description,
+        images: [service.image],
+      },
+    };
+  } catch (error) {
+    console.error("Error generating service metadata", error);
+    return {
+      title: "Service Details | enteropia",
+    };
+  }
 }
 
 interface ISubService {
@@ -241,8 +289,40 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
   const timelineSteps = getTimelineSteps(serviceData.title);
   const caseStudy = getCaseStudy(slug);
 
+  // Inject Service JSON-LD schema
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": serviceData.title,
+    "description": serviceData.description,
+    "image": serviceData.image ? (serviceData.image.startsWith("http") ? serviceData.image : `https://enteropia.com${serviceData.image}`) : undefined,
+    "provider": {
+      "@type": "Organization",
+      "name": "enteropia",
+      "url": "https://enteropia.com"
+    },
+    "areaServed": "Worldwide",
+    "hasOfferCatalog": subservices.length > 0 ? {
+      "@type": "OfferCatalog",
+      "name": `${serviceData.title} Offerings`,
+      "itemListElement": subservices.map((sub, idx) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": sub.title,
+          "description": sub.description
+        }
+      }))
+    } : undefined
+  };
+
   return (
     <div className="relative min-h-screen bg-black text-white py-24 z-10 overflow-x-hidden">
+      {/* Script tag for search engine indexing */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Background Glows */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-purple-900/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-fuchsia-900/5 rounded-full blur-[120px] pointer-events-none" />
