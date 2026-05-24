@@ -12,7 +12,9 @@ import {
   ChevronRight,
   HelpCircle,
   Briefcase,
-  BookOpen
+  BookOpen,
+  Building2,
+  Server
 } from "lucide-react";
 import Image from "next/image";
 
@@ -49,6 +51,16 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       name: "Our Team",
       href: "/#team",
       icon: <Users className="w-4 h-4" />
+    },
+    {
+      name: "Industries",
+      href: "/industries",
+      icon: <Building2 className="w-4 h-4" />
+    },
+    {
+      name: "Solutions",
+      href: "/solutions",
+      icon: <Server className="w-4 h-4" />
     },
     {
       name: "Our Works",

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Menu } from "lucide-react";
+import { ArrowRight, Menu, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 
@@ -32,7 +32,7 @@ export default function Header() {
           <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
             <Image src="/logo.png" alt="Logo" fill className="object-contain" />
           </div>
-          <p className="ml-3 font-semibold">enteropia</p>
+          <p className="ml-1 font-semibold">enteropia</p>
         </Link>
       </div>
 
@@ -47,15 +47,27 @@ export default function Header() {
         <Link href="/#team" className="hover:text-white transition-colors">
           Our Team
         </Link>
-        <Link href="/our-work" className="hover:text-white transition-colors">
-          Our Works
+        <Link href="/industries" className="hover:text-white transition-colors">
+          Industries
         </Link>
-        <Link href="/blog" className="hover:text-white transition-colors">
-          Blogs
+        <Link href="/solutions" className="hover:text-white transition-colors">
+          Solutions
         </Link>
-        <Link href="/about-us" className="hover:text-white transition-colors">
-          About Us
-        </Link>
+        {/* About Dropdown */}
+        <div className="relative group py-2">
+          <Link href="/about-us" className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer">
+            About Us
+            <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-all duration-300 group-hover:rotate-180" />
+          </Link>
+          <div className="absolute left-0 mt-2 w-40 rounded-sm bg-[#140620] border border-purple-950/30 p-2 shadow-2xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col gap-2 z-50">
+            <Link href="/our-work" className="px-3 py-1.5 rounded-sm hover:bg-purple-950/30 text-xs text-gray-300 hover:text-white transition-all">
+              Our Works
+            </Link>
+            <Link href="/blog" className="px-3 py-1.5 rounded-sm hover:bg-purple-950/30 text-xs text-gray-300 hover:text-white transition-all">
+              Blogs
+            </Link>
+          </div>
+        </div>
         <Link href="/#contact" className="hover:text-white transition-colors">
           Contact Us
         </Link>

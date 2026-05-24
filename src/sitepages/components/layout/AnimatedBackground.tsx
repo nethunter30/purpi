@@ -16,10 +16,21 @@ export default function AnimatedBackground() {
     let particles: Particle[] = [];
     let mouse = { x: 0, y: 0, isActive: false };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    const updateMouseCoords = (clientX: number, clientY: number) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = clientX - rect.left;
+      mouse.y = clientY - rect.top;
       mouse.isActive = true;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      updateMouseCoords(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        updateMouseCoords(e.touches[0].clientX, e.touches[0].clientY);
+      }
     };
 
     const handleMouseLeave = () => {
@@ -27,8 +38,9 @@ export default function AnimatedBackground() {
     };
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const parent = canvas.parentElement;
+      canvas.width = parent ? parent.offsetWidth : window.innerWidth;
+      canvas.height = parent ? parent.offsetHeight : window.innerHeight;
       initParticles();
     };
 
@@ -98,6 +110,7 @@ export default function AnimatedBackground() {
     };
 
     const drawLines = () => {
+      const time = Date.now() * 0.001;
       for (let i = 0; i < particles.length; i++) {
         if (mouse.isActive) {
           const dx = particles[i].x - mouse.x;
@@ -113,7 +126,7 @@ export default function AnimatedBackground() {
           }
         }
 
-        for (let j = i; j < particles.length; j++) {
+        for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -124,9 +137,10 @@ export default function AnimatedBackground() {
             ctx.lineWidth = 1;
             ctx.moveTo(particles[i].x, particles[i].y);
 
-            // Add curve to lines to match design
-            const cx = (particles[i].x + particles[j].x) / 2 + (Math.random() - 0.5) * 50;
-            const cy = (particles[i].y + particles[j].y) / 2 + (Math.random() - 0.5) * 50;
+            // Time-based wave curves for smooth animation and high performance
+            const waveOffset = Math.sin(time + i + j) * 12;
+            const cx = (particles[i].x + particles[j].x) / 2 + waveOffset;
+            const cy = (particles[i].y + particles[j].y) / 2 + waveOffset;
 
             ctx.quadraticCurveTo(cx, cy, particles[j].x, particles[j].y);
             ctx.stroke();
@@ -147,16 +161,34 @@ export default function AnimatedBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    // Use ResizeObserver for responsive sizing relative to parent layout changes
+    let parentResizeObserver: ResizeObserver | null = null;
+    const parent = canvas.parentElement;
+    if (parent && typeof window !== "undefined" && "ResizeObserver" in window) {
+      parentResizeObserver = new ResizeObserver(() => {
+        resize();
+      });
+      parentResizeObserver.observe(parent);
+    }
+
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseout", handleMouseLeave);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleMouseLeave);
+    
     resize();
     animate();
 
     return () => {
+      if (parentResizeObserver) {
+        parentResizeObserver.disconnect();
+      }
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseout", handleMouseLeave);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

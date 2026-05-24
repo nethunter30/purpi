@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 interface SmoothScrollProps {
@@ -8,6 +9,9 @@ interface SmoothScrollProps {
 }
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis({
@@ -19,6 +23,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       wheelMultiplier: 1.0,
       touchMultiplier: 2,
     });
+
+    lenisRef.current = lenis;
 
     // Request Animation Frame loop
     let rafId: number;
@@ -34,8 +40,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       (window as any).lenis = lenis;
     }
 
+    // Dynamic resize observer for document height changes
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof window !== "undefined" && "ResizeObserver" in window) {
+      resizeObserver = new ResizeObserver(() => {
+        lenis.resize();
+      });
+      resizeObserver.observe(document.body);
+    }
+
     // Cleanup on unmount
     return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
       lenis.destroy();
       cancelAnimationFrame(rafId);
       if (typeof window !== "undefined") {
@@ -43,6 +61,16 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       }
     };
   }, []);
+
+  // Listen for route changes
+  useEffect(() => {
+    if (lenisRef.current) {
+      // Instantly scroll to top on route change
+      lenisRef.current.scrollTo(0, { immediate: true });
+      // Recalculate dimensions immediately
+      lenisRef.current.resize();
+    }
+  }, [pathname]);
 
   return <>{children}</>;
 }

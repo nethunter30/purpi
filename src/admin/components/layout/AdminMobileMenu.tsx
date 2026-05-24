@@ -40,14 +40,14 @@ export default function AdminMobileMenu({
       path: `/admin/${secret}/users`,
     },
     {
+      name: "Manage Services",
+      icon: LayoutGrid,
+      path: `/admin/${secret}/manage-services`,
+    },
+    {
       name: "Testimonials",
       icon: MessageSquareQuote,
       path: `/admin/${secret}/testimonials`,
-    },
-    {
-      name: "Services",
-      icon: LayoutGrid,
-      path: `/admin/${secret}/services-all`,
     },
     {
       name: "Team",

@@ -35,15 +35,34 @@ const Youtube = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Dynamic state for loaded services
-  const [services, setServices] = useState([
-    { name: "Digital Solutions & Media", href: "/services/digital-solutions-media" },
-    { name: "Software Solutions", href: "/services/software-solutions" },
-    { name: "App Solutions", href: "/services/app-solutions" },
-    { name: "Networking & Cybersecurity", href: "/services/networking-and-secure-solutions" },
-    { name: "Cloud Infrastructure", href: "/services/cloud-infrastructure" },
-    { name: "AI & Machine Learning", href: "/services/ai-machine-learning" },
-  ]);
+  // Dynamic services from the DB via the category API
+  const [services, setServices] = useState<{ name: string; href: string }[]>([]);
+  const [servicesLoading, setServicesLoading] = useState(true);
+  const [servicesError, setServicesError] = useState(false);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await fetch("/api/manage-services/category", { cache: "no-store" });
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          setServices(
+            json.data.map((cat: { name: string; slug: string }) => ({
+              name: cat.name,
+              href: `/${cat.slug}`,
+            }))
+          );
+        } else {
+          setServicesError(true);
+        }
+      } catch {
+        setServicesError(true);
+      } finally {
+        setServicesLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
   // Copy states
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -52,26 +71,6 @@ export default function Footer() {
   const [emailInput, setEmailInput] = useState("");
   const [subscribing, setSubscribing] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const res = await fetch("/api/services");
-        const result = await res.json();
-        if (result.success && result.data.length > 0) {
-          setServices(
-            result.data.map((s: any) => ({
-              name: s.title,
-              href: `/services/${s.slug}`,
-            }))
-          );
-        }
-      } catch (error) {
-        // Safe fallback already defined
-      }
-    };
-    fetchServices();
-  }, []);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -94,7 +93,8 @@ export default function Footer() {
   const companyLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/#about", isScroll: true },
-    { name: "Tech Partners", href: "/tech-partners" },
+    { name: "Industries", href: "/industries" },
+    { name: "Solutions", href: "/solutions" },
     { name: "Our Team", href: "/#team", isScroll: true },
     { name: "Blogs & News", href: "/blogs" },
     { name: "Contact Us", href: "/contact" },
@@ -162,17 +162,30 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Solutions */}
+          {/* Column 2: Solutions — dynamic */}
           <div className="space-y-2">
             <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Solutions</h3>
             <ul className="space-y-1.5 text-xs">
-              {services.slice(0, 5).map((service) => (
-                <li key={service.name}>
-                  <Link href={service.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
+              {servicesLoading ? (
+                // Skeleton shimmer rows while fetching
+                Array.from({ length: 5 }).map((_, i) => (
+                  <li key={i}>
+                    <span className="inline-block h-3 rounded bg-purple-950/40 animate-pulse" style={{ width: `${60 + i * 10}%` }} />
+                  </li>
+                ))
+              ) : servicesError ? (
+                <li className="text-gray-600 text-[11px]">Could not load services.</li>
+              ) : services.length === 0 ? (
+                <li className="text-gray-600 text-[11px]">No services found.</li>
+              ) : (
+                services.slice(0, 5).map((service) => (
+                  <li key={service.name}>
+                    <Link href={service.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
+                      {service.name}
+                    </Link>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 
@@ -180,7 +193,7 @@ export default function Footer() {
           <div className="space-y-2">
             <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Company</h3>
             <ul className="space-y-1.5 text-xs">
-              {companyLinks.slice(0, 5).map((link) => (
+              {companyLinks.map((link) => (
                 <li key={link.name}>
                   <Link href={link.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
                     <span className="flex items-center gap-1">

@@ -50,3 +50,17 @@ body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* 360 Degree Auto Rotation */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-logo-spin {
+  animation: logo-spin 12s linear infinite;
+}

@@ -1,6 +1,4 @@
 import { MetadataRoute } from "next";
-import dbConnect from "@/lib/db";
-import Service from "@/models/Service";
 import { blogPosts } from "@/lib/blogData";
 import { caseStudies } from "@/lib/caseStudiesData";
 
@@ -13,7 +11,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/about-us",
     "/blog",
     "/our-work",
-    "/services"
+    "/services",
+    "/services/software-solutions",
+    "/services/cloud-infrastructure",
+    "/services/ai-machine-learning",
+    "/services/app-solutions",
+    "/services/networking-and-secure-solutions",
+    "/services/digital-solutions-media"
   ].map(route => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -47,20 +51,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7
   }));
 
-  // 4. Service Detail URLs (Dynamic from DB)
-  let serviceUrls: any[] = [];
-  try {
-    await dbConnect();
-    const services = await Service.find({}, "slug updatedAt").lean();
-    serviceUrls = services.map((service: any) => ({
-      url: `${baseUrl}/services/${service.slug}`,
-      lastModified: new Date(service.updatedAt || new Date()),
-      changeFrequency: "weekly" as const,
-      priority: 0.8
-    }));
-  } catch (error) {
-    console.error("Failed to generate services sitemap dynamic routes:", error);
-  }
-
-  return [...staticUrls, ...blogUrls, ...workUrls, ...serviceUrls];
+  return [...staticUrls, ...blogUrls, ...workUrls];
 }

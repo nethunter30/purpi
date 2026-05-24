@@ -202,18 +202,38 @@ export async function POST(req: NextRequest) {
     `;
 
     // Trigger async email sends
-    await Promise.all([
+    const emailPromises = [];
+
+    // 1. Send to Gmail
+    emailPromises.push(
       sendMail({
         to: "enteropia.dev@gmail.com",
         subject: `[New Contact Message] Submission from ${fullName}`,
         html: adminEmailHtml,
-      }),
+      })
+    );
+
+    // 2. Send to GoDaddy Company Email (ADMIN_EMAIL from .env)
+    if (process.env.ADMIN_EMAIL) {
+      emailPromises.push(
+        sendMail({
+          to: process.env.ADMIN_EMAIL,
+          subject: `[New Contact Message] Submission from ${fullName}`,
+          html: adminEmailHtml,
+        })
+      );
+    }
+
+    // 3. Send Styled Confirmation to the User
+    emailPromises.push(
       sendMail({
         to: email,
         subject: `We've received your inquiry - enteropia`,
         html: userEmailHtml,
-      }),
-    ]);
+      })
+    );
+
+    await Promise.all(emailPromises);
 
     return NextResponse.json(
       { success: true, message: "Thank you for reaching out! We've sent a confirmation email, and our team will get in touch shortly." },
