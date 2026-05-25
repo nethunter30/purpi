@@ -8,19 +8,22 @@ export default function LetsConnect() {
   return (
     <section className="relative w-full min-h-[600px] flex items-center justify-center py-20 md:py-32 overflow-hidden z-10">
       {/* Background Image with Dark Overlay */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/conference_bg.png')" }}
+        style={{ backgroundImage: "url('/letsconnect.png')" }}
       />
-      
-      {/* Dark overlay with purple radial glow for premium aesthetic */}
+
+      {/* Dark overlay with purple radial glow for premium aesthetic
       <div className="absolute bg-gradient-to-b from-[#140620]/90 via-[#0a0212]/95 to-[#140620]/90" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.12),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.12),transparent_70%)]" /> */}
+
+      {/* overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/70 to-black/80"></div>
 
       {/* Content Container */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
         {/* Top Tagline */}
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -31,7 +34,7 @@ export default function LetsConnect() {
         </motion.p>
 
         {/* Heading */}
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -42,7 +45,7 @@ export default function LetsConnect() {
         </motion.h2>
 
         {/* Description */}
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -53,7 +56,7 @@ export default function LetsConnect() {
         </motion.p>
 
         {/* Badges/Pills */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}

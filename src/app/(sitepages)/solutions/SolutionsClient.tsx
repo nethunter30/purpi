@@ -31,10 +31,10 @@ interface SolutionsClientProps {
 
 export default function SolutionsClient({ solutions }: SolutionsClientProps) {
     return (
-        <div className="relative min-h-screen bg-[#140620] text-white flex flex-col overflow-x-hidden">
+        <div className="relative min-h-[800px] bg-[#140620] text-white flex flex-col overflow-x-hidden">
 
             {/* ── HERO HEADER SECTION ── */}
-            <section className="relative pt-32 pb-24 md:pt-40 md:pb-32 px-6 flex flex-col items-center z-10 w-full bg-[#140620]">
+            <section className="relative pt-40 pb-25 px-6 flex flex-col items-center z-10 w-full bg-[#140620]">
 
                 {/* Subtle grid pattern & glow effects */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f0a38_1px,transparent_1px),linear-gradient(to_bottom,#1f0a38_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_100%,#000_70%,transparent_100%)] opacity-35 pointer-events-none" />
@@ -42,10 +42,10 @@ export default function SolutionsClient({ solutions }: SolutionsClientProps) {
                 <div className="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-bl from-blue-700/10 via-indigo-900/5 to-transparent blur-[130px] pointer-events-none" />
 
                 {/* Content Container */}
-                <div className="relative z-25 w-full max-w-7xl mx-auto flex flex-col items-center">
+                <div className="relative w-full max-w-7xl mx-auto flex flex-col items-center">
 
                     {/* Breadcrumbs */}
-                    <nav className="flex items-center gap-2 mb-6 text-xs font-semibold uppercase tracking-widest text-purple-400/80">
+                    <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400/80">
                         <Link href="/" className="hover:text-purple-300 transition-colors">Home</Link>
                         <ChevronRight className="w-3.5 h-3.5 text-purple-600" />
                         <span className="text-gray-300">Solutions</span>

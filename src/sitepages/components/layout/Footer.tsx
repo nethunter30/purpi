@@ -97,7 +97,7 @@ export default function Footer() {
     { name: "Solutions", href: "/solutions" },
     { name: "Our Team", href: "/#team", isScroll: true },
     { name: "Blogs & News", href: "/blogs" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Contact Us", href: "/#contact" },
   ];
 
   const legalLinks = [
