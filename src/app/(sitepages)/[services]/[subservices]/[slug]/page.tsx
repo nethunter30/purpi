@@ -37,7 +37,7 @@ interface RouteParams {
 }
 
 export async function generateMetadata({ params }: RouteParams): Promise<Metadata> {
-  const { slug } = await params;
+  const { subservices, slug } = await params;
   try {
     await dbConnect();
     const product = await ProductModel.findOne({
@@ -48,19 +48,33 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
     });
     if (!product) {
       return {
-        title: "Details Coming Soon | enteropia",
+        title: "Details Coming Soon",
       };
     }
 
+    const title = product.seoTitle || product.name;
+    const description = product.seoDescription || product.description;
+
     return {
-      title: `${product.seoTitle || product.name} | enteropia Services`,
-      description: product.seoDescription || product.description,
+      title,
+      description,
       alternates: {
-        canonical: `/services/${slug}`,
+        canonical: `https://enteropia.com/services/${subservices}/${slug}`,
+      },
+      openGraph: {
+        title: `${title} | enteropia`,
+        description,
+        url: `https://enteropia.com/services/${subservices}/${slug}`,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${title} | enteropia`,
+        description,
       },
     };
   } catch (err) {
-    return { title: "Services | enteropia" };
+    return { title: "Services" };
   }
 }
 

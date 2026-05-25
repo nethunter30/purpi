@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
-import { blogPosts } from "@/lib/blogData";
-import { caseStudies } from "@/lib/caseStudiesData";
+import dbConnect from "@/lib/db";
+import BlogPost from "@/models/BlogPost";
+import CaseStudy from "@/models/CaseStudy";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://enteropia.com";
@@ -11,13 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/about-us",
     "/blog",
     "/our-work",
-    "/services",
-    "/services/software-solutions",
-    "/services/cloud-infrastructure",
-    "/services/ai-machine-learning",
-    "/services/app-solutions",
-    "/services/networking-and-secure-solutions",
-    "/services/digital-solutions-media"
+    "/services"
   ].map(route => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -26,30 +21,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // 2. Blog Post Detail URLs
-  const blogUrls = blogPosts.map(post => {
-    let lastMod = new Date();
-    try {
-      const parsed = new Date(post.date);
-      if (!isNaN(parsed.getTime())) {
-        lastMod = parsed;
-      }
-    } catch (e) {}
-    
-    return {
-      url: `${baseUrl}/blog/${post.id}`,
-      lastModified: lastMod,
-      changeFrequency: "weekly" as const,
-      priority: 0.6
-    };
-  });
+  let blogUrls: { url: string; lastModified: Date; changeFrequency: "weekly"; priority: number }[] = [];
+  try {
+    await dbConnect();
+    const posts = await BlogPost.find({ isActive: true });
+    blogUrls = posts.map(post => {
+      let lastMod = new Date();
+      try {
+        const parsed = new Date(post.date);
+        if (!isNaN(parsed.getTime())) {
+          lastMod = parsed;
+        }
+      } catch (e) {}
+      
+      return {
+        url: `${baseUrl}/blog/${post.id}`,
+        lastModified: lastMod,
+        changeFrequency: "weekly" as const,
+        priority: 0.6
+      };
+    });
+  } catch (error) {
+    console.error("Error generating sitemap blog URLs:", error);
+  }
 
   // 3. Case Study / Work Detail URLs
-  const workUrls = caseStudies.map(study => ({
-    url: `${baseUrl}/our-work/${study.id}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7
-  }));
+  let workUrls: { url: string; lastModified: Date; changeFrequency: "weekly"; priority: number }[] = [];
+  try {
+    await dbConnect();
+    const studies = await CaseStudy.find({ isActive: true });
+    workUrls = studies.map(study => ({
+      url: `${baseUrl}/our-work/${study.id}`,
+      lastModified: study.updatedAt || new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7
+    }));
+  } catch (error) {
+    console.error("Error generating sitemap work URLs:", error);
+  }
 
   return [...staticUrls, ...blogUrls, ...workUrls];
 }

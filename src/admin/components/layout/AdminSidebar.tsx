@@ -10,6 +10,10 @@ import {
   MessageSquareQuote,
   LayoutGrid,
   Mail,
+  BookOpen,
+  Briefcase,
+  Layers,
+  Building2,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -37,6 +41,26 @@ export default function AdminSidebar({
       name: "Users",
       icon: UsersIcon,
       path: `/admin/${secret}/users`,
+    },
+    {
+      name: "Blogs",
+      icon: BookOpen,
+      path: `/admin/${secret}/blog`,
+    },
+    {
+      name: "Solutions",
+      icon: Briefcase,
+      path: `/admin/${secret}/solutions`,
+    },
+    {
+      name: "Our Work",
+      icon: Layers,
+      path: `/admin/${secret}/our-work`,
+    },
+    {
+      name: "Industries",
+      icon: Building2,
+      path: `/admin/${secret}/industries`,
     },
     {
       name: "Manage Services",

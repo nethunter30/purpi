@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
     const id = resolvedParams.id;
     
     const body = await req.json();
-    const { name, slug, image, faqs } = body;
+    const { name, slug, description, image, faqs } = body;
 
     if (!name || !slug || !image) {
       return NextResponse.json(
@@ -44,7 +44,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     const updatedCategory = await Category.findByIdAndUpdate(
       id,
-      { name, slug, image, faqs: faqs || [] },
+      { name, slug, description: description || "", image, faqs: faqs || [] },
       { returnDocument: "after", runValidators: true }
     );
 

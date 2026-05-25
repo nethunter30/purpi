@@ -4,15 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
-import { blogPosts } from "@/lib/blogData";
+import dbConnect from "@/lib/db";
+import BlogPost from "@/models/BlogPost";
+import Category from "@/models/manage-services/categories"; // Ensure Category model is registered
 import BlogActions from "./BlogActions";
+
+export const dynamic = "force-dynamic";
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
+  await dbConnect();
+  const posts = await BlogPost.find({ isActive: true });
+  return posts.map((post) => ({
     slug: post.id,
   }));
 }
@@ -21,7 +27,8 @@ export async function generateMetadata({
   params,
 }: RouteParams): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.id === slug);
+  await dbConnect();
+  const post = await BlogPost.findOne({ id: slug });
 
   if (!post) {
     return {
@@ -59,7 +66,8 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: RouteParams) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.id === slug);
+  await dbConnect();
+  const post = await BlogPost.findOne({ id: slug }).populate("category");
 
   if (!post) {
     notFound();
@@ -121,7 +129,7 @@ export default async function BlogPostPage({ params }: RouteParams) {
             {/* Header info */}
             <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-gray-400 font-light">
               <span className="px-3 py-1 rounded-full bg-purple-900/20 text-[#c455e3] border border-purple-800/30 text-xs font-semibold uppercase tracking-wider">
-                {post.category}
+                {typeof post.category === "object" && post.category ? post.category.name : (post.category || "Uncategorized")}
               </span>
               <span className="flex items-center gap-1">
                 <Calendar className="w-4 h-4 text-purple-500/70" /> {post.date}
@@ -172,8 +180,12 @@ export default async function BlogPostPage({ params }: RouteParams) {
             </div>
 
             {/* Full text content */}
-            <div className="pt-4 border-t border-purple-950/20">
-              {post.content}
+            <div className="pt-4 border-t border-purple-950/20 space-y-4">
+              {post.content.split("\n\n").filter(Boolean).map((para: string, i: number) => (
+                <p key={i} className="text-gray-300 text-sm md:text-base leading-relaxed font-light whitespace-pre-wrap">
+                  {para.trim()}
+                </p>
+              ))}
             </div>
 
             {/* Footer row with tag listing & share action */}

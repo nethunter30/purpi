@@ -11,35 +11,30 @@ import {
   TrendingUp,
   Check,
   CheckCircle2,
-  Calendar,
   Briefcase
 } from "lucide-react";
-import { caseStudies } from "@/lib/caseStudiesData";
+import dbConnect from "@/lib/db";
+import CaseStudy from "@/models/CaseStudy";
+
+export const dynamic = "force-dynamic";
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  return caseStudies.map((study) => ({
-    slug: study.id,
-  }));
 }
 
 export async function generateMetadata({
   params,
 }: RouteParams): Promise<Metadata> {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.id === slug);
+  await dbConnect();
+  const study = await CaseStudy.findOne({ id: slug });
 
   if (!study) {
-    return {
-      title: "Case Study Not Found",
-    };
+    return { title: "Case Study Not Found" };
   }
 
   return {
-    title: `${study.title} | enteropia Case Study`,
+    title: study.title,
     description: study.description,
     alternates: {
       canonical: `/our-work/${study.id}`,
@@ -49,12 +44,7 @@ export async function generateMetadata({
       description: study.description,
       url: `https://enteropia.com/our-work/${study.id}`,
       type: "website",
-      images: [
-        {
-          url: study.image,
-          alt: study.title,
-        },
-      ],
+      images: [{ url: study.image, alt: study.title }],
     },
     twitter: {
       card: "summary_large_image",
@@ -67,11 +57,14 @@ export async function generateMetadata({
 
 export default async function CaseStudyPage({ params }: RouteParams) {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.id === slug);
+  await dbConnect();
+  const studyDoc = await CaseStudy.findOne({ id: slug });
 
-  if (!study) {
+  if (!studyDoc) {
     notFound();
   }
+
+  const study = studyDoc.toObject();
 
   // Inject Project JSON-LD schema
   const jsonLd = {

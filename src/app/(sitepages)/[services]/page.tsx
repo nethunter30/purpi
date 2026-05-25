@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
   }
 
   return {
-    title: "Our Services & Technology Solutions | enteropia",
+    title: "Our Services & Technology Solutions",
     description: "Discover enteropia's range of tech solutions including Software Engineering, Cloud Infrastructure, Security, and AI & Machine Learning to power your corporate vision.",
     keywords: [
       "software engineering",

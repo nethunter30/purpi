@@ -25,6 +25,7 @@ export interface Category {
   id: string;
   name: string;
   slug: string;
+  description?: string;
   image: string;
   faqs?: FAQ[];
   subcategories?: SubCategory[];
@@ -41,6 +42,7 @@ const faqSchema = new Schema({
 const categorySchema = new Schema<ICategoryDoc>({
   name: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
+  description: { type: String, default: "" },
   image: { type: String, required: true },
   faqs: [faqSchema]
 }, { timestamps: true });

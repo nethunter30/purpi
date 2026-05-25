@@ -84,15 +84,27 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
     if (!category) {
       return { title: "Service Category Not Found" };
     }
+    const description = category.description || getCategoryDescription(category.slug);
     return {
-      title: `${category.name} | enteropia`,
-      description: getCategoryDescription(category.slug),
+      title: category.name,
+      description,
       alternates: {
-        canonical: `/services/${subservices}`,
+        canonical: `https://enteropia.com/services/${subservices}`,
+      },
+      openGraph: {
+        title: `${category.name} | enteropia`,
+        description,
+        url: `https://enteropia.com/services/${subservices}`,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${category.name} | enteropia`,
+        description,
       },
     };
   } catch (err) {
-    return { title: "Services | enteropia" };
+    return { title: "Services" };
   }
 }
 
@@ -172,7 +184,7 @@ export default async function SubServicesPage({ params }: RouteParams) {
             {category.name}
           </h1>
           <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-3xl">
-            {getCategoryDescription(category.slug)}
+            {category.description || getCategoryDescription(category.slug)}
           </p>
         </div>
 

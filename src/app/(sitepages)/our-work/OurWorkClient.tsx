@@ -4,17 +4,35 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Layers, ArrowRight } from "lucide-react";
-import { CaseStudy } from "@/lib/caseStudiesData";
+
+export interface CaseStudy {
+  id: string;
+  title: string;
+  client: string;
+  category: string;
+  subCategory: string;
+  description: string;
+  challenge?: string;
+  solution?: string;
+  impact: string;
+  impactLabel: string;
+  image: string;
+  techStack: string[];
+  results?: {
+    metric: string;
+    before: string;
+    after: string;
+  }[];
+  milestones?: string[];
+}
 
 interface OurWorkClientProps {
   caseStudies: CaseStudy[];
+  categories: string[];
 }
 
-export default function OurWorkClient({ caseStudies }: OurWorkClientProps) {
+export default function OurWorkClient({ caseStudies, categories }: OurWorkClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
-
-  // Filter categories
-  const categories = ["All", "Software Engineering", "Cloud & Security", "AI & Automation"];
 
   // Category filtering
   const filteredCaseStudies = useMemo(() => {
@@ -66,11 +84,10 @@ export default function OurWorkClient({ caseStudies }: OurWorkClientProps) {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer ${
-                  selectedCategory === cat
+                className={`px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer ${selectedCategory === cat
                     ? "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg"
                     : "text-gray-400 hover:text-white hover:bg-purple-950/20"
-                }`}
+                  }`}
               >
                 {cat}
               </button>

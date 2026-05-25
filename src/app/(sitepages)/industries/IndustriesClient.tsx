@@ -16,8 +16,6 @@ import {
     Utensils,
     ArrowRight
 } from "lucide-react";
-import { industries } from "../../../lib/industriesData";
-
 const iconMap: Record<string, React.ElementType> = {
     Building2,
     GraduationCap,
@@ -31,7 +29,19 @@ const iconMap: Record<string, React.ElementType> = {
     Utensils,
 };
 
-export default function IndustriesClient() {
+export interface IndustryItem {
+    id: string;
+    title: string;
+    description: string;
+    iconName: string;
+    link: string;
+}
+
+interface IndustriesClientProps {
+    industries: IndustryItem[];
+}
+
+export default function IndustriesClient({ industries }: IndustriesClientProps) {
     return (
         <div className="flex flex-col w-full font-sans">
 

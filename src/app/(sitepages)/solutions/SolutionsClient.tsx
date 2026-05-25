@@ -14,7 +14,16 @@ import {
     ArrowRight,
     ChevronRight
 } from "lucide-react";
-import { SolutionItem } from "../../../lib/solutionsData";
+export interface SolutionItem {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    iconName: string;
+    features: string[];
+    startingPrice: string;
+    learnMoreUrl: string;
+}
 
 // Icon map for dynamic lookup
 const iconMap: Record<string, React.ComponentType<any>> = {

@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     await dbConnect();
     const body = await req.json();
-    const { name, slug, image, faqs } = body;
+    const { name, slug, description, image, faqs } = body;
 
     if (!name || !slug || !image) {
       return NextResponse.json(
@@ -62,7 +62,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newCategory = await Category.create({ name, slug, image, faqs: faqs || [] });
+    const newCategory = await Category.create({
+      name,
+      slug,
+      description: description || "",
+      image,
+      faqs: faqs || []
+    });
 
     return NextResponse.json({ success: true, data: newCategory }, { status: 201 });
   } catch (error: any) {

@@ -14,7 +14,24 @@ import {
   ThumbsUp,
   User
 } from "lucide-react";
-import { BlogPost } from "@/lib/blogData";
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  date: string;
+  readTime: string;
+  author: {
+    name: string;
+    role: string;
+    avatar: string;
+  };
+  image: string;
+  tags: string[];
+  featured?: boolean;
+}
 
 interface BlogClientProps {
   blogPosts: BlogPost[];

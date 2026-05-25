@@ -38,6 +38,7 @@ interface Category {
   _id?: string;
   name: string;
   slug: string;
+  description?: string;
   image: string;
   faqs?: FAQ[];
   subcategoriesCount?: number;
@@ -112,9 +113,10 @@ function ManageServicesContent() {
   const [catForm, setCatForm] = useState<{
     name: string;
     slug: string;
+    description: string;
     image: string;
     faqs: FAQ[];
-  }>({ name: "", slug: "", image: "", faqs: [] });
+  }>({ name: "", slug: "", description: "", image: "", faqs: [] });
 
   const [subForm, setSubForm] = useState<{
     name: string;
@@ -183,12 +185,13 @@ function ManageServicesContent() {
       setCatForm({
         name: cat.name,
         slug: cat.slug,
+        description: cat.description || "",
         image: cat.image,
         faqs: cat.faqs || []
       });
     } else {
       setEditingCategory(null);
-      setCatForm({ name: "", slug: "", image: "", faqs: [] });
+      setCatForm({ name: "", slug: "", description: "", image: "", faqs: [] });
     }
     setIsCategoryModalOpen(true);
   };
@@ -844,6 +847,21 @@ function ManageServicesContent() {
                   }
                   className="w-full px-4 py-2.5 bg-[#0f0418] border border-purple-900/30 rounded-xl text-sm font-mono text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-all"
                   placeholder="e.g. software-solutions"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-purple-300/80 uppercase tracking-wider mb-2">
+                  SEO / Category Description
+                </label>
+                <textarea
+                  value={catForm.description}
+                  onChange={(e) =>
+                    setCatForm((prev) => ({ ...prev, description: e.target.value }))
+                  }
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-[#0f0418] border border-purple-900/30 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-all"
+                  placeholder="Brief SEO/category description..."
                 />
               </div>
 
