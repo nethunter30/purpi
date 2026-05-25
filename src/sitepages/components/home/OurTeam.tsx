@@ -107,7 +107,7 @@ export default function OurTeam() {
     // Calculate difference relative to the centerIndex
     let diff = index - centerIndex;
     const len = members.length;
-    
+
     // Normalize diff to the range [-half, half]
     const half = Math.floor(len / 2);
     while (diff < -half) diff += len;
@@ -259,7 +259,7 @@ export default function OurTeam() {
             <div className="relative w-full h-full flex items-center justify-center">
               {members.map((member, index) => {
                 const isHovered = hoveredIndex === index;
-                
+
                 // Calculate diff to determine active click behavior
                 let diff = index - centerIndex;
                 const len = members.length;
@@ -271,11 +271,10 @@ export default function OurTeam() {
                   <div
                     key={member._id || index}
                     onClick={() => setCenterIndex(index)}
-                    className={`card-3d group flex flex-col rounded-[20px] sm:rounded-[28px] overflow-hidden cursor-pointer w-[120px] h-[180px] sm:w-[200px] sm:h-[300px] lg:w-[280px] lg:h-[420px] border ${
-                      isHovered
+                    className={`card-3d group flex flex-col rounded-[20px] sm:rounded-[28px] overflow-hidden cursor-pointer w-[120px] h-[180px] sm:w-[200px] sm:h-[300px] lg:w-[280px] lg:h-[420px] border ${isHovered
                         ? "shadow-[0_30px_60px_-15px_rgba(138,53,229,0.6)] border-white/40"
                         : "shadow-[0_15px_35px_rgba(0,0,0,0.6)] border-white/5"
-                    }`}
+                      }`}
                     style={getCardStyle(index)}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
@@ -284,11 +283,11 @@ export default function OurTeam() {
                     <div className="p-2 sm:p-4 lg:p-6 flex flex-col h-full relative z-10 select-none">
                       {/* Role/Title */}
                       <h3 className="text-white text-[10px] sm:text-base lg:text-2xl font-semibold tracking-tight leading-tight mb-0.5 sm:mb-1">
-                        {member.role}
+                        {member.name}
                       </h3>
                       {/* Member Name */}
                       <p className="text-white/80 text-[8px] sm:text-xs lg:text-sm font-light tracking-wide">
-                        {member.name}
+                        {member.role}
                       </p>
 
                       {/* Round Image Container */}
