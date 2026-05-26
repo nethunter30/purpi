@@ -15,9 +15,9 @@ export interface SubCategory {
   id: string;
   name: string;
   slug: string;
+  description?: string;
   categorySlug: string;
   bulletList?: BulletList;
-  faqs?: FAQ[];
   images?: string[];
 }
 

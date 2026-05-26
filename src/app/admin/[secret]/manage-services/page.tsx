@@ -49,9 +49,9 @@ interface SubCategory {
   _id?: string;
   name: string;
   slug: string;
+  description?: string;
   categorySlug: string;
   bulletList?: BulletList;
-  faqs?: FAQ[];
   images?: string[];
 }
 
@@ -121,16 +121,16 @@ function ManageServicesContent() {
   const [subForm, setSubForm] = useState<{
     name: string;
     slug: string;
+    description: string;
     categorySlug: string;
     bulletList: BulletList;
-    faqs: FAQ[];
     images: string[];
   }>({
     name: "",
     slug: "",
+    description: "",
     categorySlug: "",
     bulletList: { heading: "", points: [] },
-    faqs: [],
     images: []
   });
 
@@ -203,9 +203,9 @@ function ManageServicesContent() {
       setSubForm({
         name: sub.name,
         slug: sub.slug,
+        description: sub.description || "",
         categorySlug: sub.categorySlug,
         bulletList: sub.bulletList || { heading: "", points: [] },
-        faqs: sub.faqs || [],
         images: sub.images || []
       });
     } else {
@@ -213,9 +213,9 @@ function ManageServicesContent() {
       setSubForm({
         name: "",
         slug: "",
+        description: "",
         categorySlug: categories[0]?.slug || "",
         bulletList: { heading: "", points: [] },
-        faqs: [],
         images: []
       });
     }
@@ -501,7 +501,6 @@ function ManageServicesContent() {
                     <th className="px-6 py-4 font-semibold">Image</th>
                     <th className="px-6 py-4 font-semibold">Name</th>
                     <th className="px-6 py-4 font-semibold">Slug</th>
-                    <th className="px-6 py-4 font-semibold">FAQs Count</th>
                     <th className="px-6 py-4 font-semibold">Subcategories</th>
                     <th className="px-6 py-4 font-semibold text-right">Actions</th>
                   </tr>
@@ -527,9 +526,6 @@ function ManageServicesContent() {
                       </td>
                       <td className="px-6 py-4 text-xs font-mono text-gray-400">
                         {c.slug}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-300">
-                        {c.faqs?.length || 0}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-300">
                         {c.subcategoriesCount || 0}
@@ -611,7 +607,7 @@ function ManageServicesContent() {
                     <th className="px-6 py-4 font-semibold">Name</th>
                     <th className="px-6 py-4 font-semibold">Slug</th>
                     <th className="px-6 py-4 font-semibold">Parent Category</th>
-                    <th className="px-6 py-4 font-semibold">FAQs</th>
+                    <th className="px-6 py-4 font-semibold">Description</th>
                     <th className="px-6 py-4 font-semibold">Images</th>
                     <th className="px-6 py-4 font-semibold">Detailed Content</th>
                     <th className="px-6 py-4 font-semibold text-right">Actions</th>
@@ -629,8 +625,8 @@ function ManageServicesContent() {
                       <td className="px-6 py-4 text-xs text-purple-400 font-semibold uppercase tracking-wider">
                         {s.categorySlug}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-300">
-                        {s.faqs?.length || 0}
+                      <td className="px-6 py-4 text-sm text-gray-400 max-w-[180px] truncate" title={s.description || ""}>
+                        {s.description ? s.description : <span className="text-gray-600 italic text-xs">No description</span>}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-300">
                         {s.images?.length || 0}
@@ -872,71 +868,6 @@ function ManageServicesContent() {
                 secret={secret}
                 label="Category Illustration / Icon Image"
               />
-
-              {/* FAQs Section */}
-              <div className="space-y-3 pt-3 border-t border-purple-900/10">
-                <div className="flex items-center justify-between">
-                  <label className="block text-xs font-semibold text-purple-300/80 uppercase tracking-wider">
-                    Frequently Asked Questions ({catForm.faqs.length})
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setCatForm((prev) => ({
-                        ...prev,
-                        faqs: [...prev.faqs, { id: Date.now().toString(), question: "", answer: "" }]
-                      }))
-                    }
-                    className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1 font-bold cursor-pointer"
-                  >
-                    <PlusCircle size={14} /> Add FAQ
-                  </button>
-                </div>
-
-                <div className="space-y-3 max-h-40 overflow-y-auto pr-1">
-                  {catForm.faqs.map((faq, index) => (
-                    <div key={faq.id} className="p-3 bg-[#0d0315] border border-purple-950/40 rounded-xl space-y-2 relative">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setCatForm((prev) => ({
-                            ...prev,
-                            faqs: prev.faqs.filter((f) => f.id !== faq.id)
-                          }))
-                        }
-                        className="absolute top-2 right-2 text-red-500 hover:text-red-400 transition-colors cursor-pointer"
-                      >
-                        <MinusCircle size={16} />
-                      </button>
-                      <input
-                        type="text"
-                        required
-                        value={faq.question}
-                        onChange={(e) => {
-                          const updated = [...catForm.faqs];
-                          updated[index].question = e.target.value;
-                          setCatForm((prev) => ({ ...prev, faqs: updated }));
-                        }}
-                        placeholder="FAQ Question"
-                        className="w-full px-3 py-2 bg-[#0f0418] border border-purple-900/20 rounded-lg text-xs text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                      />
-                      <textarea
-                        required
-                        value={faq.answer}
-                        onChange={(e) => {
-                          const updated = [...catForm.faqs];
-                          updated[index].answer = e.target.value;
-                          setCatForm((prev) => ({ ...prev, faqs: updated }));
-                        }}
-                        placeholder="FAQ Answer"
-                        rows={2}
-                        className="w-full px-3 py-2 bg-[#0f0418] border border-purple-900/20 rounded-lg text-xs text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               <div className="pt-4 flex justify-end gap-3 border-t border-purple-900/20">
                 <button
                   type="button"
@@ -1031,6 +962,22 @@ function ManageServicesContent() {
                 />
               </div>
 
+              {/* Description */}
+              <div>
+                <label className="block text-xs font-semibold text-purple-300/80 uppercase tracking-wider mb-2">
+                  Description <span className="text-gray-500 normal-case font-normal">(optional)</span>
+                </label>
+                <textarea
+                  value={subForm.description}
+                  onChange={(e) =>
+                    setSubForm((prev) => ({ ...prev, description: e.target.value }))
+                  }
+                  rows={2}
+                  className="w-full px-4 py-2.5 bg-[#0f0418] border border-purple-900/30 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-all"
+                  placeholder="Brief description of this sub-category..."
+                />
+              </div>
+
               {/* Bullet List */}
               <div className="p-4 bg-[#0d0315] border border-purple-950/40 rounded-xl space-y-3">
                 <label className="block text-xs font-semibold text-purple-400 uppercase tracking-wider">
@@ -1073,7 +1020,6 @@ function ManageServicesContent() {
                     <div key={idx} className="flex items-center gap-2">
                       <input
                         type="text"
-                        required
                         value={pt}
                         onChange={(e) => {
                           const pts = [...subForm.bulletList.points];
@@ -1148,70 +1094,6 @@ function ManageServicesContent() {
                     />
                   </div>
                 ))}
-              </div>
-
-              {/* FAQs Section */}
-              <div className="space-y-3 pt-3 border-t border-purple-900/10">
-                <div className="flex items-center justify-between">
-                  <label className="block text-xs font-semibold text-purple-300/80 uppercase tracking-wider">
-                    Frequently Asked Questions ({subForm.faqs.length})
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setSubForm((prev) => ({
-                        ...prev,
-                        faqs: [...prev.faqs, { id: Date.now().toString(), question: "", answer: "" }]
-                      }))
-                    }
-                    className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1 font-bold cursor-pointer"
-                  >
-                    <PlusCircle size={14} /> Add FAQ
-                  </button>
-                </div>
-
-                <div className="space-y-3 max-h-40 overflow-y-auto pr-1">
-                  {subForm.faqs.map((faq, index) => (
-                    <div key={faq.id} className="p-3 bg-[#0d0315] border border-purple-950/40 rounded-xl space-y-2 relative">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setSubForm((prev) => ({
-                            ...prev,
-                            faqs: prev.faqs.filter((f) => f.id !== faq.id)
-                          }))
-                        }
-                        className="absolute top-2 right-2 text-red-500 hover:text-red-400 transition-colors cursor-pointer"
-                      >
-                        <MinusCircle size={16} />
-                      </button>
-                      <input
-                        type="text"
-                        required
-                        value={faq.question}
-                        onChange={(e) => {
-                          const updated = [...subForm.faqs];
-                          updated[index].question = e.target.value;
-                          setSubForm((prev) => ({ ...prev, faqs: updated }));
-                        }}
-                        placeholder="FAQ Question"
-                        className="w-full px-3 py-2 bg-[#0f0418] border border-purple-900/20 rounded-lg text-xs text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                      />
-                      <textarea
-                        required
-                        value={faq.answer}
-                        onChange={(e) => {
-                          const updated = [...subForm.faqs];
-                          updated[index].answer = e.target.value;
-                          setSubForm((prev) => ({ ...prev, faqs: updated }));
-                        }}
-                        placeholder="FAQ Answer"
-                        rows={2}
-                        className="w-full px-3 py-2 bg-[#0f0418] border border-purple-900/20 rounded-lg text-xs text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                      />
-                    </div>
-                  ))}
-                </div>
               </div>
 
               <div className="pt-4 flex justify-end gap-3 border-t border-purple-900/20">

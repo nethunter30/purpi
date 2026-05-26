@@ -204,7 +204,7 @@ export default async function SubServicesPage({ params }: RouteParams) {
               // Find matching product to get the description if available
               const prod = products.find((p) => p.subcategorySlug === sub.slug);
               const href = `/services/${subservices}/${sub.slug}`;
-              const description = prod ? prod.description : "Premium engineering services and tech specs are being finalized.";
+              const description = sub.description || (prod ? prod.description : "Premium engineering services and tech specs are being finalized.");
 
               return (
                 <Link

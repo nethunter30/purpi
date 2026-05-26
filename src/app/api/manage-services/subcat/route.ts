@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     await dbConnect();
     const body = await req.json();
-    const { name, slug, categorySlug, bulletList, faqs, images } = body;
+    const { name, slug, description, categorySlug, bulletList, images } = body;
 
     if (!name || !slug || !categorySlug) {
       return NextResponse.json(
@@ -65,9 +65,9 @@ export async function POST(req: NextRequest) {
     const newSubCategory = await SubCategory.create({
       name,
       slug,
+      description: description || "",
       categorySlug,
       bulletList: bulletList || { heading: "", points: [] },
-      faqs: faqs || [],
       images: images || [],
     });
 

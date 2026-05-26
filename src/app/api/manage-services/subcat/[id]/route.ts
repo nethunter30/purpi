@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
     const id = resolvedParams.id;
     
     const body = await req.json();
-    const { name, slug, categorySlug, bulletList, faqs, images } = body;
+    const { name, slug, description, categorySlug, bulletList, images } = body;
 
     if (!name || !slug || !categorySlug) {
       return NextResponse.json(
@@ -47,9 +47,9 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
       {
         name,
         slug,
+        description: description || "",
         categorySlug,
         bulletList: bulletList || { heading: "", points: [] },
-        faqs: faqs || [],
         images: images || [],
       },
       { returnDocument: "after", runValidators: true }

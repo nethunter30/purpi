@@ -10,16 +10,16 @@ const faqSchema = new Schema({
 }, { _id: false });
 
 const bulletListSchema = new Schema({
-  heading: { type: String, required: true },
+  heading: { type: String, default: "" },
   points: [{ type: String }]
 }, { _id: false });
 
 const subCategorySchema = new Schema<ISubCategoryDoc>({
   name: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
+  description: { type: String, default: "" },
   categorySlug: { type: String, required: true },
   bulletList: bulletListSchema,
-  faqs: [faqSchema],
   images: [{ type: String }]
 }, { timestamps: true });
 
