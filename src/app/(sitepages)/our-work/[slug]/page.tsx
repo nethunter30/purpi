@@ -16,10 +16,18 @@ import {
 import dbConnect from "@/lib/db";
 import CaseStudy from "@/models/CaseStudy";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  await dbConnect();
+  const studies = await CaseStudy.find({ isActive: true });
+  return studies.map((study) => ({
+    slug: study.id,
+  }));
 }
 
 export async function generateMetadata({

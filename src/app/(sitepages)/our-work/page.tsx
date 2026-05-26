@@ -5,7 +5,7 @@ import dbConnect from "@/lib/db";
 import CaseStudy from "@/models/CaseStudy";
 import CategoryModel from "@/models/manage-services/categories";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Our Portfolio & Case Studies",

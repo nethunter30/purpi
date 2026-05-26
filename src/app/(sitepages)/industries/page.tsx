@@ -4,7 +4,7 @@ import IndustriesClient from "./IndustriesClient";
 import dbConnect from "@/lib/db";
 import Industry from "@/models/Industry";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: "Industries We Serve",

@@ -5,7 +5,7 @@ import dbConnect from "@/lib/db";
 import BlogPost from "@/models/BlogPost";
 import Category from "@/models/manage-services/categories"; // Ensure Category model is registered
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blogs & Engineering Articles",

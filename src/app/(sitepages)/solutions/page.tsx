@@ -4,7 +4,7 @@ import SolutionsClient from "./SolutionsClient";
 import dbConnect from "@/lib/db";
 import Solution from "@/models/Solution";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: "Industry Solutions & Pre-configured IT Packages",

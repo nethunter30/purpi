@@ -9,7 +9,7 @@ import BlogPost from "@/models/BlogPost";
 import Category from "@/models/manage-services/categories"; // Ensure Category model is registered
 import BlogActions from "./BlogActions";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
