@@ -168,14 +168,14 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
   const sections = product.toolSections && product.toolSections.length > 0
     ? product.toolSections
     : [
-        {
-          id: "default",
-          title: product.title || product.name,
-          description: product.description,
-          tools: product.tags || [],
-          serverPlatforms: product.serverPlatforms || []
-        }
-      ];
+      {
+        id: "default",
+        title: product.title || product.name,
+        description: product.description,
+        tools: product.tags || [],
+        serverPlatforms: product.serverPlatforms || []
+      }
+    ];
 
   const activeIdx = activeTabIdx >= 0 && activeTabIdx < sections.length ? activeTabIdx : 0;
   const activeSection = sections[activeIdx];
@@ -196,12 +196,12 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
 
   const activeBlock = product.serverPlatforms && product.serverPlatforms.length > 0
     ? (product.serverPlatforms.find((block: any) => {
-        const tools = activeSection.tools || [];
-        return tools.some((t: string) => 
-          block.name.toLowerCase().includes(t.toLowerCase()) || 
-          t.toLowerCase().includes(block.name.toLowerCase())
-        );
-      }) || product.serverPlatforms[activeIdx] || product.serverPlatforms[0])
+      const tools = activeSection.tools || [];
+      return tools.some((t: string) =>
+        block.name.toLowerCase().includes(t.toLowerCase()) ||
+        t.toLowerCase().includes(block.name.toLowerCase())
+      );
+    }) || product.serverPlatforms[activeIdx] || product.serverPlatforms[0])
     : null;
 
   return (
@@ -245,11 +245,10 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                   key={sec.id || idx}
                   href={`?tab=${idx}`}
                   scroll={false}
-                  className={`flex items-center gap-2.5 px-5 py-3.5 rounded-full border text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                    isActive
+                  className={`flex items-center gap-2.5 px-5 py-3.5 rounded-full border text-xs sm:text-sm font-semibold transition-all duration-300 ${isActive
                       ? "bg-purple-950/40 border-[#00f2fe] text-white shadow-[0_0_15px_rgba(0,242,254,0.2)]"
                       : "bg-[#0c0414]/80 border-purple-950/40 text-gray-400 hover:text-white hover:border-purple-500/30"
-                  }`}
+                    }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? "text-[#00f2fe]" : "text-purple-400"}`} />
                   <span>{label}</span>
@@ -265,8 +264,8 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
           <div className="lg:col-span-7 space-y-6 text-left">
             {/* Pill */}
             <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-[#00f2fe]/30 bg-[#00f2fe]/5 text-[#00f2fe] text-[10px] font-bold tracking-wider uppercase">
-              {activeSection.tools && activeSection.tools.length > 0 
-                ? `${activeSection.tools.join(" & ").toUpperCase()} — HIGH AVAILABILITY` 
+              {activeSection.tools && activeSection.tools.length > 0
+                ? `${activeSection.tools.join(" & ").toUpperCase()} — HIGH AVAILABILITY`
                 : `${activeSection.title.toUpperCase()} — SPECIFICATION`}
             </span>
 
@@ -351,12 +350,12 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
               {product.whatWeDo.map((section: any, idx: number) => {
                 const Icon = getToolIcon(section.title);
                 return (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="p-8 rounded-sm bg-[#0c0414]/90 border border-purple-950/40 hover:border-[#00f2fe]/40 hover:bg-[#0c0414]/95 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,242,254,0.06)] flex flex-col justify-start relative overflow-hidden group text-left"
                   >
                     <div className="absolute top-0 right-0 w-24 h-24 bg-purple-900/5 rounded-full blur-2xl pointer-events-none group-hover:bg-[#00f2fe]/5 transition-all duration-500" />
-                    
+
                     {/* Icon */}
                     <div className="w-10 h-10 rounded-sm bg-purple-950/20 border border-purple-800/10 flex items-center justify-center text-purple-400 group-hover:bg-[#00f2fe]/20 group-hover:text-[#00f2fe] group-hover:border-[#00f2fe]/10 transition-all mb-6">
                       <Icon className="w-5 h-5" />
@@ -367,12 +366,12 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                       <h3 className="text-white text-base font-bold group-hover:text-[#00f2fe] transition-colors">
                         {section.title}
                       </h3>
-                      
+
                       {/* Card Description */}
                       <p className="text-gray-400 text-xs sm:text-sm font-light leading-relaxed mb-6">
                         {section.description}
                       </p>
-                      
+
                       {/* Plain Points List */}
                       {section.points && section.points.length > 0 && (
                         <div className="space-y-2 pt-4 border-t border-purple-950/20 group-hover:border-[#00f2fe]/10 transition-colors">
@@ -414,8 +413,8 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                 {product.securityFeatures.map((sec: any, idx: number) => {
                   const Icon = getToolIcon(sec.title);
                   return (
-                    <div 
-                      key={idx} 
+                    <div
+                      key={idx}
                       className="py-2.5 px-4 sm:py-3 sm:px-5 rounded-sm bg-[#0c0414]/40 border border-purple-950/30 hover:border-[#00f2fe]/20 transition-all duration-300 flex items-start gap-4 text-left group w-full"
                     >
                       <div className="w-8 h-8 rounded-sm bg-purple-950/10 border border-purple-800/10 flex items-center justify-center text-purple-400 group-hover:text-[#00f2fe] transition-all flex-shrink-0">
@@ -436,10 +435,10 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
 
               {/* Right Column: Rotating Logo */}
               <div className="lg:col-span-4 flex flex-col items-center justify-center">
-                <img 
-                  src="/logo.png" 
-                  alt="Logo" 
-                  className="w-40 h-40 sm:w-48 sm:h-48 object-contain filter drop-shadow-[0_0_15px_rgba(0,242,254,0.35)] animate-logo-spin"
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain filter drop-shadow-[0_0_15px_rgba(0,242,254,0.35)] animate-logo-spin"
                 />
               </div>
             </div>
@@ -468,8 +467,8 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                 const Icon = getToolIcon(step.title);
                 const stepNum = step.step || idx + 1;
                 return (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="p-6 rounded-sm bg-[#0c0414]/90 border border-purple-950/40 hover:border-[#00f2fe]/40 hover:bg-[#0c0414]/95 transition-all duration-300 flex flex-col justify-start relative overflow-hidden group text-left"
                   >
                     {/* Top Row: Number Badge */}
@@ -519,11 +518,10 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                 return (
                   <div
                     key={plan.id || idx}
-                    className={`p-8 rounded-sm transition-all duration-300 flex flex-col justify-between relative overflow-hidden group text-center ${
-                      isHighlighted
+                    className={`p-8 rounded-sm transition-all duration-300 flex flex-col justify-between relative overflow-hidden group text-center ${isHighlighted
                         ? "bg-[#0c0414]/95 border border-[#00f2fe] shadow-[0_0_30px_rgba(0,242,254,0.15)]"
                         : "bg-[#0c0414]/90 border border-purple-950/60 hover:border-purple-800/40"
-                    }`}
+                      }`}
                   >
                     {isHighlighted && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-[#00f2fe] to-[#c455e3] rounded-sm text-black text-[9px] font-black tracking-widest uppercase z-20">
@@ -540,7 +538,7 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                       {/* Name & Short description */}
                       <h3 className="text-lg font-bold text-white mb-1">{plan.name}</h3>
                       <p className="text-xs text-gray-400 mb-6 font-light leading-relaxed">{plan.description}</p>
-                      
+
                       {/* Price & Period */}
                       <div className="mb-6 flex flex-col items-center">
                         <div className="flex items-baseline justify-center gap-1">
@@ -559,11 +557,10 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                           const disabled = isFeatureDisabled(feat);
                           const text = cleanFeatureText(feat);
                           return (
-                            <li 
-                              key={fIdx} 
-                              className={`flex items-start gap-2.5 text-xs font-light leading-relaxed ${
-                                disabled ? "text-gray-600" : "text-gray-300"
-                              }`}
+                            <li
+                              key={fIdx}
+                              className={`flex items-start gap-2.5 text-xs font-light leading-relaxed ${disabled ? "text-gray-600" : "text-gray-300"
+                                }`}
                             >
                               {disabled ? (
                                 <X className="w-4 h-4 text-rose-500/70 mt-0.5 flex-shrink-0" />
@@ -615,8 +612,8 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
             {/* Center Aligned Dropdowns */}
             <div className="max-w-3xl mx-auto space-y-3.5 w-full">
               {product.faqs.map((faq: any) => (
-                <div 
-                  key={faq.id} 
+                <div
+                  key={faq.id}
                   className="group p-5 rounded-sm bg-[#0c0414]/70 border border-purple-950/40 hover:border-[#00f2fe]/40 hover:bg-[#0c0414]/90 transition-all duration-300 text-left cursor-pointer"
                 >
                   <div className="flex items-center justify-between gap-4">

@@ -1,18 +1,16 @@
 import React from "react";
 import type { Metadata } from "next";
+import AboutUsClient from "./AboutUsClient";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn more about enteropia, our mission, our principles, and how we deliver engineering excellence for scaling businesses globally.",
+  title: "About Us | enteropia",
+  description:
+    "Learn more about enteropia — a Bengaluru-based enterprise technology company founded in 2026. Discover our mission, vision, core values, and the team behind our engineering excellence.",
   alternates: {
     canonical: "/about-us",
   },
 };
 
 export default function AboutUsPage() {
-  return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <h1 className="text-3xl font-bold">About Us</h1>
-    </div>
-  );
+  return <AboutUsClient />;
 }
