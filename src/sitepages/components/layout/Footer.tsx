@@ -92,7 +92,7 @@ export default function Footer() {
 
   const companyLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/#about", isScroll: true },
+    { name: "About Us", href: "/about-us", isScroll: true },
     { name: "Industries", href: "/industries" },
     { name: "Solutions", href: "/solutions" },
     { name: "Our Team", href: "/#team", isScroll: true },
