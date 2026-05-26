@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import FadeUp from "@/sitepages/components/layout/FadeUp";
 
 interface Partner {
   name: string;
@@ -43,7 +44,7 @@ export default function Tech() {
       <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-black to-transparent z-20 pointer-events-none" />
 
       {/* Marquee Wrapper */}
-      <div className="flex overflow-hidden w-full select-none">
+      <FadeUp className="flex overflow-hidden w-full select-none">
         
         {/* Animated Marquee row */}
         <div className="animate-marquee gap-16 py-2">
@@ -65,7 +66,7 @@ export default function Tech() {
           ))}
         </div>
 
-      </div>
+      </FadeUp>
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import FadeUp from "@/sitepages/components/layout/FadeUp";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -112,7 +113,7 @@ export default function Contact() {
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-purple-900/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-80 h-80 bg-indigo-900/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 relative z-10">
+      <FadeUp className="max-w-6xl mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 relative z-10">
 
         {/* Left Side: Contact Info */}
         <div className="flex flex-col">
@@ -279,7 +280,7 @@ export default function Contact() {
           </form>
         </div>
 
-      </div>
+      </FadeUp>
     </section>
   );
 }

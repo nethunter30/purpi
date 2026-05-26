@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import FadeUp from "@/sitepages/components/layout/FadeUp";
+
 interface TeamMember {
   _id?: string;
   name: string;
@@ -219,7 +221,7 @@ export default function OurTeam() {
       {/* Decorative background glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      <div className="relative w-full max-w-[1200px] px-6 flex flex-col items-center z-10">
+      <FadeUp className="relative w-full max-w-[1200px] px-6 flex flex-col items-center z-10">
         {/* Top Badge */}
         <div className="inline-flex items-center justify-center px-6 py-2 rounded-full border border-purple-500/30 bg-purple-950/10 text-gray-200 font-serif text-base tracking-wide mb-4 backdrop-blur-md">
           Our Team
@@ -388,7 +390,7 @@ export default function OurTeam() {
             })}
           </div>
         )}
-      </div>
+      </FadeUp>
     </section>
   );
 }

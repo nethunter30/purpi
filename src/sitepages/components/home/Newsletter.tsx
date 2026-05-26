@@ -2,11 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
+import FadeUp from "@/sitepages/components/layout/FadeUp";
 
 export default function Newsletter() {
   return (
     <section className="relative w-full py-20 flex flex-col items-center justify-center z-10 bg-black">
-      <div className="w-full max-w-[1200px] px-6">
+      <FadeUp className="w-full max-w-[1200px] px-6">
         <div className="relative w-full rounded-[32px] bg-[#8a2fcc] flex flex-col md:flex-row overflow-hidden shadow-2xl">
           
           {/* Left Side: Content & Form */}
@@ -44,7 +45,7 @@ export default function Newsletter() {
           </div>
 
         </div>
-      </div>
+      </FadeUp>
     </section>
   );
 }

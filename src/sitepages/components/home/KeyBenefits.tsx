@@ -8,6 +8,7 @@ import {
   CircleDollarSign,
   Sparkles
 } from "lucide-react";
+import FadeUp from "@/sitepages/components/layout/FadeUp";
 
 export default function KeyBenefits() {
   const benefits = [
@@ -56,45 +57,47 @@ export default function KeyBenefits() {
       {/* Background glow effects */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Pill Badge & Section Header */}
-      <div className="flex flex-col items-center text-center max-w-2xl mx-auto px-6 mb-8 space-y-2">
-        <div className="inline-flex items-center gap-2 px-6 py-1 rounded-full border border-purple-500/20 bg-purple-950/20 text-[#c455e3] text-[10px] font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-          <h2 className="text-xl md:text-xl font-semibold text-white uppercase tracking-tight">
-            Why Choose enteropia
-          </h2>
-        </div>
-        <p className="text-gray-400 text-xs leading-relaxed max-w-lg font-light">
-          We combine cutting-edge technology stacks with industry-tested architecture practices to deliver reliable, highly performant products.
-        </p>
-      </div>
-
-      {/* Cards Grid - 3 Columns on desktop, 2 on tablet, 1 on mobile */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] w-full px-6 relative z-20">
-        {benefits.map((benefit, index) => (
-          <div
-            key={index}
-            className="group relative flex flex-col p-5 rounded-2xl bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-          >
-            {/* Subtle inner highlight */}
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            {/* Benefit Icon Wrapper */}
-            <div className="mb-4 w-10 h-10 rounded-xl bg-purple-950/25 border border-purple-900/20 flex items-center justify-center shadow-md group-hover:border-purple-500/30 group-hover:bg-purple-950/40 transition-colors duration-300">
-              {benefit.icon}
-            </div>
-
-            {/* Content */}
-            <div className="space-y-1.5">
-              <h3 className="text-white text-sm font-bold tracking-tight group-hover:text-purple-200 transition-colors duration-300">
-                {benefit.title}
-              </h3>
-              <p className="text-gray-400 text-xs leading-relaxed font-light">
-                {benefit.description}
-              </p>
-            </div>
+      <FadeUp className="flex flex-col items-center justify-center w-full relative z-20">
+        {/* Pill Badge & Section Header */}
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto px-6 mb-8 space-y-2">
+          <div className="inline-flex items-center gap-2 px-6 py-1 rounded-full border border-purple-500/20 bg-purple-950/20 text-[#c455e3] text-[10px] font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+            <h2 className="text-xl md:text-xl font-semibold text-white uppercase tracking-tight">
+              Why Choose enteropia
+            </h2>
           </div>
-        ))}
-      </div>
+          <p className="text-gray-400 text-xs leading-relaxed max-w-lg font-light">
+            We combine cutting-edge technology stacks with industry-tested architecture practices to deliver reliable, highly performant products.
+          </p>
+        </div>
+
+        {/* Cards Grid - 3 Columns on desktop, 2 on tablet, 1 on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] w-full px-6">
+          {benefits.map((benefit, index) => (
+            <div
+              key={index}
+              className="group relative flex flex-col p-5 rounded-2xl bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+            >
+              {/* Subtle inner highlight */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Benefit Icon Wrapper */}
+              <div className="mb-4 w-10 h-10 rounded-xl bg-purple-950/25 border border-purple-900/20 flex items-center justify-center shadow-md group-hover:border-purple-500/30 group-hover:bg-purple-950/40 transition-colors duration-300">
+                {benefit.icon}
+              </div>
+
+              {/* Content */}
+              <div className="space-y-1.5">
+                <h3 className="text-white text-sm font-bold tracking-tight group-hover:text-purple-200 transition-colors duration-300">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-400 text-xs leading-relaxed font-light">
+                  {benefit.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </FadeUp>
     </section>
   );
 }

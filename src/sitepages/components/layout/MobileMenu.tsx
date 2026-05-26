@@ -88,7 +88,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <>
       {/* Backdrop Overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-[#07010f]/80 backdrop-blur-md transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[100] bg-[#07010f]/80 backdrop-blur-md transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
@@ -96,7 +96,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       {/* Drawer Container */}
       <div
-        className={`fixed top-0 right-0 bottom-0 z-50 w-full max-w-[320px] bg-[#140620] border-l border-purple-500/20 shadow-[0_0_50px_rgba(139,92,246,0.15)] transition-transform duration-300 ease-out flex flex-col ${
+        className={`fixed top-0 right-0 bottom-0 z-[100] w-full max-w-[320px] bg-[#140620] border-l border-purple-500/20 shadow-[0_0_50px_rgba(139,92,246,0.15)] transition-transform duration-300 ease-out flex flex-col ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

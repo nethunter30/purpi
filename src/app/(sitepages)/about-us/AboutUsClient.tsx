@@ -99,16 +99,7 @@ export default function AboutUsClient() {
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-fuchsia-700/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-purple-700/15 rounded-full blur-[100px] pointer-events-none" />
 
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0}
-          className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-purple-500/25 bg-purple-950/30 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-8 backdrop-blur-sm"
-        >
-          <MapPin className="w-3.5 h-3.5" />
-          Bengaluru, India · Est. 2026
-        </motion.div>
+
 
         <motion.h1
           variants={fadeUp}

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import FadeUp from "@/sitepages/components/layout/FadeUp";
 
 export default function Testimonials() {
   const [testimonialList, setTestimonialList] = useState<any[]>([]);
@@ -119,110 +120,112 @@ export default function Testimonials() {
 
   return (
     <section className="relative w-full py-12 flex flex-col items-center justify-center z-10 bg-[#0e0416]">
-      {/* Header Content */}
-      <div className="flex flex-col items-center text-center max-w-2xl mx-auto px-6 mb-10">
-        <h2 className="text-2xl md:text-3xl font-bold text-purple-600 mb-3 tracking-tight">
-          See what our Clients say about us
-        </h2>
-        
-        <p className="text-gray-300 text-xs md:text-sm leading-relaxed max-w-lg mb-5">
-          We are proud to work with amazing clients who have seen real results using our platform.
-        </p>
+      <FadeUp className="flex flex-col items-center justify-center w-full">
+        {/* Header Content */}
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto px-6 mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-purple-600 mb-3 tracking-tight">
+            See what our Clients say about us
+          </h2>
+          
+          <p className="text-gray-300 text-xs md:text-sm leading-relaxed max-w-lg mb-5">
+            We are proud to work with amazing clients who have seen real results using our platform.
+          </p>
 
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="px-5 py-2 rounded-full border border-purple-500/50 bg-[#3b1764]/50 hover:bg-[#3b1764]/80 text-white font-medium text-xs transition-all duration-300 shadow-md hover:shadow-purple-500/10 hover:scale-105 active:scale-95 cursor-pointer"
-        >
-          Submit a Testimonial
-        </button>
-      </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-5 py-2 rounded-full border border-purple-500/50 bg-[#3b1764]/50 hover:bg-[#3b1764]/80 text-white font-medium text-xs transition-all duration-300 shadow-md hover:shadow-purple-500/10 hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            Submit a Testimonial
+          </button>
+        </div>
 
-      {/* Masonry Grid */}
-      <div className="w-full max-w-[1000px] px-6 mx-auto">
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-          {currentTestimonials.map((testimonial: any, index: number) => (
-            <div
-              key={`${testimonial.seed}-${index}`}
-              className="break-inside-avoid flex flex-col rounded-xl bg-[#1a0f24] p-5 border border-purple-900/30 shadow-lg hover:border-purple-500/30 transition-colors"
-            >
-              {/* Stars */}
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className={`w-3.5 h-3.5 ${
-                      i < testimonial.stars ? "text-yellow-400" : "text-gray-600"
-                    }`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
+        {/* Masonry Grid */}
+        <div className="w-full max-w-[1000px] px-6 mx-auto">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+            {currentTestimonials.map((testimonial: any, index: number) => (
+              <div
+                key={`${testimonial.seed}-${index}`}
+                className="break-inside-avoid flex flex-col rounded-xl bg-[#1a0f24] p-5 border border-purple-900/30 shadow-lg hover:border-purple-500/30 transition-colors"
+              >
+                {/* Stars */}
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`w-3.5 h-3.5 ${
+                        i < testimonial.stars ? "text-yellow-400" : "text-gray-600"
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
 
-              {/* Text */}
-              <p className="text-gray-200 text-xs md:text-sm leading-relaxed mb-4">
-                {testimonial.text}
-              </p>
+                {/* Text */}
+                <p className="text-gray-200 text-xs md:text-sm leading-relaxed mb-4">
+                  {testimonial.text}
+                </p>
 
-              {/* Author */}
-              <div className="flex items-center justify-between mt-auto pt-3 border-t border-purple-900/30">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-purple-900/50 flex-shrink-0 overflow-hidden relative">
-                    <img
-                      src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${testimonial.seed}&backgroundColor=transparent`}
-                      alt={testimonial.name}
-                      className="w-full h-full object-cover"
-                    />
+                {/* Author */}
+                <div className="flex items-center justify-between mt-auto pt-3 border-t border-purple-900/30">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-purple-900/50 flex-shrink-0 overflow-hidden relative">
+                      <img
+                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${testimonial.seed}&backgroundColor=transparent`}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-white font-medium text-xs">
+                      {testimonial.name}
+                    </span>
                   </div>
-                  <span className="text-white font-medium text-xs">
-                    {testimonial.name}
+                  <span className="text-gray-400 text-[10px] text-right max-w-[100px] truncate">
+                    {testimonial.role}
                   </span>
                 </div>
-                <span className="text-gray-400 text-[10px] text-right max-w-[100px] truncate">
-                  {testimonial.role}
-                </span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Pagination Controls */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-10">
-          <button 
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-3 py-1.5 rounded-full border border-purple-900/30 text-gray-300 hover:bg-purple-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs cursor-pointer"
-          >
-            Previous
-          </button>
-          
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`w-7 h-7 rounded-full flex items-center justify-center text-xs transition-colors cursor-pointer ${
-                currentPage === i + 1 
-                  ? "bg-[#a356db] text-white"
-                  : "border border-purple-900/30 text-gray-300 hover:bg-purple-900/20"
-              }`}
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-10">
+            <button 
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1.5 rounded-full border border-purple-900/30 text-gray-300 hover:bg-purple-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs cursor-pointer"
             >
-              {i + 1}
+              Previous
             </button>
-          ))}
+            
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`w-7 h-7 rounded-full flex items-center justify-center text-xs transition-colors cursor-pointer ${
+                  currentPage === i + 1 
+                    ? "bg-[#a356db] text-white"
+                    : "border border-purple-900/30 text-gray-300 hover:bg-purple-900/20"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
 
-          <button 
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-3 py-1.5 rounded-full border border-purple-900/30 text-gray-300 hover:bg-purple-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs cursor-pointer"
-          >
-            Next
-          </button>
-        </div>
-      )}
+            <button 
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1.5 rounded-full border border-purple-900/30 text-gray-300 hover:bg-purple-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs cursor-pointer"
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </FadeUp>
 
       {/* Modal & Toast rendered via Portal to escape any parent stacking context */}
       {mounted && createPortal(
