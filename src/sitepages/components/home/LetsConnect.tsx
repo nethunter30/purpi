@@ -47,7 +47,8 @@ export default function LetsConnect() {
 
         {/* Description */}
         <p className="text-gray-300 max-w-2xl text-sm md:text-base leading-relaxed mb-10 px-4">
-          A forward-thinking event where industry leaders, innovators, and enthusiasts explore cutting-edge technology, its impact across sectors, and future trends. Focused on collaboration, connection, and shaping tomorrow&apos;s possibilities.
+          "A dedicated engineering partner for scaling businesses and bold ideas. We deliver production-grade software, cloud-native infrastructure, and enterprise security — turning your most complex technical challenges into reliable, future-ready systems."
+
         </p>
 
         {/* Badges/Pills */}

@@ -143,8 +143,7 @@ export default function Footer() {
               <p className="ml-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">enteropia</p>
             </Link>
             <p className="text-gray-400 text-xs leading-relaxed max-w-[200px]">
-              Streamline your workflow, simplify your processes, and see a clearer picture of your business with our all-in-one platform.            </p>
-
+              Your dedicated engineering partner — from architecture to deployment.</p>
             {/* Social Icons */}
             <div className="flex items-center gap-1.5 pt-0.5">
               <a href="#" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Facebook">
@@ -290,10 +289,10 @@ export default function Footer() {
                 {/* WhatsApp */}
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2 justify-start">
-                    <a 
-                      href="https://wa.me/918150903035" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href="https://wa.me/918150903035"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="hover:text-white transition-colors text-xs"
                     >
                       +91 8150903035 (WhatsApp)

@@ -41,7 +41,7 @@ export default async function WhatWeDo() {
           </h2>
           
           <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl">
-            Founded in 2025, enteropia delivers innovative, reliable, and scalable tech solutions, 
+            Founded in 2026, enteropia delivers innovative, reliable, and scalable tech solutions, 
             specializing in software development, IT infrastructure, and digital transformation. We help 
             businesses build lasting value with sustainable, future-ready systems.
           </p>

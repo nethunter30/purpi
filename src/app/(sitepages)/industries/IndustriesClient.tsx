@@ -107,10 +107,10 @@ export default function IndustriesClient({ industries }: IndustriesClientProps) 
                             return (
                                 <div
                                     key={item.id}
-                                    className="group relative flex flex-col bg-black/40 backdrop-blur-md p-6 md:p-8 shadow-lg hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
+                                    className="group relative flex flex-col bg-black/40 backdrop-blur-md p-6 md:p-8 shadow-lg hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] border border-white/10 rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
                                 >
                                     {/* Top Icon Block */}
-                                    <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <div className="w-12 h-12 bg-purple-500/10 rounded-sm flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform duration-300">
                                         <IconComponent className="w-6 h-6 stroke-[1.5]" />
                                     </div>
 
@@ -163,7 +163,7 @@ export default function IndustriesClient({ industries }: IndustriesClientProps) 
                         ].map(({ step, title, desc }) => (
                             <div key={step} className="relative z-10 flex flex-col items-center text-center w-full md:w-1/4 px-2">
                                 {/* Circle */}
-                                <div className="w-11 h-11 rounded-full bg-purple-500 flex items-center justify-center text-white font-black text-base mb-4 shadow-[0_0_18px_rgba(168,85,247,0.5)]">
+                                <div className="w-11 h-11 rounded-sm bg-purple-500 flex items-center justify-center text-white font-black text-base mb-4 shadow-[0_0_18px_rgba(168,85,247,0.5)]">
                                     {step}
                                 </div>
                                 <h3 className="text-white font-bold text-sm md:text-base mb-1">{title}</h3>

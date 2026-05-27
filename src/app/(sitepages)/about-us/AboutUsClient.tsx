@@ -96,8 +96,8 @@ export default function AboutUsClient() {
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative min-h-[70vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-20 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-fuchsia-700/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-purple-700/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-fuchsia-700/20 rounded-sm blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-purple-700/15 rounded-sm blur-[100px] pointer-events-none" />
 
 
 
@@ -140,11 +140,11 @@ export default function AboutUsClient() {
             viewport={{ once: true }}
             custom={0}
           >
-            <div className="relative rounded-3xl border border-purple-900/30 bg-[#0c0414]/80 backdrop-blur-sm p-10 shadow-2xl overflow-hidden">
+            <div className="relative rounded-sm border border-purple-900/30 bg-[#0c0414]/80 backdrop-blur-sm p-10 shadow-2xl overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-fuchsia-500/50 to-transparent" />
 
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-fuchsia-900/40 border border-fuchsia-500/20 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-sm bg-fuchsia-900/40 border border-fuchsia-500/20 flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-fuchsia-400" />
                 </div>
                 <span className="text-fuchsia-300 text-sm font-semibold tracking-wide uppercase">
@@ -164,7 +164,7 @@ export default function AboutUsClient() {
                 should be reliable, scalable, and built to last.
               </p>
 
-              <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-purple-700/20 rounded-full blur-[60px] pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-purple-700/20 rounded-sm blur-[60px] pointer-events-none" />
             </div>
           </motion.div>
 
@@ -177,7 +177,7 @@ export default function AboutUsClient() {
             custom={0.15}
             className="flex flex-col gap-6"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-1.5 self-start rounded-full border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase">
+            <div className="inline-flex items-center gap-2 px-5 py-1.5 self-start rounded-sm border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase">
               Our Story
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-white">
@@ -217,12 +217,12 @@ export default function AboutUsClient() {
             <motion.div
               variants={fadeUp}
               custom={0}
-              className="group relative rounded-3xl border border-purple-900/30 bg-[#0c0414]/70 backdrop-blur-sm p-8 overflow-hidden hover:border-purple-500/30 transition-all duration-500 shadow-lg"
+              className="group relative rounded-sm border border-purple-900/30 bg-[#0c0414]/70 backdrop-blur-sm p-8 overflow-hidden hover:border-purple-500/30 transition-all duration-500 shadow-lg"
             >
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-800/15 rounded-full blur-[50px] pointer-events-none" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-800/15 rounded-sm blur-[50px] pointer-events-none" />
 
-              <span className="inline-block text-purple-400 text-[11px] font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-950/30">
+              <span className="inline-block text-purple-400 text-[11px] font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-sm border border-purple-500/20 bg-purple-950/30">
                 Our Vision
               </span>
               <p className="text-white text-lg md:text-xl font-semibold leading-relaxed">
@@ -236,12 +236,12 @@ export default function AboutUsClient() {
             <motion.div
               variants={fadeUp}
               custom={0.12}
-              className="group relative rounded-3xl border border-fuchsia-900/30 bg-[#0c0414]/70 backdrop-blur-sm p-8 overflow-hidden hover:border-fuchsia-500/30 transition-all duration-500 shadow-lg"
+              className="group relative rounded-sm border border-fuchsia-900/30 bg-[#0c0414]/70 backdrop-blur-sm p-8 overflow-hidden hover:border-fuchsia-500/30 transition-all duration-500 shadow-lg"
             >
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-fuchsia-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-fuchsia-800/15 rounded-full blur-[50px] pointer-events-none" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-fuchsia-800/15 rounded-sm blur-[50px] pointer-events-none" />
 
-              <span className="inline-block text-fuchsia-400 text-[11px] font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-full border border-fuchsia-500/20 bg-fuchsia-950/30">
+              <span className="inline-block text-fuchsia-400 text-[11px] font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-sm border border-fuchsia-500/20 bg-fuchsia-950/30">
                 Our Mission
               </span>
               <p className="text-white text-lg md:text-xl font-semibold leading-relaxed">
@@ -268,7 +268,7 @@ export default function AboutUsClient() {
             custom={0}
             className="text-center mb-14"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-sm border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-6">
               Our Core Values
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
@@ -289,10 +289,10 @@ export default function AboutUsClient() {
                 key={i}
                 variants={fadeUp}
                 custom={i * 0.08}
-                className="group relative flex flex-col p-6 rounded-2xl bg-[#0c0414]/90 border border-purple-900/15 hover:border-purple-500/25 shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                className="group relative flex flex-col p-6 rounded-sm bg-[#0c0414]/90 border border-purple-900/15 hover:border-purple-500/25 shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-fuchsia-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="mb-4 w-10 h-10 rounded-xl bg-purple-950/30 border border-purple-900/20 flex items-center justify-center group-hover:border-purple-500/30 group-hover:bg-purple-950/50 transition-all duration-300">
+                <div className="mb-4 w-10 h-10 rounded-sm bg-purple-950/30 border border-purple-900/20 flex items-center justify-center group-hover:border-purple-500/30 group-hover:bg-purple-950/50 transition-all duration-300">
                   {value.icon}
                 </div>
                 <h3 className="text-white text-sm font-bold tracking-tight mb-2 group-hover:text-purple-200 transition-colors duration-300">
@@ -318,7 +318,7 @@ export default function AboutUsClient() {
             custom={0}
             className="text-center mb-14"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-sm border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-6">
               What We Do
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
@@ -341,11 +341,11 @@ export default function AboutUsClient() {
                 key={i}
                 variants={fadeUp}
                 custom={i * 0.1}
-                className="group relative flex flex-col items-start gap-5 p-8 rounded-3xl border border-purple-900/20 bg-[#0c0414]/80 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1 shadow-lg overflow-hidden"
+                className="group relative flex flex-col items-start gap-5 p-8 rounded-sm border border-purple-900/20 bg-[#0c0414]/80 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1 shadow-lg overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-purple-700/10 rounded-full blur-[40px] pointer-events-none" />
-                <div className="w-12 h-12 rounded-2xl bg-purple-950/40 border border-purple-900/25 flex items-center justify-center group-hover:border-purple-500/40 transition-all duration-300">
+                <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-purple-700/10 rounded-sm blur-[40px] pointer-events-none" />
+                <div className="w-12 h-12 rounded-sm bg-purple-950/40 border border-purple-900/25 flex items-center justify-center group-hover:border-purple-500/40 transition-all duration-300">
                   {svc.icon}
                 </div>
                 <div>
@@ -365,7 +365,7 @@ export default function AboutUsClient() {
       {/* ── CLOSING CTA ──────────────────────────────────────────── */}
       <section className="relative w-full py-24 md:py-36 px-6 z-10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.12),transparent_65%)]" />
-        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-fuchsia-700/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-fuchsia-700/15 rounded-sm blur-[100px] pointer-events-none" />
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
         <motion.div
@@ -392,10 +392,10 @@ export default function AboutUsClient() {
           <Link
             href="/#contact"
             id="about-cta-contact"
-            className="group flex items-center gap-3 px-8 py-3.5 rounded-full border border-purple-500/50 bg-[#3b1764]/50 hover:bg-[#3b1764]/80 transition-all duration-300 text-white text-base font-medium backdrop-blur-sm shadow-lg"
+            className="group flex items-center gap-3 px-8 py-3.5 rounded-sm border border-purple-500/50 bg-[#3b1764]/50 hover:bg-[#3b1764]/80 transition-all duration-300 text-white text-base font-medium backdrop-blur-sm shadow-lg"
           >
             Get in Touch
-            <div className="bg-[#a855f7] rounded-full p-1.5 group-hover:bg-[#c084fc] transition-colors duration-300">
+            <div className="bg-[#a855f7] rounded-sm p-1.5 group-hover:bg-[#c084fc] transition-colors duration-300">
               <ArrowRight className="w-4 h-4 text-white" />
             </div>
           </Link>
