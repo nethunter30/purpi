@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import dbConnect from "@/lib/db";
 import ProductModel from "@/models/manage-services/products";
+import SubCategoryModel from "@/models/manage-services/subcat";
 
 interface RouteParams {
   params: Promise<{ services: string; subservices: string; slug: string }>;
@@ -125,14 +126,18 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
   }
 
   let product;
+  let sub: any = null;
   try {
     await dbConnect();
-    product = await ProductModel.findOne({
-      $or: [
-        { slug: slug },
-        { subcategorySlug: slug }
-      ]
-    });
+    [product, sub] = await Promise.all([
+      ProductModel.findOne({
+        $or: [
+          { slug: slug },
+          { subcategorySlug: slug }
+        ]
+      }),
+      SubCategoryModel.findOne({ slug: slug })
+    ]);
   } catch (err) {
     console.error("Error loading product detail from database:", err);
   }
@@ -147,10 +152,10 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
         <div className="max-w-md w-full text-center relative z-10 flex flex-col items-center">
           <Sparkles className="w-16 h-16 text-purple-500/50 mb-6 animate-pulse" />
           <h1 className="text-3xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-            Details Coming Soon
+            {sub?.name || "Details Coming Soon"}
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed mb-8">
-            The specifications, architectures, and program details for this service are currently being finalized by our engineering team.
+            {sub?.description || "The specifications, architectures, and program details for this service are currently being finalized by our engineering team."}
           </p>
           <Link
             href={`/services/${subservices}`}
@@ -225,11 +230,11 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
           <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/20 text-[#c455e3] text-xs font-semibold tracking-wider uppercase mb-5">
             {subservices.replace(/-/g, " ")}
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-5 leading-tight">
-            {product.name}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-5 leading-tight animate-fade-in">
+            {sub?.name}
           </h1>
           <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-3xl font-light">
-            {product.description}
+            {sub?.description}
           </p>
         </div>
 
@@ -246,8 +251,8 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                   href={`?tab=${idx}`}
                   scroll={false}
                   className={`flex items-center gap-2.5 px-5 py-3.5 rounded-full border text-xs sm:text-sm font-semibold transition-all duration-300 ${isActive
-                      ? "bg-purple-950/40 border-[#00f2fe] text-white shadow-[0_0_15px_rgba(0,242,254,0.2)]"
-                      : "bg-[#0c0414]/80 border-purple-950/40 text-gray-400 hover:text-white hover:border-purple-500/30"
+                    ? "bg-purple-950/40 border-[#00f2fe] text-white shadow-[0_0_15px_rgba(0,242,254,0.2)]"
+                    : "bg-[#0c0414]/80 border-purple-950/40 text-gray-400 hover:text-white hover:border-purple-500/30"
                     }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? "text-[#00f2fe]" : "text-purple-400"}`} />
@@ -519,8 +524,8 @@ export default async function SubServiceDetailPage({ params, searchParams }: Rou
                   <div
                     key={plan.id || idx}
                     className={`p-8 rounded-sm transition-all duration-300 flex flex-col justify-between relative overflow-hidden group text-center ${isHighlighted
-                        ? "bg-[#0c0414]/95 border border-[#00f2fe] shadow-[0_0_30px_rgba(0,242,254,0.15)]"
-                        : "bg-[#0c0414]/90 border border-purple-950/60 hover:border-purple-800/40"
+                      ? "bg-[#0c0414]/95 border border-[#00f2fe] shadow-[0_0_30px_rgba(0,242,254,0.15)]"
+                      : "bg-[#0c0414]/90 border border-purple-950/60 hover:border-purple-800/40"
                       }`}
                   >
                     {isHighlighted && (
