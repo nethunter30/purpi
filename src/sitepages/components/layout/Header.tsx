@@ -29,11 +29,11 @@ export default function Header() {
       >
         {/* Logo */}
         <div className="flex items-center">
-          <Link href="/" className="flex items-center text-white text-xl font-black tracking-tighter">
-            <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12">
-              <Image src="/logo.png" alt="Logo" fill className="object-contain animate-[spin_20s_linear_infinite]" />
+          <Link href="/" className="flex items-center text-white text-2xl font-black tracking-tighter">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14">
+              <Image src="/logo.png" alt="Logo" fill className="object-contain animate-[spin_10s_linear_infinite]" />
             </div>
-            <p className="ml-1 font-bold">enter<span className="text-purple-500">opia</span></p>
+            <p className="ml-1  font-bold">enter<span className="text-purple-500">opia</span></p>
           </Link>
         </div>
 

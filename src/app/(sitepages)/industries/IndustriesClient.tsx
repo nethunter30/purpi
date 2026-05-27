@@ -13,7 +13,6 @@ import {
     Landmark,
     Briefcase,
     Truck,
-    Utensils,
     ArrowRight
 } from "lucide-react";
 const iconMap: Record<string, React.ElementType> = {
@@ -26,7 +25,7 @@ const iconMap: Record<string, React.ElementType> = {
     Landmark,
     Briefcase,
     Truck,
-    Utensils,
+    
 };
 
 export interface IndustryItem {
@@ -150,10 +149,10 @@ export default function IndustriesClient({ industries }: IndustriesClientProps) 
                     </h2>
 
                     {/* Steps Timeline */}
-                    <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-10 md:gap-0">
+                    <div className="relative flex flex-col md:flex-row items-start justify-between gap-10 md:gap-0">
 
                         {/* Connecting line (desktop only) */}
-                        <div className="hidden md:block absolute top-[22px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-purple-500/60 via-purple-400/40 to-purple-500/60" />
+                        <div className="hidden md:block absolute top-[22px] left-[12.5%] right-[12.5%] h-[2px] bg-gradient-to-r from-purple-500/60 via-purple-400/40 to-purple-500/60" />
 
                         {[
                             { step: "1", title: "Assessment", desc: "Evaluate current infrastructure and identify gaps." },
@@ -162,7 +161,7 @@ export default function IndustriesClient({ industries }: IndustriesClientProps) 
                             { step: "4", title: "Support", desc: "Ongoing management and optimization." },
                         ].map(({ step, title, desc }) => (
                             <div key={step} className="relative z-10 flex flex-col items-center text-center w-full md:w-1/4 px-2">
-                                {/* Circle */}
+                                {/* Square Box */}
                                 <div className="w-11 h-11 rounded-sm bg-purple-500 flex items-center justify-center text-white font-black text-base mb-4 shadow-[0_0_18px_rgba(168,85,247,0.5)]">
                                     {step}
                                 </div>
