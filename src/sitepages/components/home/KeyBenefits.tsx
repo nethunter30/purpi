@@ -51,7 +51,7 @@ export default function KeyBenefits() {
   ];
 
   return (
-    <section className="relative w-full py-10 flex flex-col items-center justify-center z-10 bg-purple-900 overflow-hidden">
+    <section className="relative w-full py-10 flex flex-col items-center justify-center z-10 bg-purple-950/20 backdrop-blur-sm overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_70%)]" />
 
       {/* Background glow effects */}

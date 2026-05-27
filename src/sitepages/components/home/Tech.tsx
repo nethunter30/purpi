@@ -23,13 +23,35 @@ const WebflowLogo = () => (
 
 const defaultPartners: Partner[] = [
   { name: "Figma", logo: <RelumeLogo /> },
-  { name: "Framer", logo: <WebflowLogo /> },
-  { name: "Notion", logo: <RelumeLogo /> },
-  { name: "Whatsapp", logo: <WebflowLogo /> },
-  { name: "Telegram", logo: <RelumeLogo /> },
-  { name: "Framer", logo: <WebflowLogo /> },
-  { name: "Figma", logo: <RelumeLogo /> },
-  { name: "Whatsapp", logo: <WebflowLogo /> },
+  { name: "Nextjs", logo: <WebflowLogo /> },
+  { name: "Python", logo: <RelumeLogo /> },
+  { name: "Nodejs", logo: <WebflowLogo /> },
+  { name: "Reactjs", logo: <RelumeLogo /> },
+  { name: "Tailwindcss", logo: <WebflowLogo /> },
+  { name: "Postgresql", logo: <RelumeLogo /> },
+  { name: "Mongodb", logo: <WebflowLogo /> },
+  { name: "aws", logo: <RelumeLogo /> },
+  { name: "gcp", logo: <WebflowLogo /> },
+  { name: "azure", logo: <RelumeLogo /> },
+  { name: "docker", logo: <WebflowLogo /> },
+  { name: "kubernetes", logo: <RelumeLogo /> },
+  { name: "graphql", logo: <WebflowLogo /> },
+  { name: "restapi", logo: <RelumeLogo /> },
+  { name: "typescript", logo: <WebflowLogo /> },
+  { name: "javascript", logo: <RelumeLogo /> },
+  { name: "Git", logo: <WebflowLogo /> },
+  { name: "GitHub", logo: <RelumeLogo /> },
+  { name: "GitLab", logo: <WebflowLogo /> },
+  { name: "Bitbucket", logo: <RelumeLogo /> },
+  { name: "Jira", logo: <WebflowLogo /> },
+  { name: "Trello", logo: <RelumeLogo /> },
+  { name: "Asana", logo: <WebflowLogo /> },
+  { name: "Slack", logo: <RelumeLogo /> },
+  { name: "Microsoft Teams", logo: <WebflowLogo /> },
+  { name: "Zoom", logo: <RelumeLogo /> },
+  { name: "Google Meet", logo: <WebflowLogo /> },
+
+
 ];
 
 export default function Tech() {
