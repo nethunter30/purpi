@@ -34,7 +34,6 @@ const defaultPartners: Partner[] = [
   { name: "gcp", logo: <WebflowLogo /> },
   { name: "azure", logo: <RelumeLogo /> },
   { name: "docker", logo: <WebflowLogo /> },
-  { name: "kubernetes", logo: <RelumeLogo /> },
   { name: "graphql", logo: <WebflowLogo /> },
   { name: "restapi", logo: <RelumeLogo /> },
   { name: "typescript", logo: <WebflowLogo /> },
@@ -44,14 +43,14 @@ const defaultPartners: Partner[] = [
   { name: "GitLab", logo: <WebflowLogo /> },
   { name: "Bitbucket", logo: <RelumeLogo /> },
   { name: "Jira", logo: <WebflowLogo /> },
-  { name: "Trello", logo: <RelumeLogo /> },
-  { name: "Asana", logo: <WebflowLogo /> },
   { name: "Slack", logo: <RelumeLogo /> },
-  { name: "Microsoft Teams", logo: <WebflowLogo /> },
-  { name: "Zoom", logo: <RelumeLogo /> },
-  { name: "Google Meet", logo: <WebflowLogo /> },
-
-
+  { name: "Linux", logo: <WebflowLogo /> },
+  { name: "nginx", logo: <RelumeLogo /> },
+  { name: "Windows", logo: <WebflowLogo /> },
+  { name: "Cisco", logo: <RelumeLogo /> },
+  { name: "Fortinet",logo: <WebflowLogo />},
+  { name: "VMWare", logo: <RelumeLogo />},
+  
 ];
 
 export default function Tech() {
@@ -73,15 +72,15 @@ export default function Tech() {
           {marqueeItems.map((partner, index) => (
             <div
               key={index}
-              className="group flex items-center gap-3.5 cursor-pointer transition-all duration-300"
+              className="group flex items-center gap-3.5 cursor-pointer transition-all duration-500"
             >
               {/* Logo wrapper */}
-              <div className="flex items-center justify-center p-1 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="flex items-center justify-center p-1 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
                 {partner.logo}
               </div>
 
               {/* Partner Name/Title */}
-              <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-300">
+              <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-500">
                 {partner.name}
               </span>
             </div>

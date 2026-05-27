@@ -23,8 +23,8 @@ export default function Header() {
       <header
         className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-2 sm:px-6 flex items-center justify-between transition-all duration-300 ${
           scrolled
-            ? "bg-[#140620]/90 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
-            : "bg-[#140620]"
+            ? "bg-purple-950/20 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+            : "bg-purple-950/20 backdrop-blur-md"
         }`}
       >
         {/* Logo */}
