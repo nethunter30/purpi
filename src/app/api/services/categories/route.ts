@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const showAll = searchParams.get("all") === "true";
     const filter = showAll ? {} : { isActive: true };
-    const categories = await Category.find(filter).sort({ createdAt: -1 });
+    const categories = await Category.find(filter).sort({ order: 1, name: 1 });
     return NextResponse.json({ success: true, data: categories });
   } catch (error: any) {
     return NextResponse.json(
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
-    const { name, slug, description, image, isActive } = body;
+    const { name, slug, description, image, isActive, order } = body;
 
     if (!name || !slug || !description)
       return NextResponse.json(
@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
       description,
       image: image || "",
       isActive: isActive !== undefined ? isActive : true,
+      order: order !== undefined ? Number(order) : 0,
     });
 
     return NextResponse.json(

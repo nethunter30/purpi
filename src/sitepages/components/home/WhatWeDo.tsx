@@ -9,7 +9,7 @@ export default async function WhatWeDo() {
     let categories: any[] = [];
     try {
         await dbConnect();
-        categories = await Category.find({ isActive: true }).sort({ name: 1 });
+        categories = await Category.find({ isActive: true }).sort({ order: 1, name: 1 });
     } catch (err) {
         console.error("Error loading categories for homepage:", err);
     }

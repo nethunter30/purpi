@@ -20,7 +20,7 @@ export default async function ServicesPage() {
 
   // Load all active categories, subcategories, and products
   const [categories, subcategories, products] = await Promise.all([
-    Category.find({ isActive: true }).sort({ name: 1 }),
+    Category.find({ isActive: true }).sort({ order: 1, name: 1 }),
     Subcategory.find({ isActive: true }).sort({ name: 1 }),
     Product.find({ isActive: true })
       .select("name slug category subcategory description")

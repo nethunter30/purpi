@@ -31,7 +31,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
     const body = await req.json();
-    const { name, slug, description, image, isActive } = body;
+    const { name, slug, description, image, isActive, order } = body;
 
     if (!name || !slug || !description)
       return NextResponse.json(
@@ -49,7 +49,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     const updated = await Category.findByIdAndUpdate(
       id,
-      { name, slug, description, image: image || "", isActive },
+      { name, slug, description, image: image || "", isActive, order: order !== undefined ? Number(order) : 0 },
       { new: true, runValidators: true }
     );
 

@@ -316,11 +316,11 @@ export default function OurTeam() {
                   >
                     {/* Inner Card Content */}
                     <div className="p-2 sm:p-4 lg:p-6 flex flex-col h-full relative z-10 select-none">
-                      {/* Role/Title */}
+                      {/* Member Name */}
                       <h3 className="text-white text-[10px] sm:text-base lg:text-2xl font-semibold tracking-tight leading-tight mb-0.5 sm:mb-1">
                         {member.name}
                       </h3>
-                      {/* Member Name */}
+                      {/* Role/Title */}
                       <p className="text-white/80 text-[8px] sm:text-xs lg:text-sm font-light tracking-wide">
                         {member.role}
                       </p>
@@ -435,13 +435,13 @@ export default function OurTeam() {
                 >
                   {/* Inner Card Content */}
                   <div className="p-2 sm:p-4 lg:p-6 flex flex-col h-full relative z-10 select-none">
-                    {/* Role/Title */}
-                    <h3 className="text-white text-[10px] sm:text-base lg:text-2xl font-semibold tracking-tight leading-tight mb-0.5 sm:mb-1">
-                      {member.role}
-                    </h3>
                     {/* Member Name */}
-                    <p className="text-white/80 text-[8px] sm:text-xs lg:text-sm font-light tracking-wide">
+                    <h3 className="text-white text-[10px] sm:text-base lg:text-2xl font-semibold tracking-tight leading-tight mb-0.5 sm:mb-1">
                       {member.name}
+                    </h3>
+                    {/* Role/Title */}
+                    <p className="text-white/80 text-[8px] sm:text-xs lg:text-sm font-light tracking-wide">
+                      {member.role}
                     </p>
 
                     {/* Round Image Container */}
