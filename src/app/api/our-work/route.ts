@@ -3,7 +3,8 @@ import dbConnect from "@/lib/db";
 import CaseStudy from "@/models/CaseStudy";
 import { isAuthenticated } from "@/lib/auth";
 
-export const dynamic = "force-dynamic";
+// Cache GET responses for 60s; POST/PUT/DELETE bypass cache automatically
+export const revalidate = 60;
 
 export async function GET(req: NextRequest) {
   try {

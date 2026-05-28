@@ -4,6 +4,7 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
   api_key: process.env.CLOUDINARY_API_KEY!,
   api_secret: process.env.CLOUDINARY_API_SECRET!,
+  timeout: 60000, // 60s timeout for all Cloudinary operations
 });
 
 // Root folder
@@ -37,6 +38,10 @@ export async function uploadToCloudinary(
     ...(filename && { public_id: filename }),
     overwrite: false,
     resource_type: "auto",
+    // ── Optimization ─────────────────────────────────────────────
+    quality: "auto:good",    // Auto-optimize quality (reduces file size 30-70%)
+    fetch_format: "auto",    // Serve WebP/AVIF when browser supports it
+    timeout: 60000,          // Per-upload timeout (60s)
   };
 
   return cloudinary.uploader.upload(uploadSource, options);

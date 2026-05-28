@@ -4,6 +4,9 @@ import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export const dynamic = "force-dynamic";
 
+// Increase the body size limit for file uploads (Next.js 16+)
+export const maxDuration = 60; // Allow up to 60s for uploads
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -52,9 +55,20 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Upload error:", error);
+    
+    // Provide more specific error messages
+    const errorMessage = error instanceof Error ? error.message : "Failed to upload file";
+    const isTimeout = errorMessage.toLowerCase().includes("timeout") || 
+                      errorMessage.toLowerCase().includes("timed out");
+    
     return NextResponse.json(
-      { success: false, error: "Failed to upload file" },
-      { status: 500 }
+      { 
+        success: false, 
+        error: isTimeout 
+          ? "Upload timed out. Please try again with a smaller image." 
+          : "Failed to upload file. Please try again." 
+      },
+      { status: isTimeout ? 408 : 500 }
     );
   }
 }

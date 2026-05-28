@@ -249,7 +249,8 @@ const ProductSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-delete (mongoose.models as any).Product;
-const Product: Model<IProduct> = mongoose.model<IProduct>("Product", ProductSchema);
+// Prevent Next.js hot-reloading from crashing by checking if the model already exists
+const Product: Model<IProduct> =
+  (mongoose.models.Product as Model<IProduct>) || mongoose.model<IProduct>("Product", ProductSchema);
 
 export default Product;

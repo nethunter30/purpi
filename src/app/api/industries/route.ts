@@ -76,7 +76,8 @@ const initialIndustries = [
   }
 ];
 
-export const dynamic = "force-dynamic";
+// Cache GET responses for 60s; POST/PUT/DELETE bypass cache automatically
+export const revalidate = 60;
 
 export async function GET(req: NextRequest) {
   try {

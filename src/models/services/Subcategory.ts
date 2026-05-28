@@ -24,7 +24,8 @@ const SubcategorySchema: Schema = new Schema(
     { timestamps: true }
 );
 
-delete (mongoose.models as any).Subcategory;
-const Subcategory: Model<ISubcategory> = mongoose.model<ISubcategory>("Subcategory", SubcategorySchema);
+// Prevent Next.js hot-reloading from crashing by checking if the model already exists
+const Subcategory: Model<ISubcategory> =
+  mongoose.models.Subcategory || mongoose.model<ISubcategory>("Subcategory", SubcategorySchema);
 
 export default Subcategory;

@@ -19,7 +19,8 @@ const CategorySchema: Schema = new Schema(
     { timestamps: true }
 );
 
-delete (mongoose.models as any).Category;
-const Category: Model<ICategory> = mongoose.model<ICategory>("Category", CategorySchema);
+// Prevent Next.js hot-reloading from crashing by checking if the model already exists
+const Category: Model<ICategory> =
+  mongoose.models.Category || mongoose.model<ICategory>("Category", CategorySchema);
 
 export default Category;
