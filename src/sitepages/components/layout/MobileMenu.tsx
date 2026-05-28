@@ -110,7 +110,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <div className="relative w-8 h-8">
               <Image src="/logo.png" alt="Logo" fill className="object-contain" />
             </div>
-            <span className="ml-2 font-black">enteropia</span>
+            <span className="ml-2 font-black">enter<span className="text-purple-500">opia</span></span>
           </Link>
           <button
             onClick={onClose}
