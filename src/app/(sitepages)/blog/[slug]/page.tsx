@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import dbConnect from "@/lib/db";
 import BlogPost from "@/models/BlogPost";
-import Category from "@/models/manage-services/categories"; // Ensure Category model is registered
 import BlogActions from "./BlogActions";
 
 export const revalidate = 60;

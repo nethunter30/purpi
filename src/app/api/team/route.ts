@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   try {
     await dbConnect();
     const body = await req.json();
-    const { name, role, image, bgColor, order, isActive } = body;
+    const { name, role, image, bgColor, order, isActive, linkedin, github, twitter, instagram } = body;
 
     if (!name || !role || !image) {
       return NextResponse.json(
@@ -44,6 +44,10 @@ export async function POST(req: NextRequest) {
       bgColor: bgColor || "#8a35e5",
       order: order !== undefined ? order : 0,
       isActive: isActive !== undefined ? isActive : true,
+      linkedin: linkedin || "",
+      github: github || "",
+      twitter: twitter || "",
+      instagram: instagram || "",
     });
 
     return NextResponse.json(

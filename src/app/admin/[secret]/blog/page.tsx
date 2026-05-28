@@ -107,16 +107,10 @@ export default function BlogAdminPage() {
   };
 
   const fetchCategories = async () => {
-    try {
-      const res = await fetch("/api/manage-services/category");
-      const result = await res.json();
-      if (result.success) {
-        setCategoriesList(result.data);
-      }
-    } catch (e) {
-      console.error("Failed to fetch categories", e);
-    }
+    // TODO: Wire to new services API once implemented
+    setCategoriesList([]);
   };
+
 
   useEffect(() => {
     fetchPosts();

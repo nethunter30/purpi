@@ -17,7 +17,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
     const id = resolvedParams.id;
 
     const body = await req.json();
-    const { name, role, image, bgColor, order, isActive } = body;
+    const { name, role, image, bgColor, order, isActive, linkedin, github, twitter, instagram } = body;
 
     if (!name || !role) {
       return NextResponse.json(
@@ -35,6 +35,10 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
         bgColor: bgColor || "#8a35e5",
         order: order !== undefined ? order : 0,
         isActive: isActive !== undefined ? isActive : true,
+        linkedin: linkedin !== undefined ? linkedin : "",
+        github: github !== undefined ? github : "",
+        twitter: twitter !== undefined ? twitter : "",
+        instagram: instagram !== undefined ? instagram : "",
       },
       { returnDocument: "after", runValidators: true }
     );

@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import OurWorkClient from "./OurWorkClient";
 import dbConnect from "@/lib/db";
 import CaseStudy from "@/models/CaseStudy";
-import CategoryModel from "@/models/manage-services/categories";
 
 export const revalidate = 60;
 
@@ -34,8 +33,8 @@ export const metadata: Metadata = {
 export default async function OurWorkPage() {
   await dbConnect();
   const studiesList = await CaseStudy.find({ isActive: true }).sort({ createdAt: 1 });
-  const categoryDocs = await CategoryModel.find({}).sort({ createdAt: 1 });
-  const categories = ["All", ...categoryDocs.map((c) => c.name)];
+  const categories = ["All"];
+
 
   const plainStudies = studiesList.map((s) => {
     const obj = s.toObject ? s.toObject() : s;

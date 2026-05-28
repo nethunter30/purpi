@@ -7,6 +7,10 @@ export interface ITeamMember extends Document {
   bgColor: string;
   order: number;
   isActive: boolean;
+  linkedin?: string;
+  github?: string;
+  twitter?: string;
+  instagram?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -43,6 +47,22 @@ const teamMemberSchema = new Schema<ITeamMember>(
       type: Boolean,
       required: true,
       default: true,
+    },
+    linkedin: {
+      type: String,
+      trim: true,
+    },
+    github: {
+      type: String,
+      trim: true,
+    },
+    twitter: {
+      type: String,
+      trim: true,
+    },
+    instagram: {
+      type: String,
+      trim: true,
     },
   },
   {

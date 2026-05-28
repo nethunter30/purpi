@@ -53,14 +53,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         const targetPath = path === "" ? currentPath : path;
 
         if (targetPath === currentPath) {
-          const element = document.getElementById(hash);
-          if (element) {
-            e.preventDefault();
-            lenis.scrollTo(element, {
-              duration: 1.2,
-              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            });
-            window.history.pushState(null, "", `#${hash}`);
+          try {
+            const cleanHash = hash.split("?")[0];
+            const targetId = decodeURIComponent(cleanHash);
+            const element = document.getElementById(targetId);
+            if (element) {
+              e.preventDefault();
+              lenis.scrollTo(element, {
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+              window.history.pushState(null, "", `#${cleanHash}`);
+            }
+          } catch (err) {
+            console.error("Error in smooth scroll click handler:", err);
           }
         }
       }
@@ -98,11 +104,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       if (hash) {
         // Wait a short moment for Next.js to render/mount the target page's elements
         setTimeout(() => {
-          const element = document.querySelector(hash) as HTMLElement | null;
-          if (element && lenisRef.current) {
-            lenisRef.current.scrollTo(element, { immediate: true });
-          } else if (lenisRef.current) {
-            lenisRef.current.scrollTo(0, { immediate: true });
+          try {
+            const cleanHash = hash.split("?")[0];
+            const targetId = decodeURIComponent(cleanHash.substring(1));
+            const element = document.getElementById(targetId);
+            if (element && lenisRef.current) {
+              lenisRef.current.scrollTo(element, { immediate: true });
+            } else if (lenisRef.current) {
+              lenisRef.current.scrollTo(0, { immediate: true });
+            }
+          } catch (err) {
+            console.error("Error scrolling to hash target on route change:", err);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(0, { immediate: true });
+            }
           }
         }, 100);
       } else {

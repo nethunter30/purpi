@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import BlogPost from "@/models/BlogPost";
-import Category from "@/models/manage-services/categories"; // Ensure Category model is registered
 import { isAuthenticated } from "@/lib/auth";
 import mongoose from "mongoose";
 

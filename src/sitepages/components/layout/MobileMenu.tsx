@@ -44,7 +44,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     },
     {
       name: "Services",
-      href: "/#services",
+      href: "/services",
       icon: <LayoutGrid className="w-4 h-4" />
     },
     {

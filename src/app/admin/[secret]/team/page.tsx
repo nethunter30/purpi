@@ -16,6 +16,10 @@ interface TeamMember {
   bgColor: string;
   order: number;
   isActive: boolean;
+  linkedin?: string;
+  github?: string;
+  twitter?: string;
+  instagram?: string;
 }
 
 const emptyForm = {
@@ -25,6 +29,10 @@ const emptyForm = {
   bgColor: "#8a35e5",
   order: 1,
   isActive: true,
+  linkedin: "",
+  github: "",
+  twitter: "",
+  instagram: "",
 };
 
 const presetColors = [
@@ -91,6 +99,10 @@ export default function TeamAdminPage() {
       bgColor: member.bgColor || "#8a35e5",
       order: member.order,
       isActive: member.isActive,
+      linkedin: member.linkedin || "",
+      github: member.github || "",
+      twitter: member.twitter || "",
+      instagram: member.instagram || "",
     });
     setError("");
     setIsModalOpen(true);
@@ -418,6 +430,58 @@ export default function TeamAdminPage() {
                   <span className="text-[10px] text-gray-500 uppercase font-bold">Selected:</span>
                   <span className="w-3 h-3 rounded-full border border-white/20" style={{ backgroundColor: formData.bgColor }} />
                   <code className="text-xs text-purple-300 font-mono">{formData.bgColor}</code>
+                </div>
+              </div>
+              {/* Social Media Links */}
+              <div className="border-t border-purple-900/10 pt-4 flex flex-col gap-3">
+                <h4 className="text-white text-xs font-bold uppercase tracking-wider text-purple-400">
+                  Social Links (Optional)
+                </h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">LinkedIn URL</label>
+                    <input
+                      type="url"
+                      value={formData.linkedin}
+                      onChange={(e) => setFormData((p) => ({ ...p, linkedin: e.target.value }))}
+                      placeholder="https://linkedin.com/in/..."
+                      className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-3.5 py-2 text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 text-xs"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">GitHub URL</label>
+                    <input
+                      type="url"
+                      value={formData.github}
+                      onChange={(e) => setFormData((p) => ({ ...p, github: e.target.value }))}
+                      placeholder="https://github.com/..."
+                      className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-3.5 py-2 text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 text-xs"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">Twitter/X URL</label>
+                    <input
+                      type="url"
+                      value={formData.twitter}
+                      onChange={(e) => setFormData((p) => ({ ...p, twitter: e.target.value }))}
+                      placeholder="https://x.com/..."
+                      className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-3.5 py-2 text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 text-xs"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">Instagram URL</label>
+                    <input
+                      type="url"
+                      value={formData.instagram}
+                      onChange={(e) => setFormData((p) => ({ ...p, instagram: e.target.value }))}
+                      placeholder="https://instagram.com/..."
+                      className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-3.5 py-2 text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500 text-xs"
+                    />
+                  </div>
                 </div>
               </div>
 

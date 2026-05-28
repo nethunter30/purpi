@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronUp, Copy, Check, Clock, Mail, Phone, MapPin } from "lucide-react";
@@ -35,34 +36,6 @@ const Youtube = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Dynamic services from the DB via the category API
-  const [services, setServices] = useState<{ name: string; href: string }[]>([]);
-  const [servicesLoading, setServicesLoading] = useState(true);
-  const [servicesError, setServicesError] = useState(false);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const res = await fetch("/api/manage-services/category", { cache: "no-store" });
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setServices(
-            json.data.map((cat: { name: string; slug: string }) => ({
-              name: cat.name,
-              href: `/${cat.slug}`,
-            }))
-          );
-        } else {
-          setServicesError(true);
-        }
-      } catch {
-        setServicesError(true);
-      } finally {
-        setServicesLoading(false);
-      }
-    };
-    fetchServices();
-  }, []);
 
   // Copy states
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -161,30 +134,22 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Solutions — dynamic */}
+          {/* Column 2: Services */}
           <div className="space-y-2">
-            <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Solutions</h3>
+            <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Services</h3>
             <ul className="space-y-1.5 text-xs">
-              {servicesLoading ? (
-                // Skeleton shimmer rows while fetching
-                Array.from({ length: 5 }).map((_, i) => (
-                  <li key={i}>
-                    <span className="inline-block h-3 rounded bg-purple-950/40 animate-pulse" style={{ width: `${60 + i * 10}%` }} />
-                  </li>
-                ))
-              ) : servicesError ? (
-                <li className="text-gray-600 text-[11px]">Could not load services.</li>
-              ) : services.length === 0 ? (
-                <li className="text-gray-600 text-[11px]">No services found.</li>
-              ) : (
-                services.slice(0, 5).map((service) => (
-                  <li key={service.name}>
-                    <Link href={service.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
-                      {service.name}
-                    </Link>
-                  </li>
-                ))
-              )}
+              {[
+                { name: "All Services", href: "/services" },
+                { name: "Solutions", href: "/solutions" },
+                { name: "Industries", href: "/industries" },
+                { name: "Our Work", href: "/our-work" },
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

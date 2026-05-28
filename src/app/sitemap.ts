@@ -2,8 +2,6 @@ import { MetadataRoute } from "next";
 import dbConnect from "@/lib/db";
 import BlogPost from "@/models/BlogPost";
 import CaseStudy from "@/models/CaseStudy";
-import CategoryModel from "@/models/manage-services/categories";
-import SubCategoryModel from "@/models/manage-services/subcat";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://enteropia.com";
@@ -29,17 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch all dynamic data
   let blogUrls: MetadataRoute.Sitemap = [];
   let workUrls: MetadataRoute.Sitemap = [];
-  let categoryUrls: MetadataRoute.Sitemap = [];
-  let subcategoryUrls: MetadataRoute.Sitemap = [];
 
   try {
     await dbConnect();
     
-    const [posts, studies, categories, subcategories] = await Promise.all([
+    const [posts, studies] = await Promise.all([
       BlogPost.find({ isActive: true }),
       CaseStudy.find({ isActive: true }),
-      CategoryModel.find({}),
-      SubCategoryModel.find({})
     ]);
 
     // 2. Blog Post Detail URLs
@@ -68,21 +62,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7
     }));
 
-    // 4. Services Category URLs
-    categoryUrls = categories.map(cat => ({
-      url: `${baseUrl}/services/${cat.slug}`,
-      lastModified: cat.get("updatedAt") || new Date(),
-      changeFrequency: "daily" as const,
-      priority: 0.8
-    }));
-
-    // 5. Services Subcategory/Subservices Detail URLs
-    subcategoryUrls = subcategories.map(sub => ({
-      url: `${baseUrl}/services/${sub.categorySlug}/${sub.slug}`,
-      lastModified: sub.get("updatedAt") || new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.7
-    }));
 
   } catch (error) {
     console.error("Error generating sitemap URLs:", error);
@@ -92,7 +71,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticUrls,
     ...blogUrls,
     ...workUrls,
-    ...categoryUrls,
-    ...subcategoryUrls
   ];
 }

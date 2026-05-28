@@ -58,7 +58,7 @@ export default function Tech() {
   const marqueeItems = [...defaultPartners, ...defaultPartners];
 
   return (
-    <section className="relative w-full py-10 bg-black overflow-hidden border-y border-purple-950/10 z-10">
+    <section className="relative w-full py-5 bg-black overflow-hidden border-y border-purple-950/10 z-10">
       
       {/* Premium linear-gradient edge fades */}
       <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-black to-transparent z-20 pointer-events-none" />
