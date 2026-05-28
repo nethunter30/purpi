@@ -107,8 +107,15 @@ export default function BlogAdminPage() {
   };
 
   const fetchCategories = async () => {
-    // TODO: Wire to new services API once implemented
-    setCategoriesList([]);
+    try {
+      const res = await fetch("/api/services/categories");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setCategoriesList(json.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch categories for blog admin:", err);
+    }
   };
 
 

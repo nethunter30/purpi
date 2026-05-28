@@ -45,13 +45,11 @@ interface CaseStudyItem {
   isActive: boolean;
 }
 
-const CATEGORIES = ["Software Engineering", "Cloud & Security", "AI & Automation"];
-
 const emptyForm: CaseStudyItem = {
   id: "",
   title: "",
   client: "",
-  category: "Software Engineering",
+  category: "",
   subCategory: "",
   description: "",
   challenge: "",
@@ -70,6 +68,7 @@ export default function OurWorkAdminPage() {
   const secret = params.secret as string;
 
   const [studies, setStudies] = useState<CaseStudyItem[]>([]);
+  const [categoriesList, setCategoriesList] = useState<{ _id: string; name: string; slug: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -98,14 +97,30 @@ export default function OurWorkAdminPage() {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch("/api/services/categories");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setCategoriesList(json.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch categories for our-work admin:", err);
+    }
+  };
+
   useEffect(() => {
     fetchStudies();
+    fetchCategories();
   }, []);
 
   const openCreateModal = () => {
     setEditingId(null);
     setManualSlug(false);
-    setFormData(emptyForm);
+    setFormData({
+      ...emptyForm,
+      category: categoriesList.length > 0 ? categoriesList[0].name : "",
+    });
     setTechStackInput("");
     setError("");
     setIsModalOpen(true);
@@ -524,9 +539,17 @@ export default function OurWorkAdminPage() {
                       onChange={(e) => setFormData((p) => ({ ...p, category: e.target.value }))}
                       className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm cursor-pointer"
                     >
-                      {CATEGORIES.map((c) => (
-                        <option key={c} value={c} className="bg-[#150a21] text-white">{c}</option>
-                      ))}
+                      {categoriesList.length === 0 ? (
+                        <option value="" disabled className="bg-[#150a21] text-white">
+                          Loading categories...
+                        </option>
+                      ) : (
+                        categoriesList.map((cat) => (
+                          <option key={cat._id} value={cat.name} className="bg-[#150a21] text-white">
+                            {cat.name}
+                          </option>
+                        ))
+                      )}
                     </select>
                   </div>
                   <div className="flex flex-col gap-1.5">

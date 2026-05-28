@@ -8,6 +8,14 @@ import type { Metadata } from "next";
 
 export const revalidate = 60; // Cache for 60 seconds
 
+export async function generateStaticParams() {
+  await dbConnect();
+  const categories = await Category.find({ isActive: true });
+  return categories.map((cat) => ({
+    category: cat.slug,
+  }));
+}
+
 interface PageProps {
   params: Promise<{ category: string }>;
 }

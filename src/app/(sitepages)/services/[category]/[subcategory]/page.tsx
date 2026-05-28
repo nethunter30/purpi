@@ -8,6 +8,23 @@ import type { Metadata } from "next";
 
 export const revalidate = 60; // Cache for 60 seconds
 
+export async function generateStaticParams() {
+  await dbConnect();
+  const subcategories = await Subcategory.find({ isActive: true }).populate("category");
+  return subcategories
+    .filter((sub) => {
+      const cat = sub.category as any;
+      return cat && cat.isActive;
+    })
+    .map((sub) => {
+      const cat = sub.category as any;
+      return {
+        category: cat.slug,
+        subcategory: sub.slug,
+      };
+    });
+}
+
 interface PageProps {
   params: Promise<{ category: string; subcategory: string }>;
 }

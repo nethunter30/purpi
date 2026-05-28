@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default async function OurWorkPage() {
   await dbConnect();
   const studiesList = await CaseStudy.find({ isActive: true }).sort({ createdAt: 1 });
-  const categories = ["All"];
+  const categories = ["All", ...Array.from(new Set(studiesList.map((s) => s.category).filter(Boolean)))];
 
 
   const plainStudies = studiesList.map((s) => {

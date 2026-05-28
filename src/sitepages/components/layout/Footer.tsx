@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -36,6 +36,31 @@ const Youtube = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+
+  // Dynamic categories from the DB via the category API
+  const [categories, setCategories] = useState<{ name: string; slug: string }[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/services/categories");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          setCategories(json.data);
+        } else {
+          setCategoriesError(true);
+        }
+      } catch (err) {
+        console.error("Error fetching categories in Footer:", err);
+        setCategoriesError(true);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   // Copy states
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -138,18 +163,26 @@ export default function Footer() {
           <div className="space-y-2">
             <h3 className="text-purple-400 text-xs font-bold uppercase tracking-wider">Services</h3>
             <ul className="space-y-1.5 text-xs">
-              {[
-                { name: "All Services", href: "/services" },
-                { name: "Solutions", href: "/solutions" },
-                { name: "Industries", href: "/industries" },
-                { name: "Our Work", href: "/our-work" },
-              ].map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              {categoriesLoading ? (
+                // Skeleton shimmer rows while fetching
+                Array.from({ length: 4 }).map((_, i) => (
+                  <li key={i}>
+                    <span className="inline-block h-3 rounded bg-purple-950/40 animate-pulse" style={{ width: `${60 + i * 10}%` }} />
+                  </li>
+                ))
+              ) : categoriesError ? (
+                <li className="text-gray-600 text-[11px]">Could not load services.</li>
+              ) : categories.length === 0 ? (
+                <li className="text-gray-600 text-[11px]">No services found.</li>
+              ) : (
+                categories.slice(0, 5).map((category) => (
+                  <li key={category.slug}>
+                    <Link href={`/services/${category.slug}`} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
+                      {category.name}
+                    </Link>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 

@@ -8,6 +8,29 @@ import type { Metadata } from "next";
 
 export const revalidate = 60; // Cache for 60 seconds
 
+export async function generateStaticParams() {
+  await dbConnect();
+  const products = await Product.find({ isActive: true })
+    .populate("category")
+    .populate("subcategory");
+
+  return products
+    .filter((p) => {
+      const cat = p.category as any;
+      const sub = p.subcategory as any;
+      return cat && cat.isActive && sub && sub.isActive;
+    })
+    .map((p) => {
+      const cat = p.category as any;
+      const sub = p.subcategory as any;
+      return {
+        category: cat.slug,
+        subcategory: sub.slug,
+        product: p.slug,
+      };
+    });
+}
+
 interface PageProps {
   params: Promise<{ category: string; subcategory: string; product: string }>;
 }
