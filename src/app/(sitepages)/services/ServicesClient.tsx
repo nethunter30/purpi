@@ -174,7 +174,7 @@ export default function ServicesClient({ categories, subcategories, products }: 
                     className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center py-2 border-b border-purple-950/15 last:border-0"
                   >
                     {/* Left/Right Column: Content */}
-                    <div className={`lg:col-span-6 space-y-6 ${isOdd ? "lg:order-last" : ""}`}>
+                    <div className={`lg:col-span-6 space-y-6 order-2 ${isOdd ? "lg:order-2" : "lg:order-1"}`}>
                       <div className="space-y-4">
                         <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
                           {cat.name}
@@ -216,7 +216,7 @@ export default function ServicesClient({ categories, subcategories, products }: 
                     </div>
 
                     {/* Left/Right Column: Image with offset bg */}
-                    <div className={`lg:col-span-6 ${isOdd ? "lg:order-first lg:pr-8" : "lg:pl-8"}`}>
+                    <div className={`lg:col-span-6 order-1 ${isOdd ? "lg:order-1 lg:pr-8" : "lg:order-2 lg:pl-8"}`}>
                       {/* Wrapper container to offset-shift the background solid container */}
                       <div className={`relative pr-6 pb-6 max-w-[480px] mx-auto ${isOdd ? "lg:ml-0 lg:mr-auto" : "lg:mr-0 lg:ml-auto"}`}>
                         {/* Background offset block: same size as main image container, shifted down-right */}
