@@ -1,5 +1,11 @@
 import mongoose from 'mongoose';
 
+// Ensure all schemas are registered in mongoose before any query executes
+import '@/models/services/Category';
+import '@/models/services/Subcategory';
+import '@/models/services/Product';
+import '@/models/BlogPost';
+
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
 if (!MONGODB_URI) {

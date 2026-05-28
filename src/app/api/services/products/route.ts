@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: products });
   } catch (error: any) {
+    console.error("❌ Error in GET /api/services/products:", error);
     return NextResponse.json(
       { success: false, message: "Failed to fetch products" },
       { status: 500 }
@@ -82,6 +83,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error: any) {
+    console.error("❌ Error in POST /api/services/products:", error);
     return NextResponse.json(
       { success: false, message: error.message || "Failed to create product" },
       { status: 500 }

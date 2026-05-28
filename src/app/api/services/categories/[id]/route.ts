@@ -18,6 +18,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ success: false, message: "Category not found" }, { status: 404 });
     return NextResponse.json({ success: true, data: category });
   } catch (error: any) {
+    console.error("❌ Error in GET /api/services/categories/[id]:", error);
     return NextResponse.json({ success: false, message: "Failed to fetch category" }, { status: 500 });
   }
 }
@@ -58,6 +59,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, message: "Category updated", data: updated });
   } catch (error: any) {
+    console.error("❌ Error in PUT /api/services/categories/[id]:", error);
     return NextResponse.json(
       { success: false, message: error.message || "Failed to update category" },
       { status: 500 }
@@ -79,6 +81,7 @@ export async function DELETE(req: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, message: "Category deleted successfully" });
   } catch (error: any) {
+    console.error("❌ Error in DELETE /api/services/categories/[id]:", error);
     return NextResponse.json({ success: false, message: "Failed to delete category" }, { status: 500 });
   }
 }

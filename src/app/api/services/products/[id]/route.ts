@@ -20,6 +20,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
     return NextResponse.json({ success: true, data: product });
   } catch (error: any) {
+    console.error("❌ Error in GET /api/services/products/[id]:", error);
     return NextResponse.json({ success: false, message: "Failed to fetch product" }, { status: 500 });
   }
 }
@@ -67,6 +68,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, message: "Product updated", data: updated });
   } catch (error: any) {
+    console.error("❌ Error in PUT /api/services/products/[id]:", error);
     return NextResponse.json(
       { success: false, message: error.message || "Failed to update product" },
       { status: 500 }
@@ -88,6 +90,7 @@ export async function DELETE(req: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, message: "Product deleted successfully" });
   } catch (error: any) {
+    console.error("❌ Error in DELETE /api/services/products/[id]:", error);
     return NextResponse.json({ success: false, message: "Failed to delete product" }, { status: 500 });
   }
 }

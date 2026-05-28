@@ -15,6 +15,7 @@ export async function GET(req: NextRequest) {
     const categories = await Category.find(filter).sort({ order: 1, name: 1 });
     return NextResponse.json({ success: true, data: categories });
   } catch (error: any) {
+    console.error("❌ Error in GET /api/services/categories:", error);
     return NextResponse.json(
       { success: false, message: "Failed to fetch categories" },
       { status: 500 }
@@ -59,6 +60,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error: any) {
+    console.error("❌ Error in POST /api/services/categories:", error);
     return NextResponse.json(
       { success: false, message: error.message || "Failed to create category" },
       { status: 500 }

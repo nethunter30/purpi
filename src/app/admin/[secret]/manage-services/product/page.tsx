@@ -14,8 +14,8 @@ interface IProduct {
   description: string;
   image: string;
   isActive: boolean;
-  category: { _id: string; name: string } | string;
-  subcategory: { _id: string; name: string } | string;
+  category: { _id: string; name: string; slug: string } | string;
+  subcategory: { _id: string; name: string; slug: string } | string;
 }
 
 export default function ProductsPage() {
@@ -174,8 +174,8 @@ export default function ProductsPage() {
                     <div className="flex items-center justify-end gap-2">
                       {product.isActive && (
                         <a href={`/services/${
-                          typeof product.category === "object" ? product.category._id : product.category
-                        }/${typeof product.subcategory === "object" ? product.subcategory._id : product.subcategory}/${product.slug}`}
+                          typeof product.category === "object" ? product.category.slug : product.category
+                        }/${typeof product.subcategory === "object" ? product.subcategory.slug : product.subcategory}/${product.slug}`}
                           target="_blank" rel="noopener noreferrer"
                           className="p-1.5 text-purple-400 hover:text-purple-300 hover:bg-purple-400/10 rounded-lg transition-colors cursor-pointer"
                           title="View Live"
