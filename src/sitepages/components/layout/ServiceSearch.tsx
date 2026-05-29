@@ -442,8 +442,8 @@ export default function ServiceSearch() {
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsFocused(false)}
           />
-          {/* Sheet */}
-          <div className="relative w-full max-h-[80vh] rounded-t-2xl border-t border-x border-purple-500/20 bg-[#12051d] flex flex-col overflow-hidden animate-[slideUp_0.25s_ease-out]">
+          {/* Panel */}
+          <div className="relative w-full max-h-[80vh] rounded-t-2xl border border-purple-500/20 bg-[#12051d] flex flex-col overflow-hidden animate-[fadeIn_0.2s_ease-out]">
             {/* Sheet Header */}
             <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-white/5 shrink-0">
               <span className="text-xs font-bold uppercase tracking-widest text-purple-400">Search Results</span>
