@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
+import ServiceSearch from "./ServiceSearch";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,16 +77,8 @@ export default function Header() {
 
         {/* Call to Action & Hamburger Menu */}
         <div className="flex items-center gap-3">
-          {/* Hide Get Started on ultra-small mobile, show on sm and above */}
-          <Link
-            href="/#contact"
-            className="hidden sm:flex group items-center gap-3 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full border border-purple-500/30 bg-purple-900/10 hover:bg-purple-800/30 transition-all text-white text-xs sm:text-sm font-medium"
-          >
-            Get Started
-            <div className="bg-purple-600 rounded-full p-1 group-hover:bg-purple-500 transition-colors">
-              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
-            </div>
-          </Link>
+          {/* Services Search Engine */}
+          <ServiceSearch />
 
           {/* Hamburger Menu Button */}
           <button
