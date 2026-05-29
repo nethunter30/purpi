@@ -273,7 +273,7 @@ export default function ProductDetailClient({ product, category, subcategory }: 
       {/* ── PROCESS TIMELINE SECTION ───────────────────────────────────── */}
       {sections.process && sections.process.cards.length > 0 && (
         <section className="relative w-full py-24 bg-black border-b border-purple-950/20">
-          <div className="max-w-4xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
               <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-purple-500">
                 OUR METHODOLOGY
@@ -286,16 +286,22 @@ export default function ProductDetailClient({ product, category, subcategory }: 
               </p>
             </div>
 
-            <div className="relative flex flex-col md:flex-row items-start justify-between gap-10 md:gap-0">
-              {/* Connecting line for timeline */}
-              <div className="hidden md:block absolute top-[22px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-purple-500/40 via-purple-400/20 to-purple-500/40" />
+            <div className="relative flex flex-col md:flex-row items-start justify-center gap-8 md:gap-0">
+              {/* Connecting line for timeline (desktop) */}
+              <div className="hidden md:block absolute top-[22px] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-purple-500/40 via-purple-400/30 to-purple-500/40" />
+
+              {/* Vertical connector for mobile */}
+              <div className="md:hidden absolute top-0 bottom-0 left-[50%] w-[2px] bg-gradient-to-b from-purple-500/40 via-purple-400/20 to-purple-500/40 -translate-x-1/2" />
 
               {sections.process.cards.map((step, idx) => (
-                <div key={idx} className="relative z-10 flex flex-col items-center text-center w-full md:w-1/4 px-3 space-y-3">
-                  <div className="w-11 h-11 rounded-full bg-purple-600 flex items-center justify-center text-white font-black text-sm shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+                <div
+                  key={idx}
+                  className="group relative z-10 flex flex-col items-center text-center flex-1 min-w-[130px] px-4 space-y-3"
+                >
+                  <div className="w-11 h-11 rounded-full bg-purple-600 flex items-center justify-center text-white font-black text-sm shadow-[0_0_20px_rgba(168,85,247,0.5)] ring-4 ring-black">
                     {step.step || idx + 1}
                   </div>
-                  <h3 className="text-white font-bold text-base group-hover:text-purple-400 transition-colors">{step.title}</h3>
+                  <h3 className="text-white font-bold text-sm md:text-base group-hover:text-purple-400 transition-colors leading-snug">{step.title}</h3>
                   <p className="text-slate-400 text-[13px] leading-relaxed font-light">{step.description}</p>
                 </div>
               ))}
