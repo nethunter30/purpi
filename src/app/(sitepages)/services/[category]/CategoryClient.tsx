@@ -129,7 +129,7 @@ export default function CategoryClient({ category, subcategories, products }: Ca
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {subcategories.map((sub) => {
                 const subProds = productsBySub[sub.id] || [];
 
