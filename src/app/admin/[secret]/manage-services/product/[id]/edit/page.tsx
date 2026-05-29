@@ -15,6 +15,7 @@ interface ProductFormData {
   category: string;
   subcategory: string;
   sections: ProductSections;
+  order: number;
 }
 
 export default function EditProductPage() {
@@ -48,6 +49,7 @@ export default function EditProductPage() {
             sections: product.sections || {
               productDetails: { title: "", description: "", points: [], codeBlocks: [] },
             },
+            order: product.order !== undefined ? product.order : 1,
           };
           
           setFormData(mapped);

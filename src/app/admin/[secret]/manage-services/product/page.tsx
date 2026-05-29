@@ -16,6 +16,7 @@ interface IProduct {
   isActive: boolean;
   category: { _id: string; name: string; slug: string } | string;
   subcategory: { _id: string; name: string; slug: string } | string;
+  order: number;
 }
 
 export default function ProductsPage() {
@@ -129,6 +130,7 @@ export default function ProductsPage() {
                 <th className="px-6 py-4">Service</th>
                 <th className="px-6 py-4">Category</th>
                 <th className="px-6 py-4">Subcategory</th>
+                <th className="px-6 py-4">Order</th>
                 <th className="px-6 py-4">Status</th>
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
@@ -157,6 +159,11 @@ export default function ProductsPage() {
                   <td className="px-6 py-4">
                     <span className="text-xs px-2.5 py-1 bg-indigo-950/40 text-indigo-300 rounded-lg border border-indigo-900/30">
                       {getName(product.subcategory)}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-xs text-gray-300 font-medium bg-[#1c0f2b] border border-purple-900/40 px-2.5 py-1 rounded-lg">
+                      {product.order !== undefined ? product.order : 0}
                     </span>
                   </td>
                   <td className="px-6 py-4">

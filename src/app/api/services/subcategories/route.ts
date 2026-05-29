@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     const subcategories = await Subcategory.find(filter)
       .populate("category", "name slug")
-      .sort({ createdAt: -1 });
+      .sort({ order: 1, name: 1 });
 
     return NextResponse.json({ success: true, data: subcategories });
   } catch (error: any) {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
-    const { name, slug, description, image, isActive, category } = body;
+    const { name, slug, description, image, isActive, category, order } = body;
 
     if (!name || !slug || !description || !category)
       return NextResponse.json(
@@ -60,6 +60,7 @@ export async function POST(req: NextRequest) {
       image: image || "",
       isActive: isActive !== undefined ? isActive : true,
       category,
+      order: order !== undefined ? Number(order) : 0,
     });
 
     const populated = await subcategory.populate("category", "name slug");

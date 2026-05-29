@@ -103,6 +103,7 @@ export interface IProduct extends Document {
   subcategory: ISubcategory["_id"];
   category: ICategory["_id"];
   sections: ProductSections;
+  order: number;
 }
 
 // ─── Sub-Schemas ───────────────────────────────────────────
@@ -245,6 +246,7 @@ const ProductSchema: Schema = new Schema(
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
     subcategory: { type: Schema.Types.ObjectId, ref: "Subcategory", required: true },
     sections: { type: ProductSectionsSchema, required: true },
+    order: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

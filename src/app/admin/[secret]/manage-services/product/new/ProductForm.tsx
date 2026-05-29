@@ -31,6 +31,7 @@ interface ProductFormData {
   category: string;
   subcategory: string;
   sections: ProductSections;
+  order: number;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
@@ -137,6 +138,7 @@ export default function ProductForm({ initialData, productId }: {
       name: "", slug: "", description: "", image: "",
       isActive: true, category: "", subcategory: "",
       sections: defaultSections(),
+      order: 1,
     }
   );
 
@@ -447,6 +449,11 @@ export default function ProductForm({ initialData, productId }: {
               </select>
             </Field>
           </div>
+          <Field label="Display Order">
+            <input type="number" required min={0} value={form.order}
+              onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))}
+              placeholder="e.g. 1" className={inputCls} />
+          </Field>
           <label className="flex items-center gap-2.5 text-white text-xs font-medium cursor-pointer select-none">
             <input type="checkbox" checked={form.isActive}
               onChange={(e) => setForm((p) => ({ ...p, isActive: e.target.checked }))}

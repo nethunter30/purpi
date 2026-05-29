@@ -20,6 +20,7 @@ interface ISubcategory {
   image: string;
   isActive: boolean;
   category: ICategory | string;
+  order: number;
 }
 
 const emptyForm = {
@@ -29,6 +30,7 @@ const emptyForm = {
   image: "",
   isActive: true,
   category: "",
+  order: 1,
 };
 
 export default function SubcategoriesPage() {
@@ -111,6 +113,7 @@ export default function SubcategoriesPage() {
       image: sub.image,
       isActive: sub.isActive,
       category: typeof sub.category === "object" ? sub.category._id : sub.category,
+      order: sub.order !== undefined ? sub.order : 1,
     });
     setUploadMode(sub.image && sub.image.startsWith("http") ? "url" : "upload");
     setError("");
@@ -247,6 +250,7 @@ export default function SubcategoriesPage() {
                 <th className="px-6 py-4">Subcategory</th>
                 <th className="px-6 py-4">Parent Category</th>
                 <th className="px-6 py-4">Slug</th>
+                <th className="px-6 py-4">Order</th>
                 <th className="px-6 py-4">Status</th>
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
@@ -275,6 +279,11 @@ export default function SubcategoriesPage() {
                   <td className="px-6 py-4">
                     <span className="text-xs text-purple-300 font-mono bg-purple-950/30 px-2 py-1 rounded-lg">
                       /{sub.slug}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-xs text-gray-300 font-medium bg-[#1c0f2b] border border-purple-900/40 px-2.5 py-1 rounded-lg">
+                      {sub.order !== undefined ? sub.order : 0}
                     </span>
                   </td>
                   <td className="px-6 py-4">
@@ -431,6 +440,14 @@ export default function SubcategoriesPage() {
                     className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm font-light"
                   />
                 )}
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-white text-xs font-medium">Display Order</label>
+                <input type="number" required min={0} value={formData.order}
+                  onChange={(e) => setFormData((p) => ({ ...p, order: Number(e.target.value) }))}
+                  placeholder="e.g. 1"
+                  className="w-full bg-[#1c0f2b]/50 border border-purple-900/30 rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm font-light"
+                />
               </div>
               <label className="flex items-center gap-2.5 text-white text-xs font-medium cursor-pointer select-none">
                 <input type="checkbox" checked={formData.isActive}

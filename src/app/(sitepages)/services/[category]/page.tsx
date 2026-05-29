@@ -52,10 +52,10 @@ export default async function CategoryPage({ params }: PageProps) {
 
   // Find active subcategories and products in this category
   const [subcategories, products] = await Promise.all([
-    Subcategory.find({ category: categoryDoc._id, isActive: true }).sort({ name: 1 }),
+    Subcategory.find({ category: categoryDoc._id, isActive: true }).sort({ order: 1, name: 1 }),
     Product.find({ category: categoryDoc._id, isActive: true })
       .select("name slug subcategory description")
-      .sort({ name: 1 }),
+      .sort({ order: 1, name: 1 }),
   ]);
 
   // Serialize models

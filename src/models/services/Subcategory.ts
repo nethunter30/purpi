@@ -10,6 +10,7 @@ export interface ISubcategory extends Document {
     image: string;
     isActive: boolean;
     category: ICategory["_id"];
+    order: number;
 }
 
 const SubcategorySchema: Schema = new Schema(
@@ -20,6 +21,7 @@ const SubcategorySchema: Schema = new Schema(
         image: { type: String },
         isActive: { type: Boolean, default: true },
         category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+        order: { type: Number, default: 0 },
     },
     { timestamps: true }
 );

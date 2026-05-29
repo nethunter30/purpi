@@ -67,7 +67,7 @@ export default async function SubcategoryPage({ params }: PageProps) {
   const products = await Product.find({
     subcategory: subcategoryDoc._id,
     isActive: true,
-  }).sort({ name: 1 });
+  }).sort({ order: 1, name: 1 });
 
   // Serialize models
   const serializedCategory = {

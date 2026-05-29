@@ -34,7 +34,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
     const body = await req.json();
-    const { name, slug, description, image, isActive, category, subcategory, sections } = body;
+    const { name, slug, description, image, isActive, category, subcategory, sections, order } = body;
 
     // Allow partial update (e.g. only toggling isActive)
     const updateFields: Record<string, any> = {};
@@ -55,6 +55,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
     if (category !== undefined) updateFields.category = category;
     if (subcategory !== undefined) updateFields.subcategory = subcategory;
     if (sections !== undefined) updateFields.sections = sections;
+    if (order !== undefined) updateFields.order = Number(order);
 
     const updated = await Product.findByIdAndUpdate(id, updateFields, {
       new: true,

@@ -21,10 +21,10 @@ export default async function ServicesPage() {
   // Load all active categories, subcategories, and products
   const [categories, subcategories, products] = await Promise.all([
     Category.find({ isActive: true }).sort({ order: 1, name: 1 }),
-    Subcategory.find({ isActive: true }).sort({ name: 1 }),
+    Subcategory.find({ isActive: true }).sort({ order: 1, name: 1 }),
     Product.find({ isActive: true })
       .select("name slug category subcategory description")
-      .sort({ name: 1 }),
+      .sort({ order: 1, name: 1 }),
   ]);
 
   // Serialize Mongoose docs to plain JS objects for Server-to-Client transmission

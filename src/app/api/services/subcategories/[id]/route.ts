@@ -32,7 +32,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
     const body = await req.json();
-    const { name, slug, description, image, isActive, category } = body;
+    const { name, slug, description, image, isActive, category, order } = body;
 
     if (!name || !slug || !description || !category)
       return NextResponse.json(
@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     const updated = await Subcategory.findByIdAndUpdate(
       id,
-      { name, slug, description, image: image || "", isActive, category },
+      { name, slug, description, image: image || "", isActive, category, order: order !== undefined ? Number(order) : 0 },
       { new: true, runValidators: true }
     ).populate("category", "name slug");
 
