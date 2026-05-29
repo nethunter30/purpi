@@ -52,7 +52,6 @@ export default function ServiceSearch() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [isOpenMobile, setIsOpenMobile] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -64,7 +63,6 @@ export default function ServiceSearch() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const mobileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch all services data once when search is activated/focused
   const fetchData = async () => {
@@ -104,19 +102,6 @@ export default function ServiceSearch() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Sync scroll lock on body when mobile search overlay is open
-  useEffect(() => {
-    if (isOpenMobile) {
-      document.body.style.overflow = "hidden";
-      setTimeout(() => mobileInputRef.current?.focus(), 100);
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpenMobile]);
 
   // Handle focus
   const handleFocus = () => {
@@ -183,7 +168,6 @@ export default function ServiceSearch() {
     if (url) {
       router.push(url);
       setIsFocused(false);
-      setIsOpenMobile(false);
       setQuery("");
       setSelectedIndex(-1);
     }
@@ -207,9 +191,7 @@ export default function ServiceSearch() {
       }
     } else if (e.key === "Escape") {
       setIsFocused(false);
-      setIsOpenMobile(false);
       inputRef.current?.blur();
-      mobileInputRef.current?.blur();
     }
   };
 
@@ -236,20 +218,20 @@ export default function ServiceSearch() {
 
   return (
     <div ref={containerRef} className="relative z-50 flex items-center">
-      {/* --- DESKTOP/TABLET SEARCH BAR --- */}
-      <div className="hidden sm:relative sm:flex items-center">
+      {/* --- UNIFIED RESPONSIVE SEARCH BAR --- */}
+      <div className="relative flex items-center">
         <div
-          className={`flex items-center gap-2 px-4 py-2 rounded-full border bg-purple-900/10 backdrop-blur-md transition-all duration-300 ${
+          className={`flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border bg-purple-900/10 backdrop-blur-md transition-all duration-300 ${
             isFocused
-              ? "border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.35)] w-[240px] md:w-[300px]"
-              : "border-purple-500/20 hover:border-purple-500/40 w-[180px] md:w-[220px]"
+              ? "border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.35)] w-[140px] xs:w-[180px] sm:w-[240px] md:w-[300px]"
+              : "border-purple-500/20 hover:border-purple-500/40 w-[110px] xs:w-[140px] sm:w-[180px] md:w-[220px]"
           }`}
         >
-          <Search className="w-4 h-4 text-purple-400 shrink-0" />
+          <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400 shrink-0" />
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search services..."
+            placeholder="Search..."
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -257,7 +239,7 @@ export default function ServiceSearch() {
             }}
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}
-            className="w-full bg-transparent border-none outline-none text-white placeholder-gray-400 text-xs md:text-sm font-medium"
+            className="w-full bg-transparent border-none outline-none text-white placeholder-gray-400 text-xs sm:text-sm font-medium"
           />
           {query && (
             <button
@@ -265,16 +247,16 @@ export default function ServiceSearch() {
                 setQuery("");
                 setSelectedIndex(-1);
               }}
-              className="p-0.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+              className="p-0.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors shrink-0"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Desktop Dropdown Panel */}
+        {/* Dropdown Panel (Used on both mobile & desktop) */}
         {showDropdown && (
-          <div className="absolute right-0 top-full mt-2 w-[340px] md:w-[450px] max-h-[480px] overflow-y-auto rounded-2xl border border-purple-500/20 bg-[#12051d]/95 backdrop-blur-xl p-4 shadow-[0_10px_40px_rgba(0,0,0,0.6)] flex flex-col gap-4 z-[999] animate-[fadeIn_0.2s_ease-out]">
+          <div className="absolute right-0 top-full mt-2 w-[calc(100vw-32px)] sm:w-[340px] md:w-[450px] max-h-[400px] sm:max-h-[480px] overflow-y-auto rounded-2xl border border-purple-500/20 bg-[#12051d]/95 backdrop-blur-xl p-4 shadow-[0_10px_40px_rgba(0,0,0,0.6)] flex flex-col gap-4 z-[999] animate-[fadeIn_0.2s_ease-out]">
             {loading && (
               <div className="flex items-center justify-center py-6 gap-2 text-purple-400 text-sm">
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -318,7 +300,7 @@ export default function ServiceSearch() {
                                 <span className="font-semibold text-xs md:text-sm truncate">
                                   {highlightText(p.name, query)}
                                 </span>
-                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-purple-900/40 text-purple-300 font-semibold border border-purple-500/20">
+                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-purple-900/40 text-purple-300 font-semibold border border-purple-500/20 shrink-0">
                                   Service
                                 </span>
                               </div>
@@ -372,7 +354,7 @@ export default function ServiceSearch() {
                                 <span className="font-semibold text-xs md:text-sm truncate">
                                   {highlightText(s.name, query)}
                                 </span>
-                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-900/40 text-indigo-300 font-semibold border border-indigo-500/20">
+                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-900/40 text-indigo-300 font-semibold border border-indigo-500/20 shrink-0">
                                   Subcategory
                                 </span>
                               </div>
@@ -420,7 +402,7 @@ export default function ServiceSearch() {
                                 <span className="font-semibold text-xs md:text-sm truncate">
                                   {highlightText(c.name, query)}
                                 </span>
-                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-fuchsia-900/40 text-fuchsia-300 font-semibold border border-fuchsia-500/20">
+                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-fuchsia-900/40 text-fuchsia-300 font-semibold border border-fuchsia-500/20 shrink-0">
                                   Category
                                 </span>
                               </div>
@@ -439,215 +421,6 @@ export default function ServiceSearch() {
           </div>
         )}
       </div>
-
-      {/* --- MOBILE SEARCH TRIGGER ICON --- */}
-      <button
-        onClick={() => {
-          setIsOpenMobile(true);
-          fetchData();
-        }}
-        className="flex sm:hidden p-2.5 rounded-full border border-purple-500/20 bg-purple-900/10 text-white/90 hover:text-white transition-all duration-300"
-        aria-label="Open search engine"
-      >
-        <Search className="w-4 h-4" />
-      </button>
-
-      {/* --- MOBILE FULLSCREEN SEARCH OVERLAY --- */}
-      {isOpenMobile && (
-        <div className="fixed inset-0 z-[9999] bg-[#07010f]/95 backdrop-blur-xl flex flex-col p-4 animate-[fadeIn_0.2s_ease-out]">
-          {/* Ambient Glows for Premium Vibe */}
-          <div className="absolute top-[-10%] left-[-20%] w-[300px] h-[300px] rounded-full bg-purple-700/15 blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-[-10%] right-[-20%] w-[300px] h-[300px] rounded-full bg-fuchsia-700/15 blur-[100px] pointer-events-none" />
-
-          {/* Top Search bar inside overlay */}
-          <div className="relative flex items-center gap-3 pb-4 border-b border-purple-500/10">
-            <div className="flex-1 flex items-center gap-2 px-3 py-2.5 rounded-xl border border-purple-500/30 bg-purple-950/20 focus-within:border-purple-500/60">
-              <Search className="w-4 h-4 text-purple-400 shrink-0" />
-              <input
-                ref={mobileInputRef}
-                type="text"
-                placeholder="Search categories & services..."
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setSelectedIndex(-1);
-                }}
-                onKeyDown={handleKeyDown}
-                className="w-full bg-transparent border-none outline-none text-white placeholder-gray-400 text-sm font-medium"
-              />
-              {query && (
-                <button
-                  onClick={() => {
-                    setQuery("");
-                    setSelectedIndex(-1);
-                  }}
-                  className="p-1 rounded-full hover:bg-white/15 text-gray-400 hover:text-white transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <button
-              onClick={() => {
-                setIsOpenMobile(false);
-                setQuery("");
-                setSelectedIndex(-1);
-              }}
-              className="p-2 rounded-xl bg-purple-900/10 border border-purple-500/10 text-white/80 hover:text-white font-medium text-sm transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
-
-          {/* Results List */}
-          <div className="relative flex-1 overflow-y-auto pt-4 flex flex-col gap-5 pb-8">
-            {loading && (
-              <div className="flex flex-col items-center justify-center py-20 gap-3 text-purple-400">
-                <Loader2 className="w-6 h-6 animate-spin" />
-                <span className="text-xs tracking-wide">Loading search index...</span>
-              </div>
-            )}
-
-            {!loading && !query.trim() && (
-              <div className="flex flex-col items-center justify-center py-20 text-center text-gray-500">
-                <Search className="w-8 h-8 mb-3 text-purple-500/40" />
-                <p className="text-xs">Type to search for category, subcategory, or service offerings...</p>
-              </div>
-            )}
-
-            {!loading && query.trim() && searchResults.flat.length === 0 && (
-              <div className="text-center py-16 text-gray-400 text-xs">
-                No matching results found for &quot;{query}&quot;.
-              </div>
-            )}
-
-            {!loading && query.trim() && searchResults.flat.length > 0 && (
-              <>
-                {/* Services Section */}
-                {searchResults.products.length > 0 && (
-                  <div className="flex flex-col gap-2.5">
-                    <h4 className="text-[10px] font-bold tracking-widest text-purple-400 uppercase px-1">
-                      Services ({searchResults.products.length})
-                    </h4>
-                    <div className="flex flex-col gap-2">
-                      {searchResults.products.map((p) => (
-                        <div
-                          key={p._id}
-                          onClick={() => handleNavigate({ ...p, searchType: "product" as const })}
-                          className="flex items-start gap-3 p-3 rounded-xl bg-purple-950/20 border border-purple-500/10 text-gray-200"
-                        >
-                          <div className="p-2 rounded-lg bg-purple-900/40 text-purple-400 border border-purple-500/10 shrink-0">
-                            <Sparkles className="w-4 h-4" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="font-bold text-xs truncate">
-                                {highlightText(p.name, query)}
-                              </span>
-                              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-purple-900/40 text-purple-300 font-semibold border border-purple-500/20">
-                                Service
-                              </span>
-                            </div>
-                            <p className="text-[10px] text-gray-400 mt-1 line-clamp-2">
-                              {highlightText(p.description, query)}
-                            </p>
-                            {p.category && (
-                              <div className="flex items-center gap-1 mt-1 text-[9px] text-purple-400 font-medium">
-                                <span>{p.category.name}</span>
-                                {p.subcategory && (
-                                  <>
-                                    <span>&bull;</span>
-                                    <span>{p.subcategory.name}</span>
-                                  </>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Subcategories Section */}
-                {searchResults.subcategories.length > 0 && (
-                  <div className="flex flex-col gap-2.5">
-                    <h4 className="text-[10px] font-bold tracking-widest text-indigo-400 uppercase px-1">
-                      Subcategories ({searchResults.subcategories.length})
-                    </h4>
-                    <div className="flex flex-col gap-2">
-                      {searchResults.subcategories.map((s) => (
-                        <div
-                          key={s._id}
-                          onClick={() => handleNavigate({ ...s, searchType: "subcategory" as const })}
-                          className="flex items-start gap-3 p-3 rounded-xl bg-indigo-950/20 border border-indigo-500/10 text-gray-200"
-                        >
-                          <div className="p-2 rounded-lg bg-indigo-900/40 text-indigo-400 border border-indigo-500/10 shrink-0">
-                            <Folder className="w-4 h-4" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="font-bold text-xs truncate">
-                                {highlightText(s.name, query)}
-                              </span>
-                              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-900/40 text-indigo-300 font-semibold border border-indigo-500/20">
-                                Subcategory
-                              </span>
-                            </div>
-                            <p className="text-[10px] text-gray-400 mt-1 line-clamp-2">
-                              {highlightText(s.description, query)}
-                            </p>
-                            {s.category && (
-                              <span className="text-[9px] text-indigo-400 font-medium mt-1 inline-block">
-                                Category: {s.category.name}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Categories Section */}
-                {searchResults.categories.length > 0 && (
-                  <div className="flex flex-col gap-2.5">
-                    <h4 className="text-[10px] font-bold tracking-widest text-fuchsia-400 uppercase px-1">
-                      Categories ({searchResults.categories.length})
-                    </h4>
-                    <div className="flex flex-col gap-2">
-                      {searchResults.categories.map((c) => (
-                        <div
-                          key={c._id}
-                          onClick={() => handleNavigate({ ...c, searchType: "category" as const })}
-                          className="flex items-start gap-3 p-3 rounded-xl bg-fuchsia-950/20 border border-fuchsia-500/10 text-gray-200"
-                        >
-                          <div className="p-2 rounded-lg bg-fuchsia-900/40 text-fuchsia-400 border border-fuchsia-500/10 shrink-0">
-                            <Layers className="w-4 h-4" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="font-bold text-xs truncate">
-                                {highlightText(c.name, query)}
-                              </span>
-                              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-fuchsia-900/40 text-fuchsia-300 font-semibold border border-fuchsia-500/20">
-                                Category
-                              </span>
-                            </div>
-                            <p className="text-[10px] text-gray-400 mt-1 line-clamp-2">
-                              {highlightText(c.description, query)}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
