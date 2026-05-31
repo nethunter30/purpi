@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
+import OurTeam from "@/sitepages/components/home/OurTeam";
 import {
   ArrowRight,
   MapPin,
@@ -361,6 +362,9 @@ export default function AboutUsClient() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── OUR TEAM SECTION ─────────────────────────────────────── */}
+      <OurTeam />
 
       {/* ── CLOSING CTA ──────────────────────────────────────────── */}
       <section className="relative w-full py-24 md:py-36 px-6 z-10 overflow-hidden">

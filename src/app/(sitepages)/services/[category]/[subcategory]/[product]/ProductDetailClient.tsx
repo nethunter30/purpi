@@ -49,6 +49,17 @@ export default function ProductDetailClient({ product, category, subcategory }: 
   // FAQ Accordion management
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
 
+  // Currency toggle (USD ↔ INR)
+  const [isINR, setIsINR] = useState(false);
+  const USD_TO_INR = 84;
+  const formatPrice = (usdPrice: number) => {
+    if (isINR) {
+      const inr = Math.round(usdPrice * USD_TO_INR);
+      return { symbol: "₹", amount: inr.toLocaleString("en-IN") };
+    }
+    return { symbol: "$", amount: usdPrice.toLocaleString("en-US") };
+  };
+
   const handleCopyCode = (code: string, idx: number) => {
     navigator.clipboard.writeText(code);
     setCopiedBlockIdx(idx);
@@ -286,23 +297,29 @@ export default function ProductDetailClient({ product, category, subcategory }: 
               </p>
             </div>
 
-            <div className="relative flex flex-col md:flex-row items-start justify-center gap-8 md:gap-0">
+            <div className="relative flex flex-col md:flex-row items-start justify-center gap-8 md:gap-4 lg:gap-8">
               {/* Connecting line for timeline (desktop) */}
-              <div className="hidden md:block absolute top-[22px] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-purple-500/40 via-purple-400/30 to-purple-500/40" />
+              <div className="hidden md:block absolute top-[22px] left-[8%] right-[8%] h-[2px] bg-gradient-to-r from-purple-500/40 via-purple-400/30 to-purple-500/40" />
 
-              {/* Vertical connector for mobile */}
-              <div className="md:hidden absolute top-0 bottom-0 left-[50%] w-[2px] bg-gradient-to-b from-purple-500/40 via-purple-400/20 to-purple-500/40 -translate-x-1/2" />
+              {/* Vertical connector for mobile (aligned with left-placed circles) */}
+              <div className="md:hidden absolute top-[1.375rem] bottom-[1.375rem] left-[1.375rem] w-[2px] bg-gradient-to-b from-purple-500/40 via-purple-400/20 to-purple-500/40 -translate-x-1/2" />
 
               {sections.process.cards.map((step, idx) => (
                 <div
                   key={idx}
-                  className="group relative z-10 flex flex-col items-center text-center flex-1 min-w-[130px] px-4 space-y-3"
+                  className="group relative z-10 flex flex-row md:flex-col items-start md:items-center text-left md:text-center gap-5 md:gap-0 md:space-y-3 w-full"
                 >
-                  <div className="w-11 h-11 rounded-full bg-purple-600 flex items-center justify-center text-white font-black text-sm shadow-[0_0_20px_rgba(168,85,247,0.5)] ring-4 ring-black">
+                  <div className="w-11 h-11 rounded-full bg-purple-600 flex items-center justify-center text-white font-black text-sm shadow-[0_0_20px_rgba(168,85,247,0.5)] ring-4 ring-black flex-shrink-0">
                     {step.step || idx + 1}
                   </div>
-                  <h3 className="text-white font-bold text-sm md:text-base group-hover:text-purple-400 transition-colors leading-snug">{step.title}</h3>
-                  <p className="text-slate-400 text-[13px] leading-relaxed font-light">{step.description}</p>
+                  <div className="flex flex-col space-y-1.5 md:space-y-3 pt-2.5 md:pt-0">
+                    <h3 className="text-white font-bold text-sm md:text-base group-hover:text-purple-400 transition-colors leading-snug">
+                      {step.title}
+                    </h3>
+                    <p className="text-slate-400 text-[13px] leading-relaxed font-light">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -349,9 +366,22 @@ export default function ProductDetailClient({ product, category, subcategory }: 
                       <p className="text-xs text-slate-400 font-light">{plan.tagline}</p>
                     </div>
 
-                    <div className="flex items-baseline gap-1.5 mb-2">
-                      <span className="text-3xl md:text-4xl font-black text-white">${plan.price}</span>
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="text-3xl md:text-4xl font-black text-white">
+                        {formatPrice(plan.price).symbol}{formatPrice(plan.price).amount}
+                      </span>
                       <span className="text-xs text-slate-400 font-light">{plan.billingCycle}</span>
+                    </div>
+                    <div className="mb-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsINR(prev => !prev)}
+                        className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border transition-all duration-300 cursor-pointer inline-flex items-center gap-1 hover:scale-105 active:scale-95 bg-purple-950/30 border-purple-500/30 text-purple-300 hover:bg-purple-900/40 hover:text-white"
+                        title={isINR ? "Switch to USD" : "Switch to INR"}
+                      >
+                        <DollarSign className="w-3 h-3" />
+                        {isINR ? "Show in USD" : "Show in INR"}
+                      </button>
                     </div>
 
                     {plan.priceTagline && (

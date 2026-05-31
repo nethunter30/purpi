@@ -5,8 +5,8 @@ import Testimonials from "@/sitepages/components/home/Testimonials";
 import Contact from "@/sitepages/components/home/Contact";
 import Newsletter from "@/sitepages/components/home/Newsletter";
 import LetsConnect from "@/sitepages/components/home/LetsConnect";
-import OurTeam from "@/sitepages/components/home/OurTeam";
 import Tech from "@/sitepages/components/home/Tech";
+import Ourworks from "@/sitepages/components/home/Ourworks";
 
 export const revalidate = 60;
 
@@ -17,7 +17,7 @@ export default function Home() {
       <Tech />
       <WhatWeDo />
       <KeyBenefits />
-      <OurTeam />
+      <Ourworks />
       <LetsConnect />
       <Testimonials />
       <Contact />

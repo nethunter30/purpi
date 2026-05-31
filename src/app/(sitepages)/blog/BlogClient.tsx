@@ -122,7 +122,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
               placeholder="Search topics, tags, details..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#0c0414]/90 border border-purple-950/60 focus:border-purple-500/50 rounded-2xl py-3 px-11 text-xs text-white placeholder-gray-500 transition-all outline-none focus:shadow-[0_0_15px_rgba(196,85,227,0.15)] font-light"
+              className="w-full bg-[#0c0414]/90 border border-purple-950/60 focus:border-purple-500/50 rounded-sm py-3 px-11 text-xs text-white placeholder-gray-500 transition-all outline-none focus:shadow-[0_0_15px_rgba(196,85,227,0.15)] font-light"
             />
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             {searchQuery && (
@@ -142,7 +142,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer ${
+              className={`px-5 py-2.5 rounded-sm text-xs font-semibold tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer ${
                 selectedCategory === cat
                   ? "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-500/20"
                   : "text-gray-400 hover:text-white hover:bg-purple-950/20"
@@ -157,13 +157,13 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
         {!searchQuery && selectedCategory === "All" && featuredArticle && (
           <Link
             href={`/blog/${featuredArticle.id}`}
-            className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#0c0414]/80 border border-purple-900/10 hover:border-purple-500/20 rounded-[32px] p-6 md:p-8 mb-16 transition-all duration-300 shadow-xl hover:shadow-purple-950/50 cursor-pointer overflow-hidden"
+            className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#0c0414]/80 border border-purple-900/10 hover:border-purple-500/20 rounded-sm p-6 md:p-8 mb-16 transition-all duration-300 shadow-xl hover:shadow-purple-950/50 cursor-pointer overflow-hidden"
           >
             {/* Smooth Top Gradient Strip */}
             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Banner Image */}
-            <div className="lg:col-span-6 relative w-full h-64 md:h-80 rounded-2xl overflow-hidden bg-purple-950/15">
+            <div className="lg:col-span-6 relative w-full h-64 md:h-80 rounded-sm overflow-hidden bg-purple-950/15">
               <Image
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
@@ -173,7 +173,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <span className="absolute top-4 left-4 text-[10px] uppercase font-bold tracking-widest bg-[#a855f7] text-white px-3 py-1 rounded-full border border-purple-400/20">
+              <span className="absolute top-4 left-4 text-[10px] uppercase font-bold tracking-widest bg-[#a855f7] text-white px-3 py-1 rounded-sm border border-purple-400/20">
                 Featured post
               </span>
             </div>
@@ -197,7 +197,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
               {/* Tags */}
               <div className="flex flex-wrap gap-2 pt-2">
                 {featuredArticle.tags.map(tag => (
-                  <span key={tag} className="text-[10px] px-2.5 py-1 bg-purple-900/10 text-purple-300 rounded-lg border border-purple-800/15">
+                  <span key={tag} className="text-[10px] px-2.5 py-1 bg-purple-900/10 text-purple-300 rounded-sm border border-purple-800/15">
                     #{tag}
                   </span>
                 ))}
@@ -206,7 +206,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
               {/* Author & Button Row */}
               <div className="flex items-center justify-between border-t border-purple-950/40 pt-5">
                 <div className="flex items-center gap-3">
-                  <div className="relative w-9 h-9 rounded-full overflow-hidden border border-purple-800/30 bg-purple-950/30 flex items-center justify-center">
+                  <div className="relative w-9 h-9 rounded-sm overflow-hidden border border-purple-800/30 bg-purple-950/30 flex items-center justify-center">
                     {featuredArticle.author.avatar ? (
                       <Image src={featuredArticle.author.avatar} alt={featuredArticle.author.name} fill className="object-cover" />
                     ) : (
@@ -222,7 +222,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={(e) => toggleBookmark(featuredArticle.id, e)}
-                    className="p-2 rounded-xl bg-purple-950/20 border border-purple-900/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                    className="p-2 rounded-sm bg-purple-950/20 border border-purple-900/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
                     title="Bookmark"
                   >
                     <Bookmark className={`w-4 h-4 ${bookmarked.includes(featuredArticle.id) ? "fill-purple-500 text-purple-500" : ""}`} />
@@ -239,7 +239,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
 
         {/* Regular Articles Grid */}
         {filteredPosts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center border border-purple-900/10 bg-[#12061f]/10 rounded-[32px] p-8">
+          <div className="flex flex-col items-center justify-center py-24 text-center border border-purple-900/10 bg-[#12061f]/10 rounded-sm p-8">
             <BookOpen className="w-12 h-12 mb-4 text-purple-500/35" />
             <h3 className="text-white text-lg font-bold">No articles found</h3>
             <p className="text-sm text-gray-400 max-w-sm font-light mt-1">We couldn't find any post matching your current search parameters. Try adjusting your filter tags.</p>
@@ -250,13 +250,13 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
               <Link
                 key={post.id}
                 href={`/blog/${post.id}`}
-                className="group relative flex flex-col bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 shadow-xl hover:shadow-purple-950/50 cursor-pointer overflow-hidden"
+                className="group relative flex flex-col bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 rounded-sm p-5 transition-all duration-300 hover:-translate-y-1 shadow-xl hover:shadow-purple-950/50 cursor-pointer overflow-hidden"
               >
                 {/* Visual Top Glow */}
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Card Thumbnail */}
-                <div className="relative w-full h-44 rounded-xl overflow-hidden bg-purple-950/15 mb-4">
+                <div className="relative w-full h-44 rounded-sm overflow-hidden bg-purple-950/15 mb-4">
                   <Image
                     src={post.image}
                     alt={post.title}
@@ -265,7 +265,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
                     className="object-cover transition-transform duration-[1000ms] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-3 text-[9px] uppercase font-bold tracking-wider bg-black/70 text-purple-300 px-2 py-0.5 rounded-md border border-purple-800/30">
+                  <span className="absolute bottom-3 left-3 text-[9px] uppercase font-bold tracking-wider bg-black/70 text-purple-300 px-2 py-0.5 rounded-sm border border-purple-800/30">
                     {post.category}
                   </span>
                 </div>
@@ -290,7 +290,7 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
                   {/* Foot toolbar */}
                   <div className="border-t border-purple-950/40 pt-4 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="relative w-6.5 h-6.5 rounded-full overflow-hidden border border-purple-800/20 bg-purple-950/30 flex items-center justify-center">
+                      <div className="relative w-6.5 h-6.5 rounded-sm overflow-hidden border border-purple-800/20 bg-purple-950/30 flex items-center justify-center">
                         {post.author.avatar ? (
                           <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
                         ) : (
@@ -305,14 +305,14 @@ export default function BlogClient({ blogPosts }: BlogClientProps) {
                     <div className="flex items-center gap-1">
                       <button
                         onClick={(e) => toggleBookmark(post.id, e)}
-                        className="p-1.5 rounded-lg bg-purple-950/10 border border-purple-900/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                        className="p-1.5 rounded-sm bg-purple-950/10 border border-purple-900/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
                         title="Bookmark"
                       >
                         <Bookmark className={`w-3.5 h-3.5 ${bookmarked.includes(post.id) ? "fill-purple-500 text-purple-500" : ""}`} />
                       </button>
                       <button
                         onClick={(e) => handleLike(post.id, e)}
-                        className="p-1.5 rounded-lg bg-purple-950/10 border border-purple-900/10 text-gray-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+                        className="p-1.5 rounded-sm bg-purple-950/10 border border-purple-900/10 text-gray-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
                         title="Like"
                       >
                         <ThumbsUp className={`w-3.5 h-3.5 ${hasLiked[post.id] ? "fill-purple-500 text-purple-500" : ""}`} />

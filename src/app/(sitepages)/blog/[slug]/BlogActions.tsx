@@ -32,7 +32,7 @@ export default function BlogActions({ postId }: BlogActionsProps) {
     <div className="flex items-center gap-3">
       <button
         onClick={handleLike}
-        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-950/35 border border-purple-900/20 hover:border-purple-500/30 text-gray-400 hover:text-white transition-all cursor-pointer text-xs font-bold"
+        className="flex items-center gap-2 px-4 py-2 rounded-sm bg-purple-950/35 border border-purple-900/20 hover:border-purple-500/30 text-gray-400 hover:text-white transition-all cursor-pointer text-xs font-bold"
       >
         <ThumbsUp className={`w-4 h-4 ${hasLiked ? "fill-purple-500 text-purple-500" : ""}`} />
         {hasLiked ? "Liked!" : "Helpful?"}
@@ -40,7 +40,7 @@ export default function BlogActions({ postId }: BlogActionsProps) {
       </button>
       <button
         onClick={handleShare}
-        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 text-gray-400 hover:text-white transition-all cursor-pointer text-xs font-bold"
+        className="flex items-center gap-2 px-4 py-2 rounded-sm bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 text-gray-400 hover:text-white transition-all cursor-pointer text-xs font-bold"
       >
         <Share2 className="w-4 h-4 text-purple-400" />
         Share article

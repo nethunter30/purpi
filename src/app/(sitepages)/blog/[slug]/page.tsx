@@ -123,11 +123,11 @@ export default async function BlogPostPage({ params }: RouteParams) {
         </Link>
 
         {/* Article main container */}
-        <article className="space-y-8 bg-[#0c0414]/90 border border-purple-500/10 rounded-[32px] p-6 md:p-10 shadow-2xl">
+        <article className="space-y-8 bg-[#0c0414]/90 border border-purple-500/10 rounded-sm p-6 md:p-10 shadow-2xl">
           <div className="space-y-6">
             {/* Header info */}
             <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-gray-400 font-light">
-              <span className="px-3 py-1 rounded-full bg-purple-900/20 text-[#c455e3] border border-purple-800/30 text-xs font-semibold uppercase tracking-wider">
+              <span className="px-3 py-1 rounded-sm bg-purple-900/20 text-[#c455e3] border border-purple-800/30 text-xs font-semibold uppercase tracking-wider">
                 {typeof post.category === "object" && post.category ? post.category.name : (post.category || "Uncategorized")}
               </span>
               <span className="flex items-center gap-1">
@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: RouteParams) {
 
             {/* Author profile banner */}
             <div className="flex items-center gap-4 border-b border-purple-950/40 pb-6">
-              <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-purple-500/20 bg-purple-950 flex items-center justify-center">
+              <div className="relative w-11 h-11 rounded-sm overflow-hidden border-2 border-purple-500/20 bg-purple-950 flex items-center justify-center">
                 {post.author.avatar ? (
                   <Image
                     src={post.author.avatar}
@@ -167,7 +167,7 @@ export default async function BlogPostPage({ params }: RouteParams) {
             </div>
 
             {/* Core Image Banner */}
-            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden bg-purple-950/10 shadow-lg border border-purple-900/10">
+            <div className="relative w-full h-64 md:h-96 rounded-sm overflow-hidden bg-purple-950/10 shadow-lg border border-purple-900/10">
               <Image
                 src={post.image}
                 alt={post.title}
@@ -193,7 +193,7 @@ export default async function BlogPostPage({ params }: RouteParams) {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-3 py-1 bg-purple-950/30 text-purple-300 rounded-lg border border-purple-900/20"
+                    className="text-xs px-3 py-1 bg-purple-950/30 text-purple-300 rounded-sm border border-purple-900/20"
                   >
                     #{tag}
                   </span>

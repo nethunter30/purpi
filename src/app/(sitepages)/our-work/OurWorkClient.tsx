@@ -60,7 +60,7 @@ export default function OurWorkClient({ caseStudies, categories }: OurWorkClient
         </div>
 
         {/* ── SECTION 2: STATS COUNTER BANNER ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-3xl bg-[#0c0414]/90 border border-purple-900/10 mb-20 shadow-2xl backdrop-blur-md">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-sm bg-[#0c0414]/90 border border-purple-900/10 mb-20 shadow-2xl backdrop-blur-md">
           {[
             { value: "99.99%", label: "Uptime SLA", desc: "For all cloud deployments" },
             { value: "2.4x", label: "Process Speed", desc: "Average system speedup" },
@@ -79,12 +79,12 @@ export default function OurWorkClient({ caseStudies, categories }: OurWorkClient
 
         {/* ── SECTION 3: INTERACTIVE FILTER ── */}
         <div className="flex justify-center mb-16">
-          <div className="inline-flex flex-wrap justify-center items-center gap-1.5 p-2 bg-[#0c0414]/90 border border-purple-950/40 rounded-2xl backdrop-blur-md shadow-2xl">
+          <div className="inline-flex flex-wrap justify-center items-center gap-1.5 p-2 bg-[#0c0414]/90 border border-purple-950/40 rounded-sm backdrop-blur-md shadow-2xl">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer ${selectedCategory === cat
+                className={`px-5 py-2.5 rounded-sm text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer ${selectedCategory === cat
                     ? "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg"
                     : "text-gray-400 hover:text-white hover:bg-purple-950/20"
                   }`}
@@ -97,7 +97,7 @@ export default function OurWorkClient({ caseStudies, categories }: OurWorkClient
 
         {/* ── SECTION 4: SHOWCASE CARDS GRID ── */}
         {filteredCaseStudies.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center border border-purple-900/10 bg-[#12061f]/10 rounded-[32px] p-8">
+          <div className="flex flex-col items-center justify-center py-24 text-center border border-purple-900/10 bg-[#12061f]/10 rounded-sm p-8">
             <Layers className="w-12 h-12 mb-4 text-purple-500/35 animate-pulse" />
             <h3 className="text-white text-lg font-bold">No projects listed</h3>
             <p className="text-sm text-gray-400 max-w-sm font-light mt-1">No matches found for the selected category. Check back soon for new case studies!</p>
@@ -108,13 +108,13 @@ export default function OurWorkClient({ caseStudies, categories }: OurWorkClient
               <Link
                 key={study.id}
                 href={`/our-work/${study.id}`}
-                className="group relative flex flex-col bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 rounded-[32px] p-6 transition-all duration-300 hover:-translate-y-1 shadow-2xl hover:shadow-purple-950/40 cursor-pointer overflow-hidden"
+                className="group relative flex flex-col bg-[#0c0414]/90 border border-purple-900/10 hover:border-purple-500/20 rounded-sm p-6 transition-all duration-300 hover:-translate-y-1 shadow-2xl hover:shadow-purple-950/40 cursor-pointer overflow-hidden"
               >
                 {/* Top Border Highlight */}
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Cover Image */}
-                <div className="relative w-full h-56 rounded-2xl overflow-hidden bg-purple-950/15 mb-6 shadow-md border border-purple-950/10">
+                <div className="relative w-full h-56 rounded-sm overflow-hidden bg-purple-950/15 mb-6 shadow-md border border-purple-950/10">
                   <Image
                     src={study.image}
                     alt={study.title}
@@ -126,7 +126,7 @@ export default function OurWorkClient({ caseStudies, categories }: OurWorkClient
 
                   {/* Category overlay tags */}
                   <div className="absolute top-4 left-4 z-20 flex gap-2">
-                    <span className="text-[9px] uppercase font-bold tracking-widest bg-black/80 text-purple-300 px-3 py-1 rounded-full border border-purple-800/30">
+                    <span className="text-[9px] uppercase font-bold tracking-widest bg-black/80 text-purple-300 px-3 py-1 rounded-sm border border-purple-800/30">
                       {study.category}
                     </span>
                   </div>
@@ -161,13 +161,13 @@ export default function OurWorkClient({ caseStudies, categories }: OurWorkClient
                     {study.techStack.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="text-[9px] px-2.5 py-1 bg-purple-900/10 text-purple-300 rounded-lg border border-purple-800/15"
+                        className="text-[9px] px-2.5 py-1 bg-purple-900/10 text-purple-300 rounded-sm border border-purple-800/15"
                       >
                         {tech}
                       </span>
                     ))}
                     {study.techStack.length > 4 && (
-                      <span className="text-[9px] px-2.5 py-1 bg-[#12061f] text-gray-500 rounded-lg border border-purple-950/20">
+                      <span className="text-[9px] px-2.5 py-1 bg-[#12061f] text-gray-500 rounded-sm border border-purple-950/20">
                         +{study.techStack.length - 4} more
                       </span>
                     )}

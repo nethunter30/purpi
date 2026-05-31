@@ -122,14 +122,14 @@ export default async function CaseStudyPage({ params }: RouteParams) {
         </Link>
 
         {/* Blueprint Details Box */}
-        <div className="bg-[#0c0414]/90 border border-purple-500/20 rounded-[32px] p-6 md:p-10 shadow-2xl relative">
+        <div className="bg-[#0c0414]/90 border border-purple-500/20 rounded-sm p-6 md:p-10 shadow-2xl relative">
           {/* Top Border Highlight */}
           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#a356db] to-transparent opacity-100" />
 
           {/* Header Info */}
           <div className="space-y-4 mb-8">
             <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-gray-400 font-light">
-              <span className="px-3 py-1 rounded-full bg-purple-900/20 text-[#c455e3] border border-purple-800/30 font-semibold uppercase tracking-wider">
+              <span className="px-3 py-1 rounded-sm bg-purple-900/20 text-[#c455e3] border border-purple-800/30 font-semibold uppercase tracking-wider">
                 {study.category}
               </span>
               <span className="text-gray-600">|</span>
@@ -146,7 +146,7 @@ export default async function CaseStudyPage({ params }: RouteParams) {
           </div>
 
           {/* Cover Banner */}
-          <div className="relative w-full h-56 md:h-96 rounded-2xl overflow-hidden bg-purple-950/10 shadow-lg border border-purple-900/10 mb-8">
+          <div className="relative w-full h-56 md:h-96 rounded-sm overflow-hidden bg-purple-950/10 shadow-lg border border-purple-900/10 mb-8">
             <Image
               src={study.image}
               alt={study.title}
@@ -170,7 +170,7 @@ export default async function CaseStudyPage({ params }: RouteParams) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-purple-950/40 pt-8 mb-8">
             <div className="space-y-3">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span className="p-1 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
+                <span className="p-1 rounded-sm bg-red-500/10 border border-red-500/20 text-red-400">
                   <Activity className="w-4.5 h-4.5" />
                 </span>
                 The Challenge
@@ -181,7 +181,7 @@ export default async function CaseStudyPage({ params }: RouteParams) {
             </div>
             <div className="space-y-3">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span className="p-1 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400">
+                <span className="p-1 rounded-sm bg-green-500/10 border border-green-500/20 text-green-400">
                   <Zap className="w-4.5 h-4.5" />
                 </span>
                 The Solution
@@ -202,7 +202,7 @@ export default async function CaseStudyPage({ params }: RouteParams) {
               {study.techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="text-xs px-3 py-1.5 bg-purple-900/15 text-purple-300 rounded-lg border border-purple-800/20"
+                  className="text-xs px-3 py-1.5 bg-purple-900/15 text-purple-300 rounded-sm border border-purple-800/20"
                 >
                   {tech}
                 </span>
@@ -216,7 +216,7 @@ export default async function CaseStudyPage({ params }: RouteParams) {
               <TrendingUp className="w-4.5 h-4.5 text-purple-400" />
               Production Metrics Comparison
             </h3>
-            <div className="overflow-x-auto border border-purple-950/40 rounded-2xl bg-[#030107]/70 shadow-lg">
+            <div className="overflow-x-auto border border-purple-950/40 rounded-sm bg-[#030107]/70 shadow-lg">
               <table className="w-full text-left text-xs sm:text-sm border-collapse">
                 <thead>
                   <tr className="border-b border-purple-950/40 bg-purple-950/10 text-white font-bold">
@@ -248,8 +248,8 @@ export default async function CaseStudyPage({ params }: RouteParams) {
             </h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 pl-1">
               {study.milestones.map((milestone, i) => (
-                <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-gray-300 font-light bg-purple-950/10 border border-purple-950/30 p-3 rounded-xl">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-950 border border-purple-800/40 text-[9px] font-bold text-purple-400 flex items-center justify-center mt-0.5 shadow-md">
+                <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-gray-300 font-light bg-purple-950/10 border border-purple-950/30 p-3 rounded-sm">
+                  <span className="flex-shrink-0 w-5 h-5 rounded-sm bg-purple-950 border border-purple-800/40 text-[9px] font-bold text-purple-400 flex items-center justify-center mt-0.5 shadow-md">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span>{milestone}</span>
