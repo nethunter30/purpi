@@ -22,11 +22,10 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-2 sm:px-6 flex items-center justify-between transition-all duration-300 ${
-          scrolled
+        className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-2 sm:px-6 flex items-center justify-between transition-all duration-300 ${scrolled
             ? "bg-purple-950/20 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
             : "bg-purple-950/20 backdrop-blur-md"
-        }`}
+          }`}
       >
         {/* Logo */}
         <div className="flex items-center">
@@ -45,9 +44,6 @@ export default function Header() {
           </Link>
           <Link href="/services" className="hover:text-white transition-colors">
             Services
-          </Link>
-          <Link href="/#team" className="hover:text-white transition-colors">
-            Our Team
           </Link>
           <Link href="/industries" className="hover:text-white transition-colors">
             Industries

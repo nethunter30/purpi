@@ -93,8 +93,8 @@ export default function Footer() {
     { name: "About Us", href: "/about-us", isScroll: true },
     { name: "Industries", href: "/industries" },
     { name: "Solutions", href: "/solutions" },
-    { name: "Our Team", href: "/#team", isScroll: true },
     { name: "Blogs & News", href: "/blogs" },
+    { name: "Careers", href: "/careers" },
     { name: "Contact Us", href: "/#contact" },
   ];
 
