@@ -801,6 +801,7 @@ export default function ProductForm({ initialData, productId }: {
                     cards: [...form.sections.pricing!.cards, {
                       title: "", tagline: "", price: 0, billingCycle: "/month",
                       points: [], highlighted: false, ctaLabel: "Get Started", ctaHref: "",
+                      cta2Label: "", cta2Href: "",
                     }],
                   })}
                   className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 cursor-pointer transition-colors">
@@ -888,6 +889,26 @@ export default function ProductForm({ initialData, productId }: {
                           setSection("pricing", { ...form.sections.pricing!, cards });
                         }}
                         placeholder="/contact?plan=starter" className={inputCls} />
+                    </Field>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <Field label="Second CTA Label (Optional)">
+                      <input type="text" value={plan.cta2Label ?? ""}
+                        onChange={(e) => {
+                          const cards = [...form.sections.pricing!.cards];
+                          cards[i] = { ...cards[i], cta2Label: e.target.value };
+                          setSection("pricing", { ...form.sections.pricing!, cards });
+                        }}
+                        placeholder="e.g. Buy Now (Defaults to Price)" className={inputCls} />
+                    </Field>
+                    <Field label="Second CTA Href (Optional)">
+                      <input type="text" value={plan.cta2Href ?? ""}
+                        onChange={(e) => {
+                          const cards = [...form.sections.pricing!.cards];
+                          cards[i] = { ...cards[i], cta2Href: e.target.value };
+                          setSection("pricing", { ...form.sections.pricing!, cards });
+                        }}
+                        placeholder="e.g. https://checkout.stripe.com/..." className={inputCls} />
                     </Field>
                   </div>
                   <Field label="Feature Points">

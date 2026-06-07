@@ -2,16 +2,16 @@
 
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Check, 
-  ArrowRight, 
-  Coins, 
-  Users, 
-  Handshake, 
-  FileText, 
-  ChevronDown, 
-  Loader2, 
-  CheckCircle2, 
+import {
+  Check,
+  ArrowRight,
+  Coins,
+  Users,
+  Handshake,
+  FileText,
+  ChevronDown,
+  Loader2,
+  CheckCircle2,
   AlertCircle,
   Terminal,
   ShieldCheck,
@@ -147,18 +147,18 @@ export default function CareersClient() {
 
   return (
     <div className="relative flex flex-col w-full overflow-hidden text-white bg-[#0c0414]">
-      
+
       {/* ========================================================================= */}
       {/* 1. HERO SECTION (High-Fidelity Replica with radial purple brand theme) */}
       {/* ========================================================================= */}
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center py-20 px-6 overflow-hidden z-10 bg-[radial-gradient(circle_at_center,_#2b0d4f_0%,_#0c0414_75%,_#05010a_100%)] border-b border-purple-950/20">
-        
+
         {/* Soft background purple/fuchsia light blooms */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-10 right-1/4 w-[300px] h-[300px] bg-fuchsia-700/5 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto w-full flex flex-col items-center text-center relative z-10 pt-12 md:pt-16">
-          
+
           {/* Main Title Heading */}
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -269,15 +269,15 @@ export default function CareersClient() {
               >
                 {/* Ambient purple glow on hover */}
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 <div className="mb-4 w-11 h-11 rounded-lg bg-purple-900/20 border border-purple-900/30 flex items-center justify-center group-hover:border-purple-500/20 transition-all duration-300">
                   {service.icon}
                 </div>
-                
+
                 <h3 className="text-white text-base font-bold tracking-tight mb-2 group-hover:text-purple-300 transition-colors">
                   {service.title}
                 </h3>
-                
+
                 <p className="text-gray-400 text-xs leading-relaxed font-light">
                   {service.desc}
                 </p>
@@ -326,7 +326,7 @@ export default function CareersClient() {
               >
                 {/* Glow border overlay */}
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 <div className="mb-5 w-12 h-12 rounded-lg bg-purple-900/30 border border-purple-900/40 flex items-center justify-center group-hover:border-purple-500/30 transition-all duration-300">
                   {step.icon}
                 </div>
@@ -342,7 +342,7 @@ export default function CareersClient() {
         </div>
       </section>
 
-      {/* ========================================================================= */}
+      =========================================================================
       {/* 4. INTERACTIVE COMMISSION ESTIMATOR */}
       {/* ========================================================================= */}
       <section className="relative w-full py-20 px-6 z-10 bg-[#0c0414] border-b border-purple-950/10">
@@ -365,7 +365,7 @@ export default function CareersClient() {
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-              
+
               {/* Left – Slider controls */}
               <div className="flex flex-col">
                 <div className="flex justify-between items-center mb-3">
@@ -406,7 +406,7 @@ export default function CareersClient() {
                 </div>
 
                 <span className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-2">Your Commission</span>
-                
+
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={projectValue}
@@ -503,7 +503,7 @@ export default function CareersClient() {
 
           <FadeUp className="bg-purple-950/10 border border-purple-900/20 backdrop-blur-md rounded-2xl p-6 md:p-10 shadow-2xl">
             <form onSubmit={handleFormSubmit} className="flex flex-col gap-8">
-              
+
               {/* Partner Details (Referrer) */}
               <div>
                 <h3 className="text-purple-400 text-sm font-bold uppercase tracking-wider mb-4 pb-2 border-b border-purple-900/20">
@@ -640,11 +640,10 @@ export default function CareersClient() {
 
               {/* Status Messages */}
               {formStatus.type && (
-                <div className={`p-4 rounded-lg border flex gap-3 text-xs md:text-sm ${
-                  formStatus.type === "success"
+                <div className={`p-4 rounded-lg border flex gap-3 text-xs md:text-sm ${formStatus.type === "success"
                     ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-400"
                     : "bg-red-950/30 border-red-500/30 text-red-400"
-                }`}>
+                  }`}>
                   {formStatus.type === "success" ? (
                     <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   ) : (
@@ -703,9 +702,8 @@ export default function CareersClient() {
                     className="w-full flex items-center justify-between text-left p-5 text-sm md:text-base font-semibold text-white hover:text-purple-400 transition-colors"
                   >
                     <span>{faq.question}</span>
-                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 flex-shrink-0 ml-4 ${
-                      isOpen ? "rotate-180 text-purple-400" : ""
-                    }`} />
+                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 flex-shrink-0 ml-4 ${isOpen ? "rotate-180 text-purple-400" : ""
+                      }`} />
                   </button>
 
                   <AnimatePresence initial={false}>

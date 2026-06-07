@@ -402,16 +402,27 @@ export default function ProductDetailClient({ product, category, subcategory }: 
                     </ul>
 
                     {/* Action Button */}
-                    <Link
-                      href={plan.ctaHref || `/#contact?service=${encodeURIComponent(product.name)}&plan=${encodeURIComponent(plan.title)}`}
-                      className={`w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-center transition-all cursor-pointer ${
-                        isFeatured
-                          ? "bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]"
-                          : "bg-purple-950/20 hover:bg-purple-950/45 text-purple-300 border border-purple-900/35 hover:text-white"
-                      }`}
-                    >
-                      {plan.ctaLabel || "Get Started"}
-                    </Link>
+                    <div className="flex flex-col gap-2 w-full mt-auto">
+                      <Link
+                        href={plan.ctaHref || `/#contact?service=${encodeURIComponent(product.name)}&plan=${encodeURIComponent(plan.title)}`}
+                        className={`w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-center transition-all cursor-pointer ${
+                          isFeatured
+                            ? "bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.3)]"
+                            : "bg-purple-950/20 hover:bg-purple-950/45 text-purple-300 border border-purple-900/35 hover:text-white"
+                        }`}
+                      >
+                        {plan.ctaLabel || "Get Started"}
+                      </Link>
+
+                      {plan.cta2Href && (
+                        <Link
+                          href={plan.cta2Href}
+                          className="w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-center transition-all cursor-pointer bg-purple-950/20 hover:bg-purple-950/45 text-purple-300 border border-purple-900/35 hover:text-white"
+                        >
+                          {plan.cta2Label || `${formatPrice(plan.price).symbol}${formatPrice(plan.price).amount}`}
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 );
               })}

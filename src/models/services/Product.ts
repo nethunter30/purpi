@@ -67,6 +67,8 @@ export type PriceCard = {
   highlighted?: boolean;
   ctaLabel?: string;
   ctaHref?: string;
+  cta2Label?: string;
+  cta2Href?: string;
 };
 
 export type PricingSection = SectionMeta & {
@@ -195,6 +197,8 @@ const PriceCardSchema = new Schema(
     highlighted: { type: Boolean, default: false },
     ctaLabel: { type: String, default: "Get Started" },
     ctaHref: { type: String },
+    cta2Label: { type: String },
+    cta2Href: { type: String },
   },
   { _id: false }
 );
