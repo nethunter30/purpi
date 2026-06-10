@@ -194,10 +194,10 @@ function ContactCard() {
                     label: "Alt Email",
                     value: (
                         <a
-                            href="mailto:enteropia.dev@gmail.com"
+                            href="mailto:hello.enteropia@gmail.com"
                             className="text-violet-400 hover:text-violet-300 transition-colors"
                         >
-                            enteropia.dev@gmail.com
+                            hello.enteropia@gmail.com
                         </a>
                     ),
                 },

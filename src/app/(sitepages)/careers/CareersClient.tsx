@@ -3,10 +3,8 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Check,
   ArrowRight,
   Coins,
-  Users,
   Handshake,
   FileText,
   ChevronDown,
@@ -84,13 +82,108 @@ export default function CareersClient() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // Strict typing validation to prevent typing invalid characters
+    if (name === "referrerName" || name === "clientContactName") {
+      // Only allow letters and spaces
+      const cleanValue = value.replace(/[^a-zA-Z\s]/g, "");
+      setFormData((prev) => ({ ...prev, [name]: cleanValue }));
+    } else if (name === "referrerPhone" || name === "clientPhone") {
+      // Only allow digits, spaces, plus sign, dashes, and parentheses
+      const cleanValue = value.replace(/[^0-9+\s()-]/g, "");
+      setFormData((prev) => ({ ...prev, [name]: cleanValue }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
     setFormStatus({ type: null, message: "" });
+
+    // Strict Validation Checks
+    const nameRegex = /^[a-zA-Z\s]{2,100}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!nameRegex.test(formData.referrerName.trim())) {
+      setFormStatus({
+        type: "error",
+        message: "Your name must contain only letters and spaces (minimum 2 characters).",
+      });
+      return;
+    }
+
+    if (!emailRegex.test(formData.referrerEmail.trim())) {
+      setFormStatus({
+        type: "error",
+        message: "Please enter a valid referrer email address.",
+      });
+      return;
+    }
+
+    if (formData.referrerPhone.trim()) {
+      const numericDigits = formData.referrerPhone.replace(/[^0-9]/g, "");
+      if (numericDigits.length < 10 || numericDigits.length > 15) {
+        setFormStatus({
+          type: "error",
+          message: "Referrer phone number must contain between 10 and 15 digits.",
+        });
+        return;
+      }
+    }
+
+    if (!formData.referrerUpiOrBank.trim()) {
+      setFormStatus({
+        type: "error",
+        message: "UPI ID or Bank Details is required.",
+      });
+      return;
+    }
+
+    if (!formData.clientBusinessName.trim()) {
+      setFormStatus({
+        type: "error",
+        message: "Referred client company name is required.",
+      });
+      return;
+    }
+
+    if (!nameRegex.test(formData.clientContactName.trim())) {
+      setFormStatus({
+        type: "error",
+        message: "Client contact person's name must contain only letters and spaces (minimum 2 characters).",
+      });
+      return;
+    }
+
+    if (!emailRegex.test(formData.clientEmail.trim())) {
+      setFormStatus({
+        type: "error",
+        message: "Please enter a valid client email address.",
+      });
+      return;
+    }
+
+    if (formData.clientPhone.trim()) {
+      const numericDigits = formData.clientPhone.replace(/[^0-9]/g, "");
+      if (numericDigits.length < 10 || numericDigits.length > 15) {
+        setFormStatus({
+          type: "error",
+          message: "Client phone number must contain between 10 and 15 digits.",
+        });
+        return;
+      }
+    }
+
+    if (!formData.projectScope.trim()) {
+      setFormStatus({
+        type: "error",
+        message: "Project scope & requirements are required.",
+      });
+      return;
+    }
+
+    setSubmitting(true);
 
     try {
       const res = await fetch("/api/referrals", {
@@ -177,7 +270,7 @@ export default function CareersClient() {
             className="text-gray-300 max-w-3xl text-sm sm:text-base md:text-lg mt-6 leading-relaxed"
           >
             Know a business that needs reliable IT, cloud, or cybersecurity solutions? Refer them
-            to us, and we'll handle the rest. You earn when they pay. No caps. No hidden fees.
+            to us, and we&apos;ll handle the rest. You earn when they pay. No caps. No hidden fees.
           </motion.p>
 
           {/* Action Button */}
@@ -457,26 +550,20 @@ export default function CareersClient() {
             <div className="absolute top-[-10%] right-[-10%] w-48 h-48 bg-emerald-500/5 rounded-full blur-[40px] pointer-events-none" />
             <div className="absolute bottom-[-10%] left-[-10%] w-48 h-48 bg-purple-500/5 rounded-full blur-[40px] pointer-events-none" />
 
-            <div className="flex flex-col gap-5">
+            <ul className="flex flex-col gap-5 list-disc pl-5 text-gray-300 text-sm md:text-base leading-relaxed">
               {[
-                <>Referrals must be <strong className="text-white font-semibold">new clients</strong> who haven't engaged with us in the past 12 months.</>,
+                <>Referrals must be <strong className="text-white font-semibold">new clients</strong> who haven&apos;t engaged with us in the past 12 months.</>,
                 <>Commission is paid <strong className="text-white font-semibold">only after we receive full/partial payment</strong> from the client.</>,
                 <><strong className="text-white font-semibold">Duplicate referrals</strong> or self-referrals are not eligible.</>,
                 <>We reserve the right to <strong className="text-white font-semibold">validate and approve</strong> all submissions.</>,
                 <>Payouts processed via <strong className="text-white font-semibold">Bank Transfer or UPI</strong>.</>,
                 <>Partners are responsible for their own <strong className="text-white font-semibold">tax compliance</strong>. We do not deduct TDS unless legally required.</>
               ].map((item, idx) => (
-                <div key={idx} className="flex items-start">
-                  {/* Square Green Check Box */}
-                  <span className="flex items-center justify-center w-5 h-5 bg-[#4ade80] rounded text-white mr-3 flex-shrink-0 mt-0.5 shadow-[0_2px_4px_rgba(74,222,128,0.25)]">
-                    <Check className="w-3.5 h-3.5 stroke-[3.5]" />
-                  </span>
-                  <span className="text-gray-300 text-sm md:text-base leading-relaxed">
-                    {item}
-                  </span>
-                </div>
+                <li key={idx} className="marker:text-purple-400">
+                  {item}
+                </li>
               ))}
-            </div>
+            </ul>
           </FadeUp>
         </div>
       </section>
@@ -497,7 +584,7 @@ export default function CareersClient() {
               Submit Your Referral Details
             </h2>
             <p className="text-gray-400 text-sm mt-3">
-              Fill out this form with your information and the referred company's details. Our accounts team will handle the rest.
+              Fill out this form with your information and the referred company&apos;s details. Our accounts team will handle the rest.
             </p>
           </FadeUp>
 

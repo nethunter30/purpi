@@ -33,6 +33,24 @@ const Youtube = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+    <rect x="2" y="9" width="4" height="12"></rect>
+    <circle cx="4" cy="4" r="2"></circle>
+  </svg>
+);
+
+const Reddit = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M17 11.5a1.5 1.5 0 0 0-2.5-1.1 9 9 0 0 0-5 0A1.5 1.5 0 0 0 7 11.5c0 .6.35 1.15.9 1.4-.15.4-.2.8-.2 1.25 0 2 1.8 3.6 4.3 3.6s4.3-1.6 4.3-3.6c0-.45-.05-.85-.2-1.25.55-.25.9-.8.9-1.4Z"></path>
+    <path d="M11 14h.01"></path>
+    <path d="M13 14h.01"></path>
+    <path d="M12 9v-3.5a1.5 1.5 0 0 1 3 0"></path>
+  </svg>
+);
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -88,13 +106,20 @@ export default function Footer() {
     setTimeout(() => setSubscribed(false), 3000);
   };
 
-  const companyLinks = [
+  interface CompanyLink {
+    name: string;
+    href: string;
+    isScroll?: boolean;
+    badge?: string;
+  }
+
+  const companyLinks: CompanyLink[] = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about-us", isScroll: true },
     { name: "Industries", href: "/industries" },
     { name: "Solutions", href: "/solutions" },
     { name: "Blogs & News", href: "/blogs" },
-    { name: "Careers", href: "/careers" },
+    { name: "Careers ", href: "/careers", badge: "Hiring" },
     { name: "Contact Us", href: "/#contact" },
   ];
 
@@ -144,16 +169,22 @@ export default function Footer() {
               Your dedicated engineering partner — from architecture to deployment.</p>
             {/* Social Icons */}
             <div className="flex items-center gap-1.5 pt-0.5">
-              <a href="#" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Facebook">
+              <a href="https://www.facebook.com/profile.php?id=61590684264837" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Facebook">
                 <Facebook className="w-3.5 h-3.5" />
               </a>
-              <a href="#" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Twitter">
+              <a href="https://x.com/enteropia__" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="X (Twitter)">
                 <Twitter className="w-3.5 h-3.5" />
               </a>
-              <a href="#" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Instagram">
+              <a href="https://www.instagram.com/enteropia_/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Instagram">
                 <Instagram className="w-3.5 h-3.5" />
               </a>
-              <a href="#" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Youtube">
+              <a href="https://www.linkedin.com/company/enteropia/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="LinkedIn">
+                <Linkedin className="w-3.5 h-3.5" />
+              </a>
+              <a href="https://www.reddit.com/user/Ready_Painting_5877/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Reddit">
+                <Reddit className="w-3.5 h-3.5" />
+              </a>
+              <a href="https://youtube.com/@enteropia-yt?si=QfHLTIy4ZtMnnwQ6" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-7 h-7 rounded-full bg-[#1c0f2b] border border-purple-500/10 text-gray-400 hover:text-white hover:bg-[#a855f7] hover:border-transparent transition-all duration-300" title="Youtube">
                 <Youtube className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -195,6 +226,12 @@ export default function Footer() {
                   <Link href={link.href} className="text-gray-400 hover:text-white hover:translate-x-0.5 inline-block transition-all duration-200">
                     <span className="flex items-center gap-1">
                       {link.name}
+                      {link.badge && (
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 ml-0.5 select-none">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          {link.badge}
+                        </span>
+                      )}
                     </span>
                   </Link>
                 </li>
@@ -236,19 +273,19 @@ export default function Footer() {
                 {/* Secondary Email */}
                 <div className="flex flex-col relative">
                   <div className="flex items-center gap-2 justify-start">
-                    <a href="mailto:enteropia.dev@gmail.com" className="hover:text-white transition-colors truncate text-xs">
-                      enteropia.dev@gmail.com
+                    <a href="hello.enteropia@gmail.com" className="hover:text-white transition-colors truncate text-xs">
+                      hello.enteropia@gmail.com
                     </a>
                     <button
-                      onClick={() => handleCopy("enteropia.dev@gmail.com")}
+                      onClick={() => handleCopy("hello.enteropia@gmail.com")}
                       className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
                     >
-                      {copiedText === "enteropia.dev@gmail.com" ? (
+                      {copiedText === "hello.enteropia@gmail.com" ? (
                         <Check className="w-2.5 h-2.5 text-emerald-400" />
                       ) : (
                         <Copy className="w-2.5 h-2.5 text-purple-400/80" />
                       )}
-                      {copiedText === "enteropia.dev@gmail.com" && (
+                      {copiedText === "hello.enteropia@gmail.com" && (
                         <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
                           Copied!
                         </div>

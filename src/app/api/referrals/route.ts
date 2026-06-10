@@ -258,7 +258,7 @@ export async function POST(req: NextRequest) {
             
             <div class="contact-info">
               Have questions about your referral or tracking? Reach us at<br>
-              <strong>Email:</strong> <a href="mailto:enteropia.dev@gmail.com">enteropia.dev@gmail.com</a> &nbsp;|&nbsp; 
+              <strong>Email:</strong> <a href="mailto:info@enteropia.com">info@enteropia.com</a> &nbsp;|&nbsp; 
               <strong>Hotline:</strong> <a href="tel:+919900112530">+91 9900112530</a>
             </div>
             
@@ -277,14 +277,14 @@ export async function POST(req: NextRequest) {
     // 1. Send to Admin Gmail
     emailPromises.push(
       sendMail({
-        to: "enteropia.dev@gmail.com",
+        to: "hello.enteropia@gmail.com",
         subject: `[New Referral Submission] Partner ${referrerName} referred ${clientBusinessName}`,
         html: adminEmailHtml,
       })
     );
 
     // 2. Send to GoDaddy Company Email (ADMIN_EMAIL from .env)
-    if (process.env.ADMIN_EMAIL) {
+    if (process.env.ADMIN_EMAIL && process.env.ADMIN_EMAIL !== "hello.enteropia@gmail.com") {
       emailPromises.push(
         sendMail({
           to: process.env.ADMIN_EMAIL,

@@ -98,11 +98,32 @@ export default async function ProductPage({ params }: PageProps) {
     slug: subcategoryDoc.slug || "",
   };
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": serializedProduct.name,
+    "description": serializedProduct.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "enteropia",
+      "url": "https://enteropia.com",
+      "logo": "https://enteropia.com/logo.png"
+    },
+    "category": serializedCategory.name,
+    "image": serializedProduct.image || "https://enteropia.com/logo.png"
+  };
+
   return (
-    <ProductDetailClient
-      product={serializedProduct}
-      category={serializedCategory}
-      subcategory={serializedSubcategory}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <ProductDetailClient
+        product={serializedProduct}
+        category={serializedCategory}
+        subcategory={serializedSubcategory}
+      />
+    </>
   );
 }

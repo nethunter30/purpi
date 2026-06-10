@@ -26,7 +26,7 @@ export default function Contact() {
     {
       title: "Email",
       desc: "Contact us by email, and we respond shortly.",
-      value: ["info@enteropia.com", "enteropia.dev@gmail.com"],
+      value: ["info@enteropia.com","hello.enteropia@gmail.com"],
     },
     {
       title: "Phone",
@@ -144,14 +144,14 @@ export default function Contact() {
                       const isEmail = val.includes("@");
                       const isWhatsApp = val.includes("8150903035");
                       const cleanPhone = val.replace(/\s+/g, "");
-                      const href = isEmail 
-                        ? `mailto:${val}` 
-                        : isWhatsApp 
-                          ? `https://wa.me/${cleanPhone.replace("+", "")}` 
+                      const href = isEmail
+                        ? `mailto:${val}`
+                        : isWhatsApp
+                          ? `https://wa.me/${cleanPhone.replace("+", "")}`
                           : `tel:${cleanPhone}`;
                       return (
-                        <a 
-                          key={val} 
+                        <a
+                          key={val}
                           href={href}
                           {...(isWhatsApp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                           className="hover:text-purple-400 transition-colors w-fit block"
@@ -250,8 +250,8 @@ export default function Contact() {
 
             {status.type && (
               <div className={`p-3.5 rounded-lg border flex gap-2.5 text-xs ${status.type === "success"
-                  ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-400"
-                  : "bg-red-950/30 border-red-500/30 text-red-400"
+                ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-400"
+                : "bg-red-950/30 border-red-500/30 text-red-400"
                 }`}>
                 {status.type === "success" ? (
                   <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" />

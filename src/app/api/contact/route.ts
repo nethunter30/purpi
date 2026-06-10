@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
       timeStyle: "short",
     });
 
-    // 1. Send Email Notification to Admin (enteropia.dev@gmail.com)
+    // 1. Send Email Notification to Admin (hello.enteropia@gmail.com)
     const adminEmailHtml = `
       <!DOCTYPE html>
       <html>
@@ -188,7 +188,7 @@ export async function POST(req: NextRequest) {
             
             <div class="contact-info">
               Have questions? Reach us directly at<br>
-              <strong>Email:</strong> <a href="mailto:enteropia.dev@gmail.com">enteropia.dev@gmail.com</a> &nbsp;|&nbsp; 
+              <strong>Email:</strong> <a href="mailto:info@enteropia.com">info@enteropia.com</a> &nbsp;|&nbsp; 
               <strong>Hotline:</strong> <a href="tel:+919900112530">+91 9900112530</a>
             </div>
             
@@ -207,14 +207,14 @@ export async function POST(req: NextRequest) {
     // 1. Send to Gmail
     emailPromises.push(
       sendMail({
-        to: "enteropia.dev@gmail.com",
+        to: "hello.enteropia@gmail.com",
         subject: `[New Contact Message] Submission from ${fullName}`,
         html: adminEmailHtml,
       })
     );
 
     // 2. Send to GoDaddy Company Email (ADMIN_EMAIL from .env)
-    if (process.env.ADMIN_EMAIL) {
+    if (process.env.ADMIN_EMAIL && process.env.ADMIN_EMAIL !== "hello.enteropia@gmail.com") {
       emailPromises.push(
         sendMail({
           to: process.env.ADMIN_EMAIL,

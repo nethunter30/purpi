@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import dbConnect from "@/lib/db";
 import Category from "@/models/services/Category";
+import Product from "@/models/services/Product";
 import { Sparkles } from "lucide-react";
 import FadeUp from "@/sitepages/components/layout/FadeUp";
 
@@ -9,7 +10,22 @@ export default async function WhatWeDo() {
     let categories: any[] = [];
     try {
         await dbConnect();
-        categories = await Category.find({ isActive: true }).sort({ order: 1, name: 1 });
+        const rawCategories = await Category.find({ isActive: true }).sort({ order: 1, name: 1 });
+        categories = await Promise.all(
+            rawCategories.map(async (cat) => {
+                const subServicesCount = await Product.countDocuments({
+                    category: cat._id,
+                    isActive: true,
+                });
+                return {
+                    name: cat.name,
+                    slug: cat.slug,
+                    description: cat.description,
+                    image: cat.image,
+                    subServicesCount,
+                };
+            })
+        );
     } catch (err) {
         console.error("Error loading categories for homepage:", err);
     }
@@ -68,10 +84,15 @@ export default async function WhatWeDo() {
                                         <p className="text-gray-400 text-sm leading-relaxed text-justify mb-6 group-hover:text-gray-300 transition-colors duration-300">
                                             {category.description}
                                         </p>
+                                        
                                     </div>
 
                                     {/* Subtle link arrow indicator at the bottom right */}
-                                    <div className="flex justify-end items-center mt-auto">
+                                    <div className="flex justify-between items-center mt-auto w-full pt-4 border-t border-purple-950/20">
+                                        {/*count products*/}
+                                        <p className="text-gray-400 text-xs font-medium tracking-wide group-hover:text-gray-300 transition-colors duration-300">
+                                            Sub-services: {category.subServicesCount || 0}
+                                        </p>
                                         <span className="px-4 py-1.5 rounded-full border border-purple-900/40 bg-purple-950/20 flex items-center justify-center text-xs text-purple-400 group-hover:text-purple-300 group-hover:border-purple-500/30 group-hover:bg-purple-900/20 transition-all duration-300">
                                             <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">Explore More</span>
                                         </span>

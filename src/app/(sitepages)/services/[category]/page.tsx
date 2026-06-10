@@ -89,11 +89,48 @@ export default async function CategoryPage({ params }: PageProps) {
     };
   });
 
+  const subcategorySlugMap: Record<string, string> = {};
+  subcategories.forEach((sub) => {
+    subcategorySlugMap[sub._id.toString()] = sub.slug || "";
+  });
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": serializedCategory.name,
+    "description": serializedCategory.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "enteropia",
+      "url": "https://enteropia.com",
+      "logo": "https://enteropia.com/logo.png"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": `${serializedCategory.name} Services Catalog`,
+      "itemListElement": serializedProducts.map((p) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": p.name,
+          "description": p.description,
+          "url": `https://enteropia.com/services/${serializedCategory.slug}/${subcategorySlugMap[p.subcategory] || ""}/${p.slug}`
+        }
+      }))
+    }
+  };
+
   return (
-    <CategoryClient
-      category={serializedCategory}
-      subcategories={serializedSubcategories}
-      products={serializedProducts}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <CategoryClient
+        category={serializedCategory}
+        subcategories={serializedSubcategories}
+        products={serializedProducts}
+      />
+    </>
   );
 }

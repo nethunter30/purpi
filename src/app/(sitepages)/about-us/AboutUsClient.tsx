@@ -120,7 +120,7 @@ export default function AboutUsClient() {
           initial="hidden"
           animate="visible"
           custom={0.2}
-          className="text-gray-300 max-w-2xl text-base md:text-lg leading-relaxed"
+          className="text-gray-300 max-w-5xl text-base md:text-lg leading-relaxed"
         >
           enteropia is a Bengaluru-based enterprise technology company founded
           in 2026. We exist to make cutting-edge software engineering, cloud
