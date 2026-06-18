@@ -7,6 +7,7 @@ import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import dbConnect from "@/lib/db";
 import BlogPost from "@/models/BlogPost";
 import BlogActions from "./BlogActions";
+import { parseMarkdown } from "@/utils/markdown";
 
 export const revalidate = 60;
 
@@ -35,6 +36,10 @@ export async function generateMetadata({
     };
   }
 
+  const imageUrl = post.image.startsWith("http")
+    ? post.image
+    : `https://enteropia.com${post.image.startsWith("/") ? post.image : "/" + post.image}`;
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -49,7 +54,7 @@ export async function generateMetadata({
       publishedTime: post.date,
       images: [
         {
-          url: post.image,
+          url: imageUrl,
           alt: post.title,
         },
       ],
@@ -58,7 +63,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [imageUrl],
     },
   };
 }
@@ -72,6 +77,10 @@ export default async function BlogPostPage({ params }: RouteParams) {
     notFound();
   }
 
+  const imageUrl = post.image.startsWith("http")
+    ? post.image
+    : `https://enteropia.com${post.image.startsWith("/") ? post.image : "/" + post.image}`;
+
   // Inject BlogPosting schema JSON-LD
   const jsonLd = {
     "@context": "https://schema.org",
@@ -79,7 +88,7 @@ export default async function BlogPostPage({ params }: RouteParams) {
     "headline": post.title,
     "description": post.excerpt,
     "datePublished": post.date,
-    "image": `https://enteropia.com${post.image}`,
+    "image": imageUrl,
     "author": {
       "@type": "Person",
       "name": post.author.name,
@@ -179,12 +188,8 @@ export default async function BlogPostPage({ params }: RouteParams) {
             </div>
 
             {/* Full text content */}
-            <div className="pt-4 border-t border-purple-950/20 space-y-4">
-              {post.content.split("\n\n").filter(Boolean).map((para: string, i: number) => (
-                <p key={i} className="text-gray-300 text-sm md:text-base leading-relaxed font-light whitespace-pre-wrap">
-                  {para.trim()}
-                </p>
-              ))}
+            <div className="pt-4 border-t border-purple-950/20">
+              {parseMarkdown(post.content)}
             </div>
 
             {/* Footer row with tag listing & share action */}

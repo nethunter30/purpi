@@ -25,6 +25,7 @@ import {
 import { useParams } from "next/navigation";
 import ImageUpload from "@/admin/components/common/ImageUpload";
 import Image from "next/image";
+import { parseMarkdown } from "@/utils/markdown";
 
 interface BlogPost {
   _id: string;
@@ -846,13 +847,7 @@ export default function BlogAdminPage() {
                     {/* Content Markdown render */}
                     <div className="pt-6 border-t border-purple-950/20">
                       {formData.content ? (
-                        <div className="space-y-4">
-                          {formData.content.split("\n\n").filter(Boolean).map((para: string, i: number) => (
-                            <p key={i} className="text-gray-300 text-sm md:text-base leading-relaxed font-light whitespace-pre-wrap">
-                              {para.trim()}
-                            </p>
-                          ))}
-                        </div>
+                        parseMarkdown(formData.content)
                       ) : (
                         <p className="text-gray-600 text-sm font-mono italic">
                           Write some Markdown in the "Write Post" tab to see it render here.

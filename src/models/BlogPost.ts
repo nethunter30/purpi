@@ -1,4 +1,5 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
+import { createModel } from "@/models/utils/createModel";
 
 export interface IBlogPost extends Document {
   id: string; // URL slug, e.g. "serverless-nextjs15"
@@ -21,74 +22,65 @@ export interface IBlogPost extends Document {
   updatedAt: Date;
 }
 
-const blogPostSchema = new Schema<IBlogPost>(
-  {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      lowercase: true,
-    },
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    excerpt: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
-    date: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    readTime: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    author: {
-      name: { type: String, required: true, trim: true },
-      role: { type: String, required: true, trim: true },
-      avatar: { type: String, default: "" },
-    },
-    image: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    tags: {
-      type: [String],
-      default: [],
-    },
-    featured: {
-      type: Boolean,
-      default: false,
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
+const BlogPost = createModel<IBlogPost>("BlogPost", {
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
   },
-  {
-    timestamps: true,
-  }
-);
-
-// Prevent Next.js hot-reloading from crashing by checking if the model already exists
-const BlogPost: Model<IBlogPost> =
-  mongoose.models.BlogPost || mongoose.model<IBlogPost>("BlogPost", blogPostSchema);
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  excerpt: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
+  date: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  readTime: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  author: {
+    name: { type: String, required: true, trim: true },
+    role: { type: String, required: true, trim: true },
+    avatar: { type: String, default: "" },
+  },
+  image: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  tags: {
+    type: [String],
+    default: [],
+  },
+  featured: {
+    type: Boolean,
+    default: false,
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 export default BlogPost;
