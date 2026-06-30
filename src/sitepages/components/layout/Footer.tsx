@@ -118,7 +118,7 @@ export default function Footer() {
     { name: "About Us", href: "/about-us", isScroll: true },
     { name: "Industries", href: "/industries" },
     { name: "Solutions", href: "/solutions" },
-    { name: "Blogs & News", href: "/blogs" },
+    { name: "Blogs & News", href: "/blog" },
     { name: "Careers ", href: "/careers", badge: "Hiring" },
     { name: "Contact Us", href: "/#contact" },
   ];
@@ -333,8 +333,25 @@ export default function Footer() {
 
         </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-purple-950/20 mb-4" />
+        {/* Compliance & Security Badges */}
+        <div className="flex flex-wrap justify-center sm:justify-start gap-2.5 mb-4 select-none">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#11071e]/85 border border-purple-950/40 text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            SOC 2 Type II
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#11071e]/85 border border-purple-950/40 text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            ISO/IEC 27001
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#11071e]/85 border border-purple-950/40 text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            GDPR Compliant
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#11071e]/85 border border-purple-950/40 text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            PCI DSS Certified
+          </div>
+        </div>
 
         {/* Bottom Bar - Extremely Premium and Tighter */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">

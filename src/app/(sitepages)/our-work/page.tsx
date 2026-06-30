@@ -77,11 +77,36 @@ export default async function OurWorkPage() {
     },
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://enteropia.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Our Work",
+        "item": "https://enteropia.com/our-work"
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
+        id="schema-our-work"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="schema-our-work-breadcrumb"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <OurWorkClient caseStudies={plainStudies} categories={categories} />
     </>

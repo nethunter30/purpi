@@ -33,6 +33,23 @@ interface SubcategoryClientProps {
 }
 
 export default function SubcategoryClient({ category, subcategory, products }: SubcategoryClientProps) {
+  const [openFaqIdx, setOpenFaqIdx] = React.useState<number | null>(null);
+
+  const faqs = subcategoryFaqs[subcategory.slug] || [
+    {
+      question: "What is the delivery timeline for a typical project in this category?",
+      answer: "Scoping and timelines vary depending on features, but a typical subcategory service takes anywhere between 4 to 12 weeks from initial scoping to production deployment."
+    },
+    {
+      question: "Do you sign Non-Disclosure Agreements (NDAs)?",
+      answer: "Yes, we sign standard mutual NDAs before sharing any technical architectures, project specs, or custom database credentials to protect your intellectual property."
+    },
+    {
+      question: "Can we scale our engagement as the project grows?",
+      answer: "Definitely. We build modular, future-proof infrastructures and offer scalable developer contracts, enabling you to add resources as user traffic and feature scope expand."
+    }
+  ];
+
   return (
     <div className="flex flex-col w-full font-sans">
       {/* Hero Section */}
@@ -150,6 +167,92 @@ export default function SubcategoryClient({ category, subcategory, products }: S
           )}
         </div>
       </section>
+
+      {/* ── FAQ ACCORDION SECTION ──────────────────────────────────────── */}
+      <section className="relative w-full py-16 md:py-24 border-t border-purple-950/20 bg-[#06020c]">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center max-w-xl mx-auto mb-16">
+            <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-[#c455e3] mb-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-950/20">
+              FAQ
+            </span>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-slate-400 text-sm leading-relaxed mt-4 font-light">
+              Common questions regarding our {subcategory.name} service catalog.
+            </p>
+          </div>
+
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {faqs.map((item, idx) => {
+              const isOpen = openFaqIdx === idx;
+              return (
+                <div
+                  key={idx}
+                  className="group border border-purple-950/40 bg-[#0d0517]/45 rounded-lg overflow-hidden transition-all duration-300 hover:border-purple-500/20"
+                  onMouseEnter={() => setOpenFaqIdx(idx)}
+                  onMouseLeave={() => setOpenFaqIdx(null)}
+                >
+                  <button
+                    className="w-full text-left p-5 flex items-center justify-between gap-4 font-bold text-white hover:text-purple-300 transition-colors text-sm md:text-base cursor-pointer"
+                    onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
+                  >
+                    <span>{item.question}</span>
+                    <ChevronRight
+                      className={`w-4 h-4 text-purple-400 transition-transform duration-300 flex-shrink-0 ${
+                        isOpen ? "rotate-90 text-white" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                      isOpen ? "max-h-60 border-t border-purple-950/20 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="p-5 text-slate-400 text-xs md:text-sm leading-relaxed font-light bg-[#08020e]/60">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+
+const subcategoryFaqs: Record<string, { question: string; answer: string }[]> = {
+  "server-management": [
+    {
+      question: "What does your server management service include?",
+      answer: "Our server management service includes 24/7 server health monitoring, security patching, OS updates, log analysis, firewall administration, database optimization, and automated backups."
+    },
+    {
+      question: "How do you handle server downtime?",
+      answer: "We configure real-time monitoring agents that alert our systems engineers instantly. We follow a strict SLA response protocol to investigate and reboot or recover services immediately."
+    }
+  ],
+  "web-application-development": [
+    {
+      question: "What frontend and backend technologies do you use for web apps?",
+      answer: "We specialize in modern stacks, including React, Next.js, and TypeScript on the frontend, and Node.js, Python, Go, PostgreSQL, and MongoDB on the backend."
+    },
+    {
+      question: "Are the web applications SEO-friendly and responsive?",
+      answer: "Yes, all our web applications are designed with mobile-first responsiveness and engineered using server-side rendering (SSR) or static site generation (SSG) to ensure optimal SEO performance and speed."
+    }
+  ],
+  "mobile-app-development": [
+    {
+      question: "Do you publish the apps to Apple App Store and Google Play Store?",
+      answer: "Yes, we manage the entire publishing process, including developer account configuration, metadata preparation, store guidelines compliance reviews, and final binary submissions."
+    },
+    {
+      question: "Do you offer post-launch maintenance for mobile apps?",
+      answer: "Absolutely. We offer maintenance packages to cover OS upgrades, SDK updates, bug fixes, and feature expansions to ensure your app runs smoothly on newer device models."
+    }
+  ]
+};

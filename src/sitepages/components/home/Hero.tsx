@@ -77,6 +77,40 @@ export default function Hero() {
 
           </div>
         </div>
+
+        {/* Trusted By Section */}
+        <div className="w-full mt-12 md:mt-16 border-t border-purple-950/20 pt-8 flex flex-col items-center select-none">
+          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-6">
+            Trusted by engineers and teams at
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-40 hover:opacity-60 transition-opacity duration-300">
+            {/* Stripe */}
+            <div className="text-white font-bold text-xs tracking-widest flex items-center gap-1.5 grayscale hover:grayscale-0 hover:text-purple-400 transition-all duration-300 cursor-pointer">
+              <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              STRIPE
+            </div>
+            {/* AWS */}
+            <div className="text-white font-bold text-xs tracking-widest flex items-center gap-1.5 grayscale hover:grayscale-0 hover:text-purple-400 transition-all duration-300 cursor-pointer">
+              <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              AWS
+            </div>
+            {/* VMware */}
+            <div className="text-white font-bold text-xs tracking-widest flex items-center gap-1.5 grayscale hover:grayscale-0 hover:text-purple-400 transition-all duration-300 cursor-pointer">
+              <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+              VMWARE
+            </div>
+            {/* Twilio */}
+            <div className="text-white font-bold text-xs tracking-widest flex items-center gap-1.5 grayscale hover:grayscale-0 hover:text-purple-400 transition-all duration-300 cursor-pointer">
+              <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              TWILIO
+            </div>
+            {/* GitLab */}
+            <div className="text-white font-bold text-xs tracking-widest flex items-center gap-1.5 grayscale hover:grayscale-0 hover:text-purple-400 transition-all duration-300 cursor-pointer">
+              <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m12 2 3.5 10H8.5L12 2z"/><path d="M12 2 8.5 12H2L12 2z"/><path d="M12 2 15.5 12H22L12 2z"/></svg>
+              GITLAB
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -101,11 +101,36 @@ export default async function ServicesPage() {
     }
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://enteropia.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://enteropia.com/services"
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
+        id="schema-services"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalogSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        id="schema-services-breadcrumb"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ServicesClient
         categories={serializedCategories}

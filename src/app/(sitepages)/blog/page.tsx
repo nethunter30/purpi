@@ -72,11 +72,36 @@ export default async function BlogPage() {
     }))
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://enteropia.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://enteropia.com/blog"
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
+        id="schema-blog-list"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="schema-blog-list-breadcrumb"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <BlogClient blogPosts={plainPosts} />
     </>

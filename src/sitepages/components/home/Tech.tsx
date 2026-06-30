@@ -73,9 +73,6 @@ const defaultPartners: Partner[] = [
 ];
 
 export default function Tech() {
-  // Double the list for seamless infinite loop scroll
-  const marqueeItems = [...defaultPartners, ...defaultPartners];
-
   return (
     <section className="relative w-full py-5 bg-black overflow-hidden border-y border-purple-950/10 z-10">
       
@@ -88,22 +85,45 @@ export default function Tech() {
         
         {/* Animated Marquee row */}
         <div className="animate-marquee gap-16 py-2">
-          {marqueeItems.map((partner, index) => (
-            <div
-              key={index}
-              className="group flex items-center gap-4 cursor-pointer transition-all duration-500"
-            >
-              {/* Logo wrapper */}
-              <div className="flex items-center justify-center p-1 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
-                {partner.logo}
-              </div>
+          {/* Main set of items */}
+          <div className="flex gap-16 items-center shrink-0">
+            {defaultPartners.map((partner, index) => (
+              <div
+                key={`main-${index}`}
+                className="group flex items-center gap-4 cursor-pointer transition-all duration-500"
+              >
+                {/* Logo wrapper */}
+                <div className="flex items-center justify-center p-1 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+                  {partner.logo}
+                </div>
 
-              {/* Partner Name/Title */}
-              <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-500 whitespace-nowrap">
-                {partner.name}
-              </span>
-            </div>
-          ))}
+                {/* Partner Name/Title */}
+                <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-500 whitespace-nowrap">
+                  {partner.name}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Duplicate set of items for seamless loop (hidden from accessibility/crawlers) */}
+          <div className="flex gap-16 items-center shrink-0" aria-hidden="true">
+            {defaultPartners.map((partner, index) => (
+              <div
+                key={`dup-${index}`}
+                className="group flex items-center gap-4 cursor-pointer transition-all duration-500"
+              >
+                {/* Logo wrapper */}
+                <div className="flex items-center justify-center p-1 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+                  {partner.logo}
+                </div>
+
+                {/* Partner Name/Title */}
+                <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-500 whitespace-nowrap">
+                  {partner.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
       </FadeUp>

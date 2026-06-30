@@ -98,12 +98,43 @@ export default async function CaseStudyPage({ params }: RouteParams) {
     }
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://enteropia.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Our Work",
+        "item": "https://enteropia.com/our-work"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": study.title,
+        "item": `https://enteropia.com/our-work/${study.id}`
+      }
+    ]
+  };
+
   return (
     <div className="relative min-h-screen bg-black text-white py-24 z-10 overflow-x-hidden flex flex-col items-center">
       {/* Script tag for search engine indexing */}
       <script
         type="application/ld+json"
+        id="schema-case-study"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="schema-case-study-breadcrumb"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* Visual Background Elements */}

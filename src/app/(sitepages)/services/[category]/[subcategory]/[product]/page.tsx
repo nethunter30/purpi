@@ -113,11 +113,76 @@ export default async function ProductPage({ params }: PageProps) {
     "image": serializedProduct.image || "https://enteropia.com/logo.png"
   };
 
+  // FAQPage Schema
+  const faqSchema = serializedProduct.sections.faq?.items?.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": serializedProduct.sections.faq.items.map((item: any) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  } : null;
+
+  // BreadcrumbList Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://enteropia.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://enteropia.com/services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": serializedCategory.name,
+        "item": `https://enteropia.com/services/${serializedCategory.slug}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": serializedSubcategory.name,
+        "item": `https://enteropia.com/services/${serializedCategory.slug}/${serializedSubcategory.slug}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": serializedProduct.name,
+        "item": `https://enteropia.com/services/${serializedCategory.slug}/${serializedSubcategory.slug}/${serializedProduct.slug}`
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
+        id="schema-services-product"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          id="schema-services-product-faq"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        id="schema-services-product-breadcrumb"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ProductDetailClient
         product={serializedProduct}

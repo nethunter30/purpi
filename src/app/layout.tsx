@@ -77,8 +77,46 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "N7_361zqw8iZyvmALNpg2XGTvaxpo7KjuYyKOtLkLsg",
   },
+};
+
+const globalSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://enteropia.com/#organization",
+      "name": "enteropia",
+      "url": "https://enteropia.com",
+      "logo": "https://enteropia.com/logo.png",
+      "description": "enteropia delivers cutting-edge software engineering, custom cloud-native infrastructure, AI pipelines, and zero-trust security integrations for enterprise scale-ups.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bengaluru",
+        "addressLocality": "Bengaluru",
+        "addressRegion": "Karnataka",
+        "postalCode": "560001",
+        "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61590684264837",
+        "https://x.com/enteropia__",
+        "https://www.instagram.com/enteropia_/",
+        "https://www.linkedin.com/company/enteropia/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://enteropia.com/#website",
+      "url": "https://enteropia.com",
+      "name": "enteropia",
+      "description": "enteropia delivers cutting-edge software engineering, custom cloud-native infrastructure, AI pipelines, and zero-trust security integrations for enterprise scale-ups.",
+      "publisher": {
+        "@id": "https://enteropia.com/#organization"
+      }
+    }
+  ]
 };
 
 export default function RootLayout({
@@ -93,6 +131,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          id="global-schema"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchema) }}
+        />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script

@@ -48,6 +48,22 @@ const getCategoryIcon = (slug: string) => {
 
 export default function CategoryClient({ category, subcategories, products }: CategoryClientProps) {
   const IconComponent = getCategoryIcon(category.slug);
+  const [openFaqIdx, setOpenFaqIdx] = React.useState<number | null>(null);
+
+  const faqs = categoryFaqs[category.slug] || [
+    {
+      question: "How do I choose the right technology solution for my business?",
+      answer: "Our systems architects evaluate your scale, current tech stack, operational needs, and budget to design a tailored roadmap that fits your business objectives."
+    },
+    {
+      question: "Do you offer custom pricing and subscription models?",
+      answer: "Yes, we provide flexible engagement packages, including fixed-cost project contracts, dedicated developer retainers, and SLA-based ongoing support models."
+    },
+    {
+      question: "How do we get started with enteropia?",
+      answer: "Simply use the contact form or hotline to book a consultation. Our team will schedule an architecture scoping session to outline your custom blueprint."
+    }
+  ];
 
   // Group products by subcategory ID
   const productsBySub = subcategories.reduce<Record<string, Product[]>>((acc, sub) => {
@@ -197,6 +213,104 @@ export default function CategoryClient({ category, subcategories, products }: Ca
           )}
         </div>
       </section>
+
+      {/* ── FAQ ACCORDION SECTION ──────────────────────────────────────── */}
+      <section className="relative w-full py-16 md:py-24 border-t border-purple-950/20 bg-[#06020c]">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center max-w-xl mx-auto mb-16">
+            <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-[#c455e3] mb-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-950/20">
+              FAQ
+            </span>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-slate-400 text-sm leading-relaxed mt-4 font-light">
+              Common questions regarding our {category.name} solutions and lifecycle delivery.
+            </p>
+          </div>
+
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {faqs.map((item, idx) => {
+              const isOpen = openFaqIdx === idx;
+              return (
+                <div
+                  key={idx}
+                  className="group border border-purple-950/40 bg-[#0d0517]/45 rounded-lg overflow-hidden transition-all duration-300 hover:border-purple-500/20"
+                  onMouseEnter={() => setOpenFaqIdx(idx)}
+                  onMouseLeave={() => setOpenFaqIdx(null)}
+                >
+                  <button
+                    className="w-full text-left p-5 flex items-center justify-between gap-4 font-bold text-white hover:text-purple-300 transition-colors text-sm md:text-base cursor-pointer"
+                    onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
+                  >
+                    <span>{item.question}</span>
+                    <ChevronRight
+                      className={`w-4 h-4 text-purple-400 transition-transform duration-300 flex-shrink-0 ${
+                        isOpen ? "rotate-90 text-white" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                      isOpen ? "max-h-60 border-t border-purple-950/20 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="p-5 text-slate-400 text-xs md:text-sm leading-relaxed font-light bg-[#08020e]/60">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+
+const categoryFaqs: Record<string, { question: string; answer: string }[]> = {
+  "software-development": [
+    {
+      question: "What software development methodologies do you use?",
+      answer: "We primarily employ Agile and DevOps methodologies, enabling rapid iterations, continuous integration, and transparent client collaboration throughout the lifecycle."
+    },
+    {
+      question: "Do you build cross-platform mobile apps?",
+      answer: "Yes, we build performant cross-platform mobile applications using React Native and Flutter, as well as native iOS (Swift) and Android (Kotlin) apps tailored to business needs."
+    },
+    {
+      question: "Can you integrate third-party APIs and legacy systems?",
+      answer: "Absolutely. We have extensive experience building custom middleware and integrating complex third-party SaaS APIs, payment gateways, and legacy enterprise databases."
+    }
+  ],
+  "it-services": [
+    {
+      question: "Do you provide 24/7 system monitoring and support?",
+      answer: "Yes, we offer SLA-backed 24/7 proactive monitoring, real-time alerting, and remote support services to identify and resolve server and network bottlenecks before they affect business operations."
+    },
+    {
+      question: "What cloud platforms do you support?",
+      answer: "We support all major cloud provider platforms, including Amazon Web Services (AWS), Google Cloud Platform (GCP), and Microsoft Azure, focusing on security and cost optimization."
+    },
+    {
+      question: "How do you handle disaster recovery and backup?",
+      answer: "We design robust backup strategies with multi-region automated replication, point-in-time recovery, and documented disaster recovery protocols to ensure business continuity."
+    }
+  ],
+  "caas": [
+    {
+      question: "What is Container as a Service (CaaS) and how does it benefit my business?",
+      answer: "CaaS is a cloud service model that allows businesses to upload, organize, run, scale, and manage containers. It streamlines DevOps pipelines, improves resource utilization, and ensures application portability across different environments."
+    },
+    {
+      question: "Do you support Kubernetes cluster orchestration?",
+      answer: "Yes, we specialize in building and managing secure, production-ready Kubernetes clusters on AWS (EKS), GCP (GKE), Azure (AKS), as well as custom self-hosted Kubernetes setups."
+    },
+    {
+      question: "How do you secure containerized applications?",
+      answer: "We implement container security best practices, including image scanning for vulnerabilities, restricted IAM roles, network policies, namespace isolation, and secrets management."
+    }
+  ]
+};

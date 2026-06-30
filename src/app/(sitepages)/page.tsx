@@ -8,10 +8,46 @@ import LetsConnect from "@/sitepages/components/home/LetsConnect";
 import Tech from "@/sitepages/components/home/Tech";
 import Ourworks from "@/sitepages/components/home/Ourworks";
 import Blogs from "@/sitepages/components/home/Blogs";
+import dbConnect from "@/lib/db";
+import Testimonial from "@/models/Testimonial";
 
 export const revalidate = 60;
 
-export default function Home() {
+export default async function Home() {
+  let aggregateRating = null;
+  let reviews: any[] = [];
+  try {
+    await dbConnect();
+    const approvedTestimonials = await Testimonial.find({ status: "approved" }).sort({ createdAt: -1 });
+    if (approvedTestimonials.length > 0) {
+      const totalStars = approvedTestimonials.reduce((sum, item) => sum + item.stars, 0);
+      const ratingValue = Number((totalStars / approvedTestimonials.length).toFixed(1));
+      aggregateRating = {
+        "@type": "AggregateRating",
+        "ratingValue": ratingValue,
+        "reviewCount": approvedTestimonials.length,
+        "bestRating": "5",
+        "worstRating": "1"
+      };
+      reviews = approvedTestimonials.map((t) => ({
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": t.name
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": t.stars,
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "reviewBody": t.text
+      }));
+    }
+  } catch (err) {
+    console.error("Error loading testimonials for schema:", err);
+  }
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -34,7 +70,8 @@ export default function Home() {
       "https://x.com/enteropia__",
       "https://www.instagram.com/enteropia_/",
       "https://www.linkedin.com/company/enteropia/"
-    ]
+    ],
+    ...(aggregateRating ? { "aggregateRating": aggregateRating, "review": reviews } : {})
   };
 
   const localBusinessSchema = {
@@ -71,17 +108,20 @@ export default function Home() {
       ],
       "opens": "09:00",
       "closes": "18:00"
-    }
+    },
+    ...(aggregateRating ? { "aggregateRating": aggregateRating, "review": reviews } : {})
   };
 
   return (
     <>
       <script
         type="application/ld+json"
+        id="schema-organization"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <script
         type="application/ld+json"
+        id="schema-local-business"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <Hero />
