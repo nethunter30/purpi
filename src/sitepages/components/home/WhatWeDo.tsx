@@ -36,22 +36,34 @@ export default async function WhatWeDo() {
             <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 left-1/3 w-[300px] h-[300px] bg-indigo-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-            <FadeUp className="flex flex-col items-center justify-center w-full">
+            <FadeUp className="flex flex-col items-start w-full">
                 {/* Header Content */}
-                <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-6 mb-16 relative z-10">
-                    <div className="inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/10 text-purple-300 text-xs font-semibold tracking-wider uppercase mb-5">
-                        What We Do
+                <div className="w-full flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16 gap-6 px-6 max-w-[1200px] mx-auto relative z-10">
+                    <div className="flex flex-col items-start text-left max-w-2xl">
+                        <div className="inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/10 text-purple-300 text-xs font-semibold tracking-wider uppercase mb-4">
+                            What We Do
+                        </div>
+
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                            Your Premium Tech Partner
+                        </h2>
+
+                        <p className="text-gray-400 text-sm md:text-base leading-relaxed font-light">
+                            Founded in 2026, enteropia delivers innovative, reliable, and scalable tech solutions,
+                            specializing in software development, IT infrastructure, and digital transformation. We help
+                            businesses build lasting value with sustainable, future-ready systems.
+                        </p>
                     </div>
 
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-                        Your Premium Tech Partner
-                    </h2>
-
-                    <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl">
-                        Founded in 2026, enteropia delivers innovative, reliable, and scalable tech solutions,
-                        specializing in software development, IT infrastructure, and digital transformation. We help
-                        businesses build lasting value with sustainable, future-ready systems.
-                    </p>
+                    {/* View All Button on Top Right */}
+                    <div className="flex-shrink-0">
+                        <Link
+                            href="/services"
+                            className="inline-block px-6 py-2.5 rounded-sm border border-purple-900/30 text-gray-300 hover:text-white hover:bg-purple-900/20 hover:border-purple-500/30 transition-all text-xs font-semibold tracking-wider uppercase cursor-pointer whitespace-nowrap"
+                        >
+                            Explore Services
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Grid Layout */}
@@ -64,7 +76,7 @@ export default async function WhatWeDo() {
                         </p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] w-full px-6 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] w-full px-6 mx-auto relative z-10">
                         {categories.map((category) => (
                             <Link
                                 key={category.slug}

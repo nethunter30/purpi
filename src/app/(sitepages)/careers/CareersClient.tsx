@@ -3,7 +3,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowRight,
   Coins,
   Handshake,
   FileText,
@@ -43,8 +42,6 @@ const faqs = [
 ];
 
 export default function CareersClient() {
-  // Slider states for commission estimator
-  const [projectValue, setProjectValue] = useState(250000); // Default value
 
   // FAQ Accordion active index
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -229,14 +226,7 @@ export default function CareersClient() {
     }
   };
 
-  // Format currency helper
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(val);
-  };
+
 
   return (
     <div className="relative flex flex-col w-full overflow-hidden text-white bg-[#0c0414]">
@@ -435,101 +425,7 @@ export default function CareersClient() {
         </div>
       </section>
 
-      =========================================================================
-      {/* 4. INTERACTIVE COMMISSION ESTIMATOR */}
-      {/* ========================================================================= */}
-      <section className="relative w-full py-20 px-6 z-10 bg-[#0c0414] border-b border-purple-950/10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.04),transparent_60%)] pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto">
-          <FadeUp className="text-center mb-12">
-            <span className="inline-block text-emerald-400 text-[11px] font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-sm border border-emerald-500/20 bg-emerald-950/20">
-              Earnings Calculator
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
-              Estimate Your Referral Earnings
-            </h2>
-            <p className="text-gray-400 text-sm mt-3 max-w-xl mx-auto">
-              Drag the slider to choose the potential contract size of your referral and see how much you could earn instantly.
-            </p>
-          </FadeUp>
-
-          <FadeUp className="relative rounded-2xl border border-purple-900/25 bg-[#140620]/30 backdrop-blur-md p-8 md:p-12 shadow-2xl overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-
-              {/* Left – Slider controls */}
-              <div className="flex flex-col">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-gray-400 text-xs uppercase tracking-wider font-semibold">Contract Value</span>
-                  <span className="text-white font-bold text-lg">{formatCurrency(projectValue)}</span>
-                </div>
-
-                <input
-                  type="range"
-                  min="50000"
-                  max="1500000"
-                  step="25000"
-                  value={projectValue}
-                  onChange={(e) => setProjectValue(Number(e.target.value))}
-                  className="w-full h-2 bg-purple-950 rounded-lg appearance-none cursor-pointer accent-purple-500 focus:outline-none"
-                />
-
-                <div className="flex justify-between items-center text-[10px] text-gray-500 mt-2 font-semibold">
-                  <span>₹50,000</span>
-                  <span>₹7,50,000</span>
-                  <span>₹15,000,00</span>
-                </div>
-
-                <div className="mt-8 bg-purple-950/40 border border-purple-900/20 rounded-lg p-4">
-                  <h4 className="text-white text-xs font-semibold uppercase tracking-wider mb-2">Typical Project Examples</h4>
-                  <ul className="space-y-1 text-xs text-gray-400">
-                    <li>• ₹1L - ₹3L: Cloud Migrations & System Setups</li>
-                    <li>• ₹3L - ₹8L: Custom Web Applications & API Portals</li>
-                    <li>• ₹8L - ₹15L+: Full Enterprise Software Suite & Infra</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Right – Dynamic Earnings Display */}
-              <div className="flex flex-col items-center text-center bg-[#0c0414]/80 border border-purple-900/30 rounded-xl p-8 relative">
-                <div className="absolute top-2 right-2 flex items-center justify-center bg-emerald-500/10 text-emerald-400 font-bold text-[10px] px-2 py-0.5 rounded border border-emerald-500/20">
-                  10% Payout
-                </div>
-
-                <span className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-2">Your Commission</span>
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={projectValue}
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    className="text-4xl md:text-5xl font-black text-emerald-400 tracking-tight"
-                  >
-                    {formatCurrency(projectValue * 0.1)}
-                  </motion.div>
-                </AnimatePresence>
-
-                <p className="text-gray-500 text-xs mt-4 leading-relaxed">
-                  Calculated based on first invoice payment. Paid directly to your bank account or UPI ID.
-                </p>
-
-                <button
-                  onClick={handleScrollToForm}
-                  className="mt-6 flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] transition-all text-slate-950 font-bold text-xs uppercase tracking-wider py-2.5 px-5 rounded-md cursor-pointer"
-                >
-                  Claim This Payout
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-            </div>
-          </FadeUp>
-        </div>
-      </section>
 
       {/* ========================================================================= */}
       {/* 5. PARTNER GUIDELINES SECTION */}
@@ -784,30 +680,35 @@ export default function CareersClient() {
                   delay={idx * 0.1}
                   className="rounded-lg border border-purple-900/20 bg-purple-950/5 overflow-hidden"
                 >
-                  <button
-                    onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between text-left p-5 text-sm md:text-base font-semibold text-white hover:text-purple-400 transition-colors"
+                  <div
+                    onMouseEnter={() => setActiveFaq(idx)}
+                    onMouseLeave={() => setActiveFaq(null)}
                   >
-                    <span>{faq.question}</span>
-                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 flex-shrink-0 ml-4 ${isOpen ? "rotate-180 text-purple-400" : ""
-                      }`} />
-                  </button>
+                    <button
+                      onClick={() => setActiveFaq(isOpen ? null : idx)}
+                      className="w-full flex items-center justify-between text-left p-5 text-sm md:text-base font-semibold text-white hover:text-purple-400 transition-colors"
+                    >
+                      <span>{faq.question}</span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 flex-shrink-0 ml-4 ${isOpen ? "rotate-180 text-purple-400" : ""
+                        }`} />
+                    </button>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <div className="p-5 pt-0 text-xs md:text-sm text-gray-400 leading-relaxed border-t border-purple-900/10">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0 }}
+                          animate={{ height: "auto" }}
+                          exit={{ height: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="p-5 pt-0 text-xs md:text-sm text-gray-400 leading-relaxed border-t border-purple-900/10">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </FadeUp>
               );
             })}

@@ -8,49 +8,68 @@ interface Partner {
   logo: React.ReactNode;
 }
 
-// Built-in high-quality matching SVG icons for Relume and Webflow
-const RelumeLogo = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors duration-300">
-    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-  </svg>
-);
+import {
+  SiFigma,
+  SiNextdotjs,
+  SiPython,
+  SiNodedotjs,
+  SiReact,
+  SiTailwindcss,
+  SiPostgresql,
+  SiMongodb,
+  SiGooglecloud,
+  SiDocker,
+  SiGraphql,
+  SiTypescript,
+  SiJavascript,
+  SiGit,
+  SiGithub,
+  SiGitlab,
+  SiBitbucket,
+  SiJira,
+  SiSlack,
+  SiLinux,
+  SiNginx,
+  SiCisco,
+  SiFortinet,
+  SiVmware,
+} from "react-icons/si";
 
-const WebflowLogo = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors duration-300">
-    <path d="M22 6.5h-3.8L15.6 15l-2.6-8.5H9.2L6.6 15 4 6.5H0l4.6 11h3.8l2.6-8.5 2.6 8.5h3.8z" />
-  </svg>
-);
+import { FaWindows, FaAws } from "react-icons/fa";
+import { VscAzure } from "react-icons/vsc";
+
+const iconClass =
+  "w-6 h-6 text-gray-400 group-hover:text-white transition-colors duration-300";
 
 const defaultPartners: Partner[] = [
-  { name: "Figma", logo: <RelumeLogo /> },
-  { name: "Nextjs", logo: <WebflowLogo /> },
-  { name: "Python", logo: <RelumeLogo /> },
-  { name: "Nodejs", logo: <WebflowLogo /> },
-  { name: "Reactjs", logo: <RelumeLogo /> },
-  { name: "Tailwindcss", logo: <WebflowLogo /> },
-  { name: "Postgresql", logo: <RelumeLogo /> },
-  { name: "Mongodb", logo: <WebflowLogo /> },
-  { name: "aws", logo: <RelumeLogo /> },
-  { name: "gcp", logo: <WebflowLogo /> },
-  { name: "azure", logo: <RelumeLogo /> },
-  { name: "docker", logo: <WebflowLogo /> },
-  { name: "graphql", logo: <WebflowLogo /> },
-  { name: "restapi", logo: <RelumeLogo /> },
-  { name: "typescript", logo: <WebflowLogo /> },
-  { name: "javascript", logo: <RelumeLogo /> },
-  { name: "Git", logo: <WebflowLogo /> },
-  { name: "GitHub", logo: <RelumeLogo /> },
-  { name: "GitLab", logo: <WebflowLogo /> },
-  { name: "Bitbucket", logo: <RelumeLogo /> },
-  { name: "Jira", logo: <WebflowLogo /> },
-  { name: "Slack", logo: <RelumeLogo /> },
-  { name: "Linux", logo: <WebflowLogo /> },
-  { name: "nginx", logo: <RelumeLogo /> },
-  { name: "Windows", logo: <WebflowLogo /> },
-  { name: "Cisco", logo: <RelumeLogo /> },
-  { name: "Fortinet",logo: <WebflowLogo />},
-  { name: "VMWare", logo: <RelumeLogo />},
-  
+  { name: "Figma", logo: <SiFigma className={iconClass} /> },
+  { name: "Next.js", logo: <SiNextdotjs className={iconClass} /> },
+  { name: "Python", logo: <SiPython className={iconClass} /> },
+  { name: "Node.js", logo: <SiNodedotjs className={iconClass} /> },
+  { name: "React", logo: <SiReact className={iconClass} /> },
+  { name: "Tailwind CSS", logo: <SiTailwindcss className={iconClass} /> },
+  { name: "PostgreSQL", logo: <SiPostgresql className={iconClass} /> },
+  { name: "MongoDB", logo: <SiMongodb className={iconClass} /> },
+  { name: "AWS", logo: <FaAws className={iconClass} /> },
+  { name: "Google Cloud", logo: <SiGooglecloud className={iconClass} /> },
+  { name: "Azure", logo: <VscAzure className={iconClass} /> },
+  { name: "Docker", logo: <SiDocker className={iconClass} /> },
+  { name: "GraphQL", logo: <SiGraphql className={iconClass} /> },
+  { name: "REST API", logo: <span className={iconClass}>API</span> }, // No official icon
+  { name: "TypeScript", logo: <SiTypescript className={iconClass} /> },
+  { name: "JavaScript", logo: <SiJavascript className={iconClass} /> },
+  { name: "Git", logo: <SiGit className={iconClass} /> },
+  { name: "GitHub", logo: <SiGithub className={iconClass} /> },
+  { name: "GitLab", logo: <SiGitlab className={iconClass} /> },
+  { name: "Bitbucket", logo: <SiBitbucket className={iconClass} /> },
+  { name: "Jira", logo: <SiJira className={iconClass} /> },
+  { name: "Slack", logo: <SiSlack className={iconClass} /> },
+  { name: "Linux", logo: <SiLinux className={iconClass} /> },
+  { name: "Nginx", logo: <SiNginx className={iconClass} /> },
+  { name: "Windows", logo: <FaWindows className={iconClass} /> },
+  { name: "Cisco", logo: <SiCisco className={iconClass} /> },
+  { name: "Fortinet", logo: <SiFortinet className={iconClass} /> },
+  { name: "VMware", logo: <SiVmware className={iconClass} /> },
 ];
 
 export default function Tech() {
@@ -72,7 +91,7 @@ export default function Tech() {
           {marqueeItems.map((partner, index) => (
             <div
               key={index}
-              className="group flex items-center gap-3.5 cursor-pointer transition-all duration-500"
+              className="group flex items-center gap-4 cursor-pointer transition-all duration-500"
             >
               {/* Logo wrapper */}
               <div className="flex items-center justify-center p-1 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
@@ -80,7 +99,7 @@ export default function Tech() {
               </div>
 
               {/* Partner Name/Title */}
-              <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-500">
+              <span className="text-gray-500 font-sans text-xl md:text-2xl font-bold tracking-tight group-hover:text-white transition-colors duration-500 whitespace-nowrap">
                 {partner.name}
               </span>
             </div>

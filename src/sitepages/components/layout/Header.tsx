@@ -23,8 +23,8 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 w-full z-50 py-2 px-4 sm:py-2 sm:px-6 flex items-center justify-between transition-all duration-300 ${scrolled
-            ? "bg-purple-950/20 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
-            : "bg-purple-950/20 backdrop-blur-md"
+          ? "bg-purple-950/20 backdrop-blur-md border-b border-purple-950/30 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+          : "bg-purple-950/20 backdrop-blur-md"
           }`}
       >
         {/* Logo */}
@@ -38,43 +38,90 @@ export default function Header() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-200">
+        <nav className="hidden md:flex ml-25 items-center space-x-8 text-sm font-medium text-gray-200">
           <Link href="/" className="hover:text-white transition-colors">
             Home
           </Link>
-          <Link href="/services" className="hover:text-white transition-colors">
+          <Link href="/services" className="px-1 py-1 text-sm font-medium text-gray-300 hover:text-white transition-colors">
             Services
           </Link>
-          <Link href="/industries" className="hover:text-white transition-colors">
-            Industries
-          </Link>
-          <Link href="/solutions" className="hover:text-white transition-colors">
-            Solutions
-          </Link>
-          {/* About Dropdown */}
+
+          {/* Solutions Dropdown */}
           <div className="relative group py-2">
-            <Link href="/about-us" className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer">
-              About Us
+            <span className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer select-none">
+              Solutions
               <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-all duration-300 group-hover:rotate-180" />
-            </Link>
-            <div className="absolute left-0 mt-2 w-40 rounded-sm bg-[#140620] border border-purple-950/30 p-2 shadow-2xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col gap-2 z-50">
-              <Link href="/our-work" className="px-3 py-1.5 rounded-sm hover:bg-purple-950/30 text-xs text-gray-300 hover:text-white transition-all">
-                Our Works
+            </span>
+            <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-48 rounded-sm bg-[#140620] border border-purple-950/40 p-4 shadow-2xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col gap-2.5 z-50">
+              <div className="text-[9px] font-black tracking-widest text-purple-400 uppercase mb-1 border-b border-purple-950/20 pb-1.5">
+                Solutions
+              </div>
+
+              <Link href="/industries" className="px-1 py-1 text-xs text-gray-300 hover:text-white transition-colors">
+                Industries
               </Link>
-              <Link href="/blog" className="px-3 py-1.5 rounded-sm hover:bg-purple-950/30 text-xs text-gray-300 hover:text-white transition-all">
-                Blogs
+              <Link href="/solutions" className="px-1 py-1 text-xs text-gray-300 hover:text-white transition-colors">
+                Solutions overview
               </Link>
             </div>
           </div>
-          <Link href="/#contact" className="hover:text-white transition-colors">
-            Contact Us
+
+          {/* Our works direct link */}
+          <Link href="/our-work" className="hover:text-white transition-colors whitespace-nowrap">
+            Our works
           </Link>
+
+          {/* Resources Dropdown */}
+          <div className="relative group py-2">
+            <span className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer select-none">
+              Resources
+              <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-all duration-300 group-hover:rotate-180" />
+            </span>
+            <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-48 rounded-sm bg-[#140620] border border-purple-950/40 p-4 shadow-2xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col gap-2.5 z-50">
+              <div className="text-[9px] font-black tracking-widest text-purple-400 uppercase mb-1 border-b border-purple-950/20 pb-1.5">
+                Resources
+              </div>
+              <Link href="/blog" className="px-1 py-1 text-xs text-gray-300 hover:text-white transition-colors">
+                Blogs
+              </Link>
+              <Link href="/careers" className="px-1 py-1 text-xs text-gray-300 hover:text-white transition-colors">
+                Careers & referrals
+              </Link>
+            </div>
+          </div>
+
+          {/* Company Dropdown */}
+          <div className="relative group py-2">
+            <span className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer select-none">
+              Company
+              <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-all duration-300 group-hover:rotate-180" />
+            </span>
+            <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-48 rounded-sm bg-[#140620] border border-purple-950/40 p-4 shadow-2xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col gap-2.5 z-50">
+              <div className="text-[9px] font-black tracking-widest text-purple-400 uppercase mb-1 border-b border-purple-950/20 pb-1.5">
+                Company
+              </div>
+              <Link href="/about-us" className="px-1 py-1 text-xs text-gray-300 hover:text-white transition-colors">
+                About us
+              </Link>
+              <Link href="/#contact" className="px-1 py-1 text-xs text-gray-300 hover:text-white transition-colors">
+                Contact us
+              </Link>
+            </div>
+          </div>
         </nav>
 
         {/* Call to Action & Hamburger Menu */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           {/* Services Search Engine */}
           <ServiceSearch />
+
+          {/* Contact Us Capsule Button for Desktop */}
+          <Link
+            href="/#contact"
+            className="hidden md:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#a356db] hover:bg-[#b066e6] text-white text-xs font-bold transition-all shadow-lg shadow-purple-500/10 cursor-pointer"
+          >
+            Contact us
+          </Link>
 
           {/* Hamburger Menu Button */}
           <button

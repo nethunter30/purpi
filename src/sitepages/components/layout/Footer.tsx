@@ -270,29 +270,6 @@ export default function Footer() {
                   </div>
                 </div>
 
-                {/* Secondary Email */}
-                <div className="flex flex-col relative">
-                  <div className="flex items-center gap-2 justify-start">
-                    <a href="hello.enteropia@gmail.com" className="hover:text-white transition-colors truncate text-xs">
-                      hello.enteropia@gmail.com
-                    </a>
-                    <button
-                      onClick={() => handleCopy("hello.enteropia@gmail.com")}
-                      className="p-0.5 rounded bg-[#1c0f2b] border border-purple-500/10 hover:border-purple-500/30 hover:text-white transition-colors cursor-pointer relative"
-                    >
-                      {copiedText === "hello.enteropia@gmail.com" ? (
-                        <Check className="w-2.5 h-2.5 text-emerald-400" />
-                      ) : (
-                        <Copy className="w-2.5 h-2.5 text-purple-400/80" />
-                      )}
-                      {copiedText === "hello.enteropia@gmail.com" && (
-                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-purple-950 border border-purple-500/30 text-white text-[10px] py-0.2 px-1.5 rounded shadow-lg whitespace-nowrap animate-bounce">
-                          Copied!
-                        </div>
-                      )}
-                    </button>
-                  </div>
-                </div>
               </div>
 
               {/* Phone Numbers */}

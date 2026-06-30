@@ -73,63 +73,73 @@ export async function POST(req: NextRequest) {
       timeStyle: "short",
     });
 
-    // 1. Send Email Notification to Admin (hello.enteropia@gmail.com)
+    // 1. Send Email Notification to Admin
     const adminEmailHtml = `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0b0214; color: #e2e8f0; margin: 0; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background: #140624; border: 1px solid #4a1d82; border-radius: 16px; padding: 32px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
-            .header { border-bottom: 1px solid rgba(139, 92, 246, 0.2); padding-bottom: 20px; margin-bottom: 24px; }
-            .logo { font-size: 24px; font-weight: bold; color: #a855f7; letter-spacing: 2px; }
-            .title { font-size: 20px; color: #ffffff; margin-top: 10px; font-weight: 600; }
-            .badge { display: inline-block; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: #c084fc; font-size: 11px; font-weight: bold; text-transform: uppercase; padding: 4px 12px; rounded-full: 9999px; border-radius: 9999px; margin-bottom: 20px; }
-            .field-group { margin-bottom: 18px; }
-            .label { font-size: 12px; color: #94a3b8; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-            .value { font-size: 15px; color: #f1f5f9; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; }
-            .message-box { font-size: 14px; color: #f1f5f9; background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.2); padding: 16px; border-radius: 8px; line-height: 1.6; white-space: pre-wrap; }
-            .footer { margin-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 12px; color: #64748b; }
-            .btn { display: inline-block; background: #a855f7; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 9999px; font-size: 14px; font-weight: 600; margin-top: 20px; transition: background 0.2s; }
+            body { margin: 0; padding: 0; background-color: #0c0414; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+            .wrapper { width: 100%; background-color: #0c0414; padding: 40px 20px; box-sizing: border-box; }
+            .card { max-width: 600px; margin: 0 auto; background-color: #140827; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
+            .gradient-bar { height: 6px; background: linear-gradient(90deg, #a855f7 0%, #ec4899 100%); }
+            .content { padding: 40px 32px; }
+            .logo { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; text-align: center; }
+            .logo span { color: #ec4899; }
+            .title-container { text-align: center; margin-bottom: 32px; }
+            .title { font-size: 22px; font-weight: 700; color: #ffffff; margin: 0; }
+            .badge { display: inline-block; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: #c084fc; font-size: 11px; font-weight: bold; text-transform: uppercase; padding: 6px 14px; border-radius: 9999px; margin-top: 10px; }
+            .info-grid { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
+            .info-row { margin-bottom: 18px; }
+            .info-row:last-child { margin-bottom: 0; }
+            .label { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+            .value { font-size: 15px; color: #cbd5e1; font-weight: 500; }
+            .message-box { background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 10px; padding: 20px; font-size: 14px; color: #e2e8f0; line-height: 1.6; white-space: pre-wrap; margin-bottom: 32px; }
+            .btn-container { text-align: center; margin-bottom: 12px; }
+            .btn { display: inline-block; background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color: #ffffff !important; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
+            .footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px; text-align: center; font-size: 12px; color: #64748b; line-height: 1.5; margin-top: 32px; }
           </style>
         </head>
         <body>
-          <div class="container">
-            <div class="header">
-              <div class="logo">enteropia</div>
-              <div class="title">New Contact Submission</div>
-            </div>
-            
-            <div class="badge">Inquiry Received</div>
-            
-            <div class="field-group">
-              <div class="label">Name</div>
-              <div class="value">${fullName}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="label">Email Address</div>
-              <div class="value">${email}</div>
-            </div>
-
-            <div class="field-group">
-              <div class="label">Submitted On</div>
-              <div class="value">${timestamp}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="label">Message</div>
-              <div class="message-box">${message}</div>
-            </div>
-            
-            <div style="text-align: center;">
-              <a href="mailto:${email}?subject=Re: Your inquiry with enteropia" class="btn">Reply to Submitter</a>
-            </div>
-            
-            <div class="footer">
-              This message was sent automatically from the enteropia Contact Portal.<br>
-              &copy; ${new Date().getFullYear()} enteropia. All rights reserved.
+          <div class="wrapper">
+            <div class="card">
+              <div class="gradient-bar"></div>
+              <div class="content">
+                <div class="logo">enter<span>opia</span></div>
+                <div class="title-container">
+                  <div class="title">New Contact Submission</div>
+                  <div class="badge">Inquiry Received</div>
+                </div>
+                
+                <div class="info-grid">
+                  <div class="info-row">
+                    <div class="label">Name</div>
+                    <div class="value">${fullName}</div>
+                  </div>
+                  <div class="info-row">
+                    <div class="label">Email Address</div>
+                    <div class="value">${email}</div>
+                  </div>
+                  <div class="info-row">
+                    <div class="label">Submitted On</div>
+                    <div class="value">${timestamp}</div>
+                  </div>
+                </div>
+                
+                <div class="label" style="margin-left: 4px; margin-bottom: 8px;">Message</div>
+                <div class="message-box">${message}</div>
+                
+                <div class="btn-container">
+                  <a href="mailto:${email}?subject=Re: Your inquiry with enteropia" class="btn">Reply to Submitter</a>
+                </div>
+                
+                <div class="footer">
+                  This message was sent automatically from the enteropia Contact Portal.<br>
+                  &copy; ${new Date().getFullYear()} enteropia. All rights reserved.
+                </div>
+              </div>
             </div>
           </div>
         </body>
@@ -142,59 +152,71 @@ export async function POST(req: NextRequest) {
       <html>
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0b0214; color: #e2e8f0; margin: 0; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background: #140624; border: 1px solid #4a1d82; border-radius: 16px; padding: 32px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
-            .header { border-bottom: 1px solid rgba(139, 92, 246, 0.2); padding-bottom: 20px; margin-bottom: 24px; text-align: center; }
-            .logo { font-size: 26px; font-weight: bold; color: #a855f7; letter-spacing: 3px; margin-bottom: 6px; }
-            .tagline { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
-            .greeting { font-size: 20px; color: #ffffff; font-weight: 600; margin-top: 10px; margin-bottom: 14px; text-align: center; }
+            body { margin: 0; padding: 0; background-color: #0c0414; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+            .wrapper { width: 100%; background-color: #0c0414; padding: 40px 20px; box-sizing: border-box; }
+            .card { max-width: 600px; margin: 0 auto; background-color: #140827; border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
+            .gradient-bar { height: 6px; background: linear-gradient(90deg, #a855f7 0%, #ec4899 100%); }
+            .content { padding: 40px 32px; }
+            .logo { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; text-align: center; }
+            .logo span { color: #ec4899; }
+            .title-container { text-align: center; margin-bottom: 28px; }
+            .title { font-size: 22px; font-weight: 700; color: #ffffff; margin: 0; }
+            .subtitle { font-size: 12px; color: #a78bfa; margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; }
+            .greeting { font-size: 16px; color: #ffffff; font-weight: 600; margin-bottom: 14px; }
             .body-text { font-size: 14px; color: #cbd5e1; line-height: 1.7; margin-bottom: 24px; }
-            .summary-card { background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139, 92, 246, 0.15); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
-            .summary-title { font-size: 12px; color: #a855f7; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; border-bottom: 1px solid rgba(139, 92, 246, 0.1); padding-bottom: 6px; }
-            .summary-item { font-size: 13px; color: #e2e8f0; margin-bottom: 8px; }
-            .summary-item strong { color: #ffffff; }
-            .contact-info { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 16px; font-size: 13px; color: #94a3b8; text-align: center; }
-            .contact-info a { color: #c084fc; text-decoration: none; }
-            .footer { margin-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 11px; color: #64748b; }
+            .summary-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
+            .summary-title { font-size: 11px; color: #c084fc; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 6px; }
+            .summary-row { margin-bottom: 10px; font-size: 13px; color: #cbd5e1; }
+            .summary-row:last-child { margin-bottom: 0; }
+            .summary-row strong { color: #ffffff; }
+            .contact-info { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.03); border-radius: 10px; padding: 18px; font-size: 13px; color: #94a3b8; text-align: center; line-height: 1.5; }
+            .contact-info a { color: #c084fc; text-decoration: none; font-weight: 600; }
+            .footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px; text-align: center; font-size: 11px; color: #64748b; line-height: 1.5; margin-top: 32px; }
           </style>
         </head>
         <body>
-          <div class="container">
-            <div class="header">
-              <div class="logo">enteropia</div>
-              <div class="tagline">Next-Gen Digital Solutions</div>
-            </div>
-            
-            <div class="greeting">Thank you for reaching out, ${firstName}!</div>
-            
-            <div class="body-text">
-              We have successfully received your inquiry. Our specialized tech and management team is already reviewing your message, and we will get back to you with a comprehensive response within 24 business hours.
-            </div>
-            
-            <div class="summary-card">
-              <div class="summary-title">Your Submission Details</div>
-              <div class="summary-item"><strong>Date:</strong> ${timestamp}</div>
-              <div class="summary-item"><strong>Inquirer:</strong> ${fullName}</div>
-              <div class="summary-item" style="margin-top: 12px; line-height: 1.5;">
-                <strong>Message:</strong><br>
-                <span style="color: #cbd5e1; font-style: italic;">"${message}"</span>
+          <div class="wrapper">
+            <div class="card">
+              <div class="gradient-bar"></div>
+              <div class="content">
+                <div class="logo">enter<span>opia</span></div>
+                <div class="title-container">
+                  <div class="title">Thank You For Reaching Out</div>
+                  <div class="subtitle">Next-Gen Digital Solutions</div>
+                </div>
+                
+                <div class="greeting">Hi ${firstName},</div>
+                
+                <div class="body-text">
+                  We have successfully received your inquiry. Our specialized tech and management team is already reviewing your request. We will get back to you with a comprehensive response within 24 business hours.
+                </div>
+                
+                <div class="summary-card">
+                  <div class="summary-title">Your Submission Details</div>
+                  <div class="summary-row"><strong>Date:</strong> ${timestamp}</div>
+                  <div class="summary-row"><strong>Inquirer:</strong> ${fullName}</div>
+                  <div class="summary-row" style="margin-top: 14px; line-height: 1.6; font-style: italic; color: #e2e8f0; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); padding: 12px; border-radius: 6px;">
+                    "${message}"
+                  </div>
+                </div>
+                
+                <div class="body-text" style="margin-bottom: 28px;">
+                  If you have any urgent files or additional information to share in the meantime, feel free to reply directly to this email or reach us through the support channels below.
+                </div>
+                
+                <div class="contact-info">
+                  Have questions? Reach us directly at<br>
+                  <strong>Email:</strong> <a href="mailto:info@enteropia.com">info@enteropia.com</a> &nbsp;|&nbsp; 
+                  <strong>Hotline:</strong> <a href="tel:+919900112530">+91 9900112530</a>
+                </div>
+                
+                <div class="footer">
+                  This is an automated confirmation of your request. Please do not modify the subject line if replying.<br>
+                  &copy; ${new Date().getFullYear()} enteropia. All rights reserved.
+                </div>
               </div>
-            </div>
-
-            <div class="body-text">
-              If you have any urgent details or assets to share in the meantime, feel free to reply directly to this email or call our direct line listed below.
-            </div>
-            
-            <div class="contact-info">
-              Have questions? Reach us directly at<br>
-              <strong>Email:</strong> <a href="mailto:info@enteropia.com">info@enteropia.com</a> &nbsp;|&nbsp; 
-              <strong>Hotline:</strong> <a href="tel:+919900112530">+91 9900112530</a>
-            </div>
-            
-            <div class="footer">
-              This is an automated confirmation of your request. Please do not modify the subject line if replying.<br>
-              &copy; ${new Date().getFullYear()} enteropia. All rights reserved.
             </div>
           </div>
         </body>
@@ -204,25 +226,17 @@ export async function POST(req: NextRequest) {
     // Trigger async email sends
     const emailPromises = [];
 
-    // 1. Send to Gmail
+    // 1. Send to Company Admin Email (ADMIN_EMAIL from .env or info@enteropia.com)
+    const adminEmail = process.env.ADMIN_EMAIL || "info@enteropia.com";
     emailPromises.push(
       sendMail({
-        to: "hello.enteropia@gmail.com",
+        to: adminEmail,
         subject: `[New Contact Message] Submission from ${fullName}`,
         html: adminEmailHtml,
+        fromName: `${fullName} <${email}>`,
+        replyTo: email,
       })
     );
-
-    // 2. Send to GoDaddy Company Email (ADMIN_EMAIL from .env)
-    if (process.env.ADMIN_EMAIL && process.env.ADMIN_EMAIL !== "hello.enteropia@gmail.com") {
-      emailPromises.push(
-        sendMail({
-          to: process.env.ADMIN_EMAIL,
-          subject: `[New Contact Message] Submission from ${fullName}`,
-          html: adminEmailHtml,
-        })
-      );
-    }
 
     // 3. Send Styled Confirmation to the User
     emailPromises.push(

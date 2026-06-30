@@ -7,6 +7,7 @@ import Newsletter from "@/sitepages/components/home/Newsletter";
 import LetsConnect from "@/sitepages/components/home/LetsConnect";
 import Tech from "@/sitepages/components/home/Tech";
 import Ourworks from "@/sitepages/components/home/Ourworks";
+import Blogs from "@/sitepages/components/home/Blogs";
 
 export const revalidate = 60;
 
@@ -86,6 +87,7 @@ export default function Home() {
       <Hero />
       <Tech />
       <WhatWeDo />
+      <Blogs />
       <KeyBenefits />
       <Ourworks />
       <LetsConnect />

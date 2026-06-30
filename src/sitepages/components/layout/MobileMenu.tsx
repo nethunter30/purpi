@@ -68,6 +68,11 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       icon: <BookOpen className="w-4 h-4" />
     },
     {
+      name: "Careers & Referrals",
+      href: "/careers",
+      icon: <Users className="w-4 h-4" />
+    },
+    {
       name: "About Us",
       href: "/about-us",
       icon: <HelpCircle className="w-4 h-4" />

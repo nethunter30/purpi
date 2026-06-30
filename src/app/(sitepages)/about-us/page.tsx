@@ -12,5 +12,41 @@ export const metadata: Metadata = {
 };
 
 export default function AboutUsPage() {
-  return <AboutUsClient />;
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "enteropia",
+      "url": "https://enteropia.com",
+      "logo": "https://enteropia.com/logo.png",
+      "description": "enteropia delivers cutting-edge software engineering, custom cloud-native infrastructure, AI pipelines, and zero-trust security integrations for enterprise scale-ups.",
+      "foundingDate": "2026",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bengaluru",
+        "addressLocality": "Bengaluru",
+        "addressRegion": "Karnataka",
+        "postalCode": "560001",
+        "addressCountry": "IN"
+      },
+      "knowsAbout": [
+        "Software Engineering",
+        "Cloud Native Infrastructure",
+        "DevOps",
+        "Cybersecurity",
+        "Artificial Intelligence & Machine Learning Pipelines"
+      ]
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
+      <AboutUsClient />
+    </>
+  );
 }

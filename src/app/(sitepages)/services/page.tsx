@@ -63,11 +63,55 @@ export default async function ServicesPage() {
     };
   });
 
+  const subcategorySlugMap: Record<string, string> = {};
+  serializedSubcategories.forEach((sub) => {
+    subcategorySlugMap[sub.id] = sub.slug;
+  });
+
+  const serviceCatalogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "enteropia Engineering Services",
+    "description": "Browse our expert services catalog: DevOps, Cloud infrastructure design, software development, cybersecurity solutions, and IT management.",
+    "provider": {
+      "@type": "Organization",
+      "name": "enteropia",
+      "url": "https://enteropia.com",
+      "logo": "https://enteropia.com/logo.png"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "enteropia Services Catalog",
+      "itemListElement": serializedCategories.map((cat) => ({
+        "@type": "OfferCatalog",
+        "name": cat.name,
+        "description": cat.description,
+        "itemListElement": serializedProducts
+          .filter((p) => p.category === cat.id)
+          .map((p) => ({
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": p.name,
+              "description": p.description,
+              "url": `https://enteropia.com/services/${cat.slug}/${subcategorySlugMap[p.subcategory] || ""}/${p.slug}`
+            }
+          }))
+      }))
+    }
+  };
+
   return (
-    <ServicesClient
-      categories={serializedCategories}
-      subcategories={serializedSubcategories}
-      products={serializedProducts}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalogSchema) }}
+      />
+      <ServicesClient
+        categories={serializedCategories}
+        subcategories={serializedSubcategories}
+        products={serializedProducts}
+      />
+    </>
   );
 }

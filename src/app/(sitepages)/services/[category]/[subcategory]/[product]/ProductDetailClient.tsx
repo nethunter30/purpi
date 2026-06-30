@@ -331,16 +331,44 @@ export default function ProductDetailClient({ product, category, subcategory }: 
       {sections.pricing && sections.pricing.cards.length > 0 && (
         <section id="pricing" className="relative w-full py-24 bg-[#0d0414] border-b border-purple-950/20">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-              <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-purple-500">
-                PRICING PLANS
-              </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-                {sections.pricing.sectionHeading}
-              </h2>
-              <p className="text-slate-400 text-sm md:text-base font-light">
-                {sections.pricing.sectionDescription}
-              </p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-6 border-b border-purple-950/10">
+              <div className="text-left space-y-2">
+                <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-purple-500">
+                  PRICING PLANS
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                  {sections.pricing.sectionHeading}
+                </h2>
+                <p className="text-slate-400 text-sm md:text-base font-light max-w-2xl">
+                  {sections.pricing.sectionDescription}
+                </p>
+              </div>
+
+              {/* Currency Toggle (USD ↔ INR) */}
+              <div className="flex items-center gap-1.5 bg-[#140827] border border-purple-500/20 p-1.5 rounded-full self-start md:self-auto shadow-inner">
+                <button
+                  type="button"
+                  onClick={() => setIsINR(false)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                    !isINR
+                      ? "bg-purple-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  USD ($)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsINR(true)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                    isINR
+                      ? "bg-purple-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  INR (₹)
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
@@ -366,22 +394,11 @@ export default function ProductDetailClient({ product, category, subcategory }: 
                       <p className="text-xs text-slate-400 font-light">{plan.tagline}</p>
                     </div>
 
-                    <div className="flex items-baseline gap-1.5 mb-1">
+                    <div className="flex items-baseline gap-1.5 mb-6">
                       <span className="text-3xl md:text-4xl font-black text-white">
                         {formatPrice(plan.price).symbol}{formatPrice(plan.price).amount}
                       </span>
                       <span className="text-xs text-slate-400 font-light">{plan.billingCycle}</span>
-                    </div>
-                    <div className="mb-2">
-                      <button
-                        type="button"
-                        onClick={() => setIsINR(prev => !prev)}
-                        className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border transition-all duration-300 cursor-pointer inline-flex items-center gap-1 hover:scale-105 active:scale-95 bg-purple-950/30 border-purple-500/30 text-purple-300 hover:bg-purple-900/40 hover:text-white"
-                        title={isINR ? "Switch to USD" : "Switch to INR"}
-                      >
-                        <DollarSign className="w-3 h-3" />
-                        {isINR ? "Show in USD" : "Show in INR"}
-                      </button>
                     </div>
 
                     {plan.priceTagline && (
@@ -453,6 +470,8 @@ export default function ProductDetailClient({ product, category, subcategory }: 
                 return (
                   <div
                     key={idx}
+                    onMouseEnter={() => setOpenFaqIdx(idx)}
+                    onMouseLeave={() => setOpenFaqIdx(null)}
                     className="border border-white/5 rounded-lg overflow-hidden bg-[#0f0418]/30 transition-all duration-300"
                   >
                     <button
@@ -466,11 +485,17 @@ export default function ProductDetailClient({ product, category, subcategory }: 
                         }`}
                       />
                     </button>
-                    {isOpen && (
-                      <div className="px-5 pb-5 pt-1 text-slate-400 text-xs md:text-sm font-light leading-relaxed border-t border-white/5 bg-black/10">
-                        {item.answer}
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-5 pb-5 pt-1 text-slate-400 text-xs md:text-sm font-light leading-relaxed border-t border-white/5 bg-black/10">
+                          {item.answer}
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}

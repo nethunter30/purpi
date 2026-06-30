@@ -101,23 +101,37 @@ export default function Ourworks() {
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-900/5 rounded-full blur-[100px] pointer-events-none z-0" />
       <div className="absolute top-1/3 right-1/4 translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-fuchsia-900/5 rounded-full blur-[100px] pointer-events-none z-0" />
 
-      <FadeUp className="relative w-full max-w-[1200px] px-6 flex flex-col items-center z-10">
-        {/* Top Header Badge */}
-        <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-sm border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-6">
-          Featured Works
-        </div>
+      <FadeUp className="relative w-full max-w-[1200px] px-6 flex flex-col items-start z-10">
+        <div className="w-full flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16 gap-6">
+          <div className="flex flex-col items-start text-left max-w-2xl">
+            {/* Top Header Badge */}
+            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-sm border border-purple-500/20 bg-purple-950/20 text-purple-300 text-[11px] font-semibold tracking-widest uppercase mb-4">
+              Featured Works
+            </div>
 
-        {/* Section Heading */}
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-center text-white mb-4">
-          Explore Our{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-400 to-indigo-400">
-            Case Studies
-          </span>
-        </h2>
-        
-        <p className="text-gray-400 text-sm md:text-base leading-relaxed text-center max-w-2xl mb-16 font-light">
-          A selection of our engineering milestones where we helped fast-growing scale-ups and enterprises build high-performance products.
-        </p>
+            {/* Section Heading */}
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+              Explore Our{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-400 to-indigo-400">
+                Case Studies
+              </span>
+            </h2>
+            
+            <p className="text-gray-400 text-sm md:text-base leading-relaxed font-light">
+              A selection of our engineering milestones where we helped fast-growing scale-ups and enterprises build high-performance products.
+            </p>
+          </div>
+
+          {/* View All Button on Top Right */}
+          <div className="flex-shrink-0">
+            <Link
+              href="/our-work"
+              className="inline-block px-6 py-2.5 rounded-sm border border-purple-900/30 text-gray-300 hover:text-white hover:bg-purple-900/20 hover:border-purple-500/30 transition-all text-xs font-semibold tracking-wider uppercase cursor-pointer whitespace-nowrap"
+            >
+              Explore All Works
+            </Link>
+          </div>
+        </div>
 
         {/* Carousel Viewport */}
         <div 

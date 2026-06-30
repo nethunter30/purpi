@@ -26,7 +26,7 @@ export default function Contact() {
     {
       title: "Email",
       desc: "Contact us by email, and we respond shortly.",
-      value: ["info@enteropia.com","hello.enteropia@gmail.com"],
+      value: ["info@enteropia.com"],
     },
     {
       title: "Phone",

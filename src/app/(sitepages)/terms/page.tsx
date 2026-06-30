@@ -185,17 +185,7 @@ function ContactCard() {
                         </a>
                     ),
                 },
-                {
-                    label: "Alt Email",
-                    value: (
-                        <a
-                            href="mailto:hello.enteropia@gmail.com"
-                            className="text-violet-400 hover:text-violet-300 transition-colors"
-                        >
-                            hello.enteropia@gmail.com
-                        </a>
-                    ),
-                },
+
                 {
                     label: "Phone",
                     value: (
